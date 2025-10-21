@@ -49,7 +49,7 @@ export function ProductManagement() {
     isSale: false,
   });
 
-  const categories = ['Essential Knit', 'Relaxed Denim', 'Statement Accessories', 'Outerwear', 'Footwear', 'Others'];
+  const categories = ['Top', 'Bottom', 'Accessories', 'Outerwear', 'Footwear'];
 
   // -------------------------------------------------------------
   // ✨ FETCH REAL-TIME DATA (Database Listener)
@@ -231,7 +231,7 @@ export function ProductManagement() {
                     id="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Essential Knit Sweater"
+                    placeholder="Enter Product Name"
                   />
                 </div>
 
@@ -242,7 +242,7 @@ export function ProductManagement() {
                     type="number"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    placeholder="89"
+                    placeholder="Enter price"
                   />
                 </div>
 
@@ -251,6 +251,7 @@ export function ProductManagement() {
                   <Select
                     value={formData.category}
                     onValueChange={(value: string) => setFormData({ ...formData, category: value })}
+                    placeholder="Select category"
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select category" />
@@ -271,7 +272,7 @@ export function ProductManagement() {
                     id="description"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    placeholder="Comfortable and stylish..."
+                    placeholder="Description of the product"
                   />
                 </div>
 
@@ -281,7 +282,7 @@ export function ProductManagement() {
                     id="image"
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    placeholder="https://images.unsplash.com/..."
+                    placeholder="Image URL"
                   />
                 </div>
 
@@ -291,7 +292,7 @@ export function ProductManagement() {
                     id="affiliateLink"
                     value={formData.affiliateLink}
                     onChange={(e) => setFormData({ ...formData, affiliateLink: e.target.value })}
-                    placeholder="https://amazon.com/..."
+                    placeholder="Affiliate Link"
                   />
                 </div>
 

@@ -266,7 +266,7 @@ export function OutfitManagement() {
                       value={formData.name}
                       // FIXED: Explicitly type the event object
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Casual Elegance"
+                      placeholder="Outfit Name"
                     />
                   </div>
 
@@ -277,7 +277,7 @@ export function OutfitManagement() {
                       value={formData.description}
                       // FIXED: Explicitly type the event object
                       onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, description: e.target.value })}
-                      placeholder="Perfect blend of comfort and style..."
+                      placeholder="Description of the outfit"
                     />
                   </div>
 
@@ -288,7 +288,7 @@ export function OutfitManagement() {
                       value={formData.image}
                       // FIXED: Explicitly type the event object
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, image: e.target.value })}
-                      placeholder="https://images.unsplash.com/..."
+                      placeholder="Main Image URL"
                     />
                   </div>
 
