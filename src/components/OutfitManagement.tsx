@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import React from 'react'; // Import React to use React.ChangeEvent
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -8,9 +9,21 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 import { Plus, Pencil, Trash2, Eye, X } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { allProducts } from '../data/allProducts';
 import { ScrollArea } from './ui/scroll-area';
-import { Checkbox } from './ui/checkbox';
+
+// 🔥 FIREBASE IMPORTS
+import { db } from '../firebaseConfig'; 
+import { ref, push, onValue, remove, update } from 'firebase/database';
+// ------------------------------------------
+
+interface Product {
+  id: string; // Firebase key
+  name: string;
+  price: number;
+  image: string;
+  category: string;
+  affiliateLink: string;
+}
 
 interface OutfitItem {
   name: string;
@@ -21,7 +34,7 @@ interface OutfitItem {
 }
 
 interface Outfit {
-  id: number;
+  id: string; // Firebase key
   name: string;
   description: string;
   image: string;
@@ -29,34 +42,11 @@ interface Outfit {
   items: OutfitItem[];
 }
 
-const initialOutfits: Outfit[] = [
-  {
-    id: 1,
-    name: "Casual Elegance",
-    description: "Perfect blend of comfort and style for everyday wear",
-    image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-    totalPrice: 425,
-    items: [
-      {
-        name: "Knit Sweater",
-        category: "Top",
-        price: 89,
-        image: "https://images.unsplash.com/photo-1504198458649-3128b932f49e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-        affiliateLink: "https://amazon.com"
-      },
-      {
-        name: "Relaxed Jeans",
-        category: "Bottom",
-        price: 125,
-        image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-        affiliateLink: "https://amazon.com"
-      }
-    ]
-  }
-];
 
 export function OutfitManagement() {
-  const [outfits, setOutfits] = useState<Outfit[]>(initialOutfits);
+  const [outfits, setOutfits] = useState<Outfit[]>([]); 
+  const [products, setProducts] = useState<Product[]>([]); 
+
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
@@ -71,6 +61,50 @@ export function OutfitManagement() {
     image: '',
   });
 
+  // -------------------------------------------------------------
+  // ✨ FETCH REAL-TIME DATA (Products and Outfits)
+  // -------------------------------------------------------------
+  useEffect(() => {
+    // 1. Fetch Products
+    const productsRef = ref(db, 'products');
+    const unsubscribeProducts = onValue(productsRef, (snapshot) => {
+      const data = snapshot.val();
+      const loadedProducts: Product[] = [];
+      if (data) {
+        Object.keys(data).forEach((key) => {
+          loadedProducts.push({ id: key, ...data[key] });
+        });
+      }
+      setProducts(loadedProducts);
+    }, (error) => {
+      console.error("Firebase product data fetching failed:", error);
+    });
+
+    // 2. Fetch Outfits
+    const outfitsRef = ref(db, 'outfits');
+    const unsubscribeOutfits = onValue(outfitsRef, (snapshot) => {
+      const data = snapshot.val();
+      const loadedOutfits: Outfit[] = [];
+      if (data) {
+        Object.keys(data).forEach((key) => {
+          // Firebase key is set as the Outfit ID
+          loadedOutfits.push({ id: key, ...data[key] });
+        });
+      }
+      setOutfits(loadedOutfits);
+    }, (error) => {
+      console.error("Firebase outfit data fetching failed:", error);
+    });
+
+    // Cleanup listeners
+    return () => {
+      unsubscribeProducts();
+      unsubscribeOutfits();
+    };
+  }, []);
+  // -------------------------------------------------------------
+
+
   const resetForm = () => {
     setFormData({
       name: '',
@@ -80,21 +114,30 @@ export function OutfitManagement() {
     setAddingItems([]);
   };
 
-  const handleAdd = () => {
+  // 🔥 Save to Firebase
+  const handleAdd = async () => {
     const totalPrice = addingItems.reduce((sum, item) => sum + item.price, 0);
     
-    const newOutfit: Outfit = {
-      id: Math.max(...outfits.map(o => o.id), 0) + 1,
+    const newOutfitData = {
       name: formData.name,
       description: formData.description,
       image: formData.image,
       totalPrice,
       items: addingItems,
+      createdAt: new Date().toISOString(),
     };
 
-    setOutfits([...outfits, newOutfit]);
-    setIsAddDialogOpen(false);
-    resetForm();
+    try {
+        const outfitsRef = ref(db, 'outfits');
+        // Push data to Firebase, which updates the 'outfits' state automatically
+        await push(outfitsRef, newOutfitData);
+
+        setIsAddDialogOpen(false);
+        resetForm();
+    } catch (error) {
+        console.error("Error adding outfit to Firebase:", error);
+        alert("Failed to save outfit.");
+    }
   };
 
   const handleEdit = (outfit: Outfit) => {
@@ -108,33 +151,37 @@ export function OutfitManagement() {
     setIsEditDialogOpen(true);
   };
 
-  const handleUpdate = () => {
+  // Update Logic (Uses Firebase update)
+  const handleUpdate = async () => {
     if (!editingOutfit) return;
 
     const totalPrice = editingItems.reduce((sum, item) => sum + item.price, 0);
 
-    const updatedOutfits = outfits.map(o =>
-      o.id === editingOutfit.id
-        ? {
-            ...o,
-            name: formData.name,
-            description: formData.description,
-            image: formData.image,
-            items: editingItems,
-            totalPrice,
-          }
-        : o
-    );
+    const updatedOutfitData = {
+      name: formData.name,
+      description: formData.description,
+      image: formData.image,
+      items: editingItems,
+      totalPrice,
+    };
+    
+    try {
+        const outfitRef = ref(db, `outfits/${editingOutfit.id}`);
+        await update(outfitRef, updatedOutfitData);
 
-    setOutfits(updatedOutfits);
-    setIsEditDialogOpen(false);
-    setEditingOutfit(null);
-    setEditingItems([]);
-    resetForm();
+        setIsEditDialogOpen(false);
+        setEditingOutfit(null);
+        setEditingItems([]);
+        resetForm();
+    } catch (error) {
+        console.error("Error updating outfit in Firebase:", error);
+        alert("Failed to update outfit.");
+    }
   };
 
-  const handleAddItemToOutfit = (productId: number) => {
-    const product = allProducts.find(p => p.id === productId);
+  const handleAddItemToOutfit = (productId: string) => {
+    // Uses the real-time 'products' state
+    const product = products.find(p => p.id === productId); 
     if (!product) return;
 
     const newItem: OutfitItem = {
@@ -152,8 +199,9 @@ export function OutfitManagement() {
     setEditingItems(editingItems.filter((_, i) => i !== index));
   };
 
-  const handleAddItemToNewOutfit = (productId: number) => {
-    const product = allProducts.find(p => p.id === productId);
+  const handleAddItemToNewOutfit = (productId: string) => {
+    // Uses the real-time 'products' state
+    const product = products.find(p => p.id === productId); 
     if (!product) return;
 
     const newItem: OutfitItem = {
@@ -171,9 +219,16 @@ export function OutfitManagement() {
     setAddingItems(addingItems.filter((_, i) => i !== index));
   };
 
-  const handleDelete = (id: number) => {
+  // Delete Logic (Uses Firebase remove)
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this outfit?')) {
-      setOutfits(outfits.filter(o => o.id !== id));
+        try {
+            const outfitRef = ref(db, `outfits/${id}`);
+            await remove(outfitRef);
+        } catch (error) {
+            console.error("Error deleting outfit from Firebase:", error);
+            alert("Failed to delete outfit.");
+        }
     }
   };
 
@@ -192,7 +247,7 @@ export function OutfitManagement() {
           </div>
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gray-900 text-white hover:bg-gray-800">
+              <Button className="bg-gray-900 text-white hover:bg-gray-800" onClick={resetForm}>
                 <Plus className="h-4 w-4 mr-2" />
                 Add Outfit
               </Button>
@@ -209,7 +264,8 @@ export function OutfitManagement() {
                     <Input
                       id="outfit-name"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      // FIXED: Explicitly type the event object
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Casual Elegance"
                     />
                   </div>
@@ -219,7 +275,8 @@ export function OutfitManagement() {
                     <Textarea
                       id="outfit-description"
                       value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      // FIXED: Explicitly type the event object
+                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, description: e.target.value })}
                       placeholder="Perfect blend of comfort and style..."
                     />
                   </div>
@@ -229,7 +286,8 @@ export function OutfitManagement() {
                     <Input
                       id="outfit-image"
                       value={formData.image}
-                      onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                      // FIXED: Explicitly type the event object
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, image: e.target.value })}
                       placeholder="https://images.unsplash.com/..."
                     />
                   </div>
@@ -239,7 +297,7 @@ export function OutfitManagement() {
                     <div className="flex items-center justify-between">
                       <Label>Selected Items ({addingItems.length})</Label>
                       <span className="text-sm text-gray-500">
-                        Total: ${addingItems.reduce((sum, item) => sum + item.price, 0)}
+                        Total: ${addingItems.reduce((sum, item) => sum + item.price, 0).toFixed(2)}
                       </span>
                     </div>
                     {addingItems.length > 0 ? (
@@ -257,7 +315,7 @@ export function OutfitManagement() {
                               <p className="text-sm truncate">{item.name}</p>
                               <p className="text-xs text-gray-500">{item.category}</p>
                             </div>
-                            <p className="text-sm flex-shrink-0">${item.price}</p>
+                            <p className="text-sm flex-shrink-0">${item.price.toFixed(2)}</p>
                             <Button
                               onClick={() => handleRemoveItemFromNewOutfit(index)}
                               variant="ghost"
@@ -276,50 +334,58 @@ export function OutfitManagement() {
                     )}
                   </div>
 
-                  {/* Add Products */}
+                  {/* Add Products - USES REAL-TIME PRODUCTS */}
                   <div className="space-y-3">
                     <Label>Add Products to Outfit</Label>
                     <div className="border rounded-lg p-3 bg-gray-50">
                       <ScrollArea className="h-64">
                         <div className="space-y-2 pr-4">
-                          {allProducts.map((product) => {
-                            const isAlreadyAdded = addingItems.some(
-                              item => item.name === product.name && item.image === product.image
-                            );
-                            return (
-                              <div
-                                key={product.id}
-                                className={`flex items-center gap-3 p-2 rounded border bg-white ${
-                                  isAlreadyAdded ? 'opacity-50' : ''
-                                }`}
-                              >
-                                <div className="w-12 h-12 rounded overflow-hidden bg-stone-50 flex-shrink-0">
-                                  <ImageWithFallback
-                                    src={product.image}
-                                    alt={product.name}
-                                    className="w-full h-full object-cover"
-                                  />
+                          {products.length === 0 ? (
+                            <p className="text-sm text-gray-500 text-center py-4">Loading products from Firebase...</p>
+                          ) : (
+                            products.map((product) => {
+                              const isAlreadyAdded = addingItems.some(
+                                item => item.name === product.name && item.image === product.image
+                              );
+                              return (
+                                <div
+                                  key={product.id}
+                                  className={`flex items-center gap-3 p-2 rounded border bg-white ${
+                                    isAlreadyAdded ? 'opacity-50' : 'hover:bg-gray-50 cursor-pointer'
+                                  }`}
+                                  onClick={() => !isAlreadyAdded && handleAddItemToNewOutfit(product.id)}
+                                >
+                                  <div className="w-12 h-12 rounded overflow-hidden bg-stone-50 flex-shrink-0">
+                                    <ImageWithFallback
+                                      src={product.image}
+                                      alt={product.name}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <p className="text-sm truncate">{product.name}</p>
+                                    <p className="text-xs text-gray-500">{product.category}</p>
+                                  </div>
+                                  <p className="text-sm flex-shrink-0">${product.price.toFixed(2)}</p>
+                                  {isAlreadyAdded ? (
+                                    <span className="text-xs text-gray-500 flex-shrink-0">Added</span>
+                                  ) : (
+                                    <Button
+                                      onClick={(e: { stopPropagation: () => void; }) => {
+                                        e.stopPropagation(); // Prevent dialog close
+                                        handleAddItemToNewOutfit(product.id);
+                                      }}
+                                      variant="outline"
+                                      size="sm"
+                                      className="flex-shrink-0"
+                                    >
+                                      <Plus className="h-4 w-4" />
+                                    </Button>
+                                  )}
                                 </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-sm truncate">{product.name}</p>
-                                  <p className="text-xs text-gray-500">{product.category}</p>
-                                </div>
-                                <p className="text-sm flex-shrink-0">${product.price}</p>
-                                {isAlreadyAdded ? (
-                                  <span className="text-xs text-gray-500 flex-shrink-0">Added</span>
-                                ) : (
-                                  <Button
-                                    onClick={() => handleAddItemToNewOutfit(product.id)}
-                                    variant="outline"
-                                    size="sm"
-                                    className="flex-shrink-0"
-                                  >
-                                    <Plus className="h-4 w-4" />
-                                  </Button>
-                                )}
-                              </div>
-                            );
-                          })}
+                              );
+                            })
+                          )}
                         </div>
                       </ScrollArea>
                     </div>
@@ -328,8 +394,12 @@ export function OutfitManagement() {
               </ScrollArea>
 
               <div className="flex gap-2 pt-4 border-t">
-                <Button onClick={handleAdd} className="flex-1 bg-gray-900 text-white hover:bg-gray-800">
-                  Add Outfit
+                <Button 
+                  onClick={handleAdd} 
+                  className="flex-1 bg-gray-900 text-white hover:bg-gray-800"
+                  disabled={!formData.name || addingItems.length === 0} // Disable if no name or items
+                >
+                  Add Outfit to Firebase
                 </Button>
                 <Button onClick={() => {
                   setIsAddDialogOpen(false);
@@ -355,47 +425,55 @@ export function OutfitManagement() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {outfits.map((outfit) => (
-                <TableRow key={outfit.id}>
-                  <TableCell>
-                    <div className="w-12 h-12 rounded overflow-hidden bg-stone-50">
-                      <ImageWithFallback
-                        src={outfit.image}
-                        alt={outfit.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </TableCell>
-                  <TableCell>{outfit.name}</TableCell>
-                  <TableCell className="max-w-xs truncate">{outfit.description}</TableCell>
-                  <TableCell>{outfit.items.length} items</TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        onClick={() => handleView(outfit)}
-                        variant="outline"
-                        size="sm"
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        onClick={() => handleEdit(outfit)}
-                        variant="outline"
-                        size="sm"
-                      >
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        onClick={() => handleDelete(outfit.id)}
-                        variant="outline"
-                        size="sm"
-                      >
-                        <Trash2 className="h-4 w-4 text-red-600" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {outfits.length === 0 ? (
+                <TableRow>
+                    <TableCell colSpan={5} className="text-center py-8 text-gray-500">
+                      No outfits found in the database.
+                    </TableCell>
+                  </TableRow>
+              ) : (
+                outfits.map((outfit) => (
+                  <TableRow key={outfit.id}>
+                    <TableCell>
+                      <div className="w-12 h-12 rounded overflow-hidden bg-stone-50">
+                        <ImageWithFallback
+                          src={outfit.image}
+                          alt={outfit.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </TableCell>
+                    <TableCell>{outfit.name}</TableCell>
+                    <TableCell className="max-w-xs truncate">{outfit.description}</TableCell>
+                    <TableCell>{outfit.items.length} items</TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <Button
+                          onClick={() => handleView(outfit)}
+                          variant="outline"
+                          size="sm"
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          onClick={() => handleEdit(outfit)}
+                          variant="outline"
+                          size="sm"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          onClick={() => handleDelete(outfit.id)}
+                          variant="outline"
+                          size="sm"
+                        >
+                          <Trash2 className="h-4 w-4 text-red-600" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </div>
@@ -415,7 +493,8 @@ export function OutfitManagement() {
                 <Input
                   id="edit-outfit-name"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  // FIXED: Explicitly type the event object
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, name: e.target.value })}
                 />
               </div>
 
@@ -424,7 +503,8 @@ export function OutfitManagement() {
                 <Textarea
                   id="edit-outfit-description"
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  // ✅ FIX FOR LINE 374: Explicitly type the event object
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, description: e.target.value })}
                 />
               </div>
 
@@ -433,7 +513,8 @@ export function OutfitManagement() {
                 <Input
                   id="edit-outfit-image"
                   value={formData.image}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                  // FIXED: Explicitly type the event object
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, image: e.target.value })}
                 />
               </div>
 
@@ -442,7 +523,7 @@ export function OutfitManagement() {
                 <div className="flex items-center justify-between">
                   <Label>Current Items ({editingItems.length})</Label>
                   <span className="text-sm text-gray-500">
-                    Total: ${editingItems.reduce((sum, item) => sum + item.price, 0)}
+                    Total: ${editingItems.reduce((sum, item) => sum + item.price, 0).toFixed(2)}
                   </span>
                 </div>
                 {editingItems.length > 0 ? (
@@ -460,7 +541,7 @@ export function OutfitManagement() {
                           <p className="text-sm truncate">{item.name}</p>
                           <p className="text-xs text-gray-500">{item.category}</p>
                         </div>
-                        <p className="text-sm flex-shrink-0">${item.price}</p>
+                        <p className="text-sm flex-shrink-0">${item.price.toFixed(2)}</p>
                         <Button
                           onClick={() => handleRemoveItemFromOutfit(index)}
                           variant="ghost"
@@ -479,42 +560,46 @@ export function OutfitManagement() {
                 )}
               </div>
 
-              {/* Add Products */}
+              {/* Add Products - USES REAL-TIME PRODUCTS */}
               <div className="space-y-3">
                 <Label>Add Products to Outfit</Label>
                 <div className="border rounded-lg p-3 bg-gray-50">
                   <ScrollArea className="h-64">
                     <div className="space-y-2 pr-4">
-                      {allProducts.map((product) => {
-                        const isAlreadyAdded = editingItems.some(
-                          item => item.name === product.name && item.image === product.image
-                        );
-                        return (
-                          <div
-                            key={product.id}
-                            className={`flex items-center gap-3 p-2 rounded border bg-white ${
-                              isAlreadyAdded ? 'opacity-50' : 'hover:bg-gray-50 cursor-pointer'
-                            }`}
-                            onClick={() => !isAlreadyAdded && handleAddItemToOutfit(product.id)}
-                          >
-                            <div className="w-12 h-12 rounded overflow-hidden bg-stone-50 flex-shrink-0">
-                              <ImageWithFallback
-                                src={product.image}
-                                alt={product.name}
-                                className="w-full h-full object-cover"
-                              />
+                      {products.length === 0 ? (
+                            <p className="text-sm text-gray-500 text-center py-4">Loading products from Firebase...</p>
+                      ) : (
+                        products.map((product) => {
+                          const isAlreadyAdded = editingItems.some(
+                            item => item.name === product.name && item.image === product.image
+                          );
+                          return (
+                            <div
+                              key={product.id}
+                              className={`flex items-center gap-3 p-2 rounded border bg-white ${
+                                isAlreadyAdded ? 'opacity-50' : 'hover:bg-gray-50 cursor-pointer'
+                              }`}
+                              onClick={() => !isAlreadyAdded && handleAddItemToOutfit(product.id)}
+                            >
+                              <div className="w-12 h-12 rounded overflow-hidden bg-stone-50 flex-shrink-0">
+                                <ImageWithFallback
+                                  src={product.image}
+                                  alt={product.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm truncate">{product.name}</p>
+                                <p className="text-xs text-gray-500">{product.category}</p>
+                              </div>
+                              <p className="text-sm flex-shrink-0">${product.price.toFixed(2)}</p>
+                              {isAlreadyAdded && (
+                                <span className="text-xs text-gray-500 flex-shrink-0">Added</span>
+                              )}
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm truncate">{product.name}</p>
-                              <p className="text-xs text-gray-500">{product.category}</p>
-                            </div>
-                            <p className="text-sm flex-shrink-0">${product.price}</p>
-                            {isAlreadyAdded && (
-                              <span className="text-xs text-gray-500 flex-shrink-0">Added</span>
-                            )}
-                          </div>
-                        );
-                      })}
+                          );
+                        })
+                      )}
                     </div>
                   </ScrollArea>
                 </div>
@@ -568,7 +653,7 @@ export function OutfitManagement() {
                       <p className="text-sm">{item.name}</p>
                       <p className="text-xs text-gray-500">{item.category}</p>
                     </div>
-                    <p className="text-sm">${item.price}</p>
+                    <p className="text-sm">${item.price.toFixed(2)}</p>
                   </div>
                 ))}
               </div>

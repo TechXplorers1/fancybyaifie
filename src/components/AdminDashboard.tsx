@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
@@ -6,12 +6,58 @@ import { LogOut, Package, ShoppingBag, Users, TrendingUp } from 'lucide-react';
 import { ProductManagement } from './ProductManagement';
 import { OutfitManagement } from './OutfitManagement';
 
+// 🔥 FIREBASE IMPORTS
+import { db } from '../firebaseConfig'; 
+import { ref, onValue } from 'firebase/database';
+// ------------------------------------------
+
 interface AdminDashboardProps {
   onLogout: () => void;
 }
 
 export function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState('overview');
+  // State for live counts
+  const [productCount, setProductCount] = useState<number | string>('...');
+  const [outfitCount, setOutfitCount] = useState<number | string>('...');
+
+  // Effect to fetch live counts from Firebase
+  useEffect(() => {
+    // 1. Fetch Product Count from /products
+    const productsRef = ref(db, 'products');
+    const unsubscribeProducts = onValue(productsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setProductCount(Object.keys(data).length);
+      } else {
+        setProductCount(0);
+      }
+    }, (error) => {
+      console.error("Firebase product count fetching failed:", error);
+      setProductCount('Error');
+    });
+
+    // 2. Fetch Outfit Count from /outfits
+    const outfitsRef = ref(db, 'outfits');
+    const unsubscribeOutfits = onValue(outfitsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setOutfitCount(Object.keys(data).length);
+      } else {
+        setOutfitCount(0);
+      }
+    }, (error) => {
+      console.error("Firebase outfit count fetching failed:", error);
+      setOutfitCount('Error');
+    });
+
+    // Cleanup listeners
+    return () => {
+      unsubscribeProducts();
+      unsubscribeOutfits();
+    };
+  }, []);
+
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -51,7 +97,8 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
                   <Package className="h-4 w-4 text-gray-500" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl">48</div>
+                  {/* Display LIVE productCount */}
+                  <div className="text-2xl">{productCount}</div> 
                   <p className="text-xs text-gray-500">Across all categories</p>
                 </CardContent>
               </Card>
@@ -62,7 +109,8 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
                   <ShoppingBag className="h-4 w-4 text-gray-500" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl">8</div>
+                  {/* Display LIVE outfitCount */}
+                  <div className="text-2xl">{outfitCount}</div>
                   <p className="text-xs text-gray-500">Curated collections</p>
                 </CardContent>
               </Card>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -10,10 +10,15 @@ import { Badge } from './ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { allProducts } from '../data/allProducts';
+
+// 🔥 FIREBASE IMPORTS
+import { db } from '../firebaseConfig'; 
+import { ref, onValue, push, update, remove } from 'firebase/database';
+// ------------------------------------------
+
 
 interface Product {
-  id: number;
+  id: string; // Changed from number to string for Firebase key
   name: string;
   price: number;
   image: string;
@@ -25,7 +30,9 @@ interface Product {
 }
 
 export function ProductManagement() {
-  const [products, setProducts] = useState<Product[]>(allProducts);
+  // Initialize to empty array now, data will be populated by useEffect
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -44,6 +51,41 @@ export function ProductManagement() {
 
   const categories = ['Essential Knit', 'Relaxed Denim', 'Statement Accessories', 'Outerwear', 'Footwear', 'Others'];
 
+  // -------------------------------------------------------------
+  // ✨ FETCH REAL-TIME DATA (Database Listener)
+  // -------------------------------------------------------------
+  useEffect(() => {
+    const productsRef = ref(db, 'products');
+    setLoading(true);
+
+    const unsubscribe = onValue(productsRef, (snapshot) => {
+      const data = snapshot.val();
+      const loadedProducts: Product[] = [];
+      if (data) {
+        Object.keys(data).forEach((key) => {
+          loadedProducts.push({
+            id: key, // Use Firebase key as the product ID
+            ...data[key],
+            price: parseFloat(data[key].price) || 0, // Ensure price is a number
+          });
+        });
+      }
+      setProducts(loadedProducts);
+      setLoading(false);
+    }, (error) => {
+      console.error("Firebase product data fetching failed:", error);
+      setProducts([]);
+      setLoading(false);
+    });
+
+    // Cleanup the listener on component unmount
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+  // -------------------------------------------------------------
+
+
   const resetForm = () => {
     setFormData({
       name: '',
@@ -57,9 +99,12 @@ export function ProductManagement() {
     });
   };
 
+  // -------------------------------------------------------------
+  // ✅ CRUD: ADD (Push data to Firebase)
+  // -------------------------------------------------------------
   const handleAdd = () => {
-    const newProduct: Product = {
-      id: Math.max(...products.map(p => p.id), 0) + 1,
+    // Data structure to save to Firebase
+    const productData = {
       name: formData.name,
       price: parseFloat(formData.price),
       image: formData.image,
@@ -69,17 +114,25 @@ export function ProductManagement() {
       isNew: formData.isNew,
       isSale: formData.isSale,
     };
-
-    setProducts([...products, newProduct]);
-    setIsAddDialogOpen(false);
-    resetForm();
+    
+    const productsRef = ref(db, 'products');
+    push(productsRef, productData)
+        .then(() => {
+            setIsAddDialogOpen(false);
+            resetForm();
+        })
+        .catch((error) => {
+            console.error("Error adding product: ", error);
+            alert("Failed to add product.");
+        });
   };
 
   const handleEdit = (product: Product) => {
     setEditingProduct(product);
     setFormData({
       name: product.name,
-      price: product.price.toString(),
+      // Convert price back to string for input field display
+      price: product.price.toString(), 
       image: product.image,
       category: product.category,
       description: product.description,
@@ -90,40 +143,66 @@ export function ProductManagement() {
     setIsEditDialogOpen(true);
   };
 
+  // -------------------------------------------------------------
+  // ✅ CRUD: UPDATE (Update data in Firebase)
+  // -------------------------------------------------------------
   const handleUpdate = () => {
     if (!editingProduct) return;
+    
+    const updates = {
+        name: formData.name,
+        price: parseFloat(formData.price), // Save as number
+        image: formData.image,
+        category: formData.category,
+        description: formData.description,
+        affiliateLink: formData.affiliateLink,
+        isNew: formData.isNew,
+        isSale: formData.isSale,
+    };
 
-    const updatedProducts = products.map(p =>
-      p.id === editingProduct.id
-        ? {
-            ...p,
-            name: formData.name,
-            price: parseFloat(formData.price),
-            image: formData.image,
-            category: formData.category,
-            description: formData.description,
-            affiliateLink: formData.affiliateLink,
-            isNew: formData.isNew,
-            isSale: formData.isSale,
-          }
-        : p
-    );
-
-    setProducts(updatedProducts);
-    setIsEditDialogOpen(false);
-    setEditingProduct(null);
-    resetForm();
+    // Reference to the specific product using its Firebase ID
+    const productRef = ref(db, `products/${editingProduct.id}`);
+    
+    update(productRef, updates)
+        .then(() => {
+            setIsEditDialogOpen(false);
+            setEditingProduct(null);
+            resetForm();
+        })
+        .catch((error) => {
+            console.error("Error updating product: ", error);
+            alert("Failed to update product.");
+        });
   };
 
-  const handleDelete = (id: number) => {
+  // -------------------------------------------------------------
+  // ✅ CRUD: DELETE (Remove data from Firebase)
+  // -------------------------------------------------------------
+  const handleDelete = (id: string) => { // ID is now string
     if (confirm('Are you sure you want to delete this product?')) {
-      setProducts(products.filter(p => p.id !== id));
+        const productRef = ref(db, `products/${id}`);
+        remove(productRef)
+            .then(() => {
+                // The onValue listener handles the state update
+            })
+            .catch((error) => {
+                console.error("Error deleting product: ", error);
+                alert("Failed to delete product.");
+            });
     }
   };
 
-  const filteredProducts = filterCategory === 'all' 
-    ? products 
+  const filteredProducts = filterCategory === 'all'
+    ? products
     : products.filter(p => p.category === filterCategory);
+
+  if (loading) {
+    return (
+      <Card className="min-h-[300px] flex items-center justify-center">
+        <p className="text-gray-500">Loading products from database...</p>
+      </Card>
+    );
+  }
 
   return (
     <Card>
@@ -169,7 +248,10 @@ export function ProductManagement() {
 
                 <div className="space-y-2">
                   <Label htmlFor="category">Category</Label>
-                  <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
+                  <Select
+                    value={formData.category}
+                    onValueChange={(value: string) => setFormData({ ...formData, category: value })}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
@@ -278,46 +360,54 @@ export function ProductManagement() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredProducts.map((product) => (
-                <TableRow key={product.id}>
-                  <TableCell>
-                    <div className="w-12 h-12 rounded overflow-hidden bg-stone-50">
-                      <ImageWithFallback
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </TableCell>
-                  <TableCell>{product.name}</TableCell>
-                  <TableCell>{product.category}</TableCell>
-                  <TableCell>${product.price}</TableCell>
-                  <TableCell>
-                    <div className="flex gap-1">
-                      {product.isNew && <Badge variant="secondary">New</Badge>}
-                      {product.isSale && <Badge variant="destructive">Sale</Badge>}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        onClick={() => handleEdit(product)}
-                        variant="outline"
-                        size="sm"
-                      >
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        onClick={() => handleDelete(product.id)}
-                        variant="outline"
-                        size="sm"
-                      >
-                        <Trash2 className="h-4 w-4 text-red-600" />
-                      </Button>
-                    </div>
-                  </TableCell>
+              {filteredProducts.length > 0 ? (
+                filteredProducts.map((product) => (
+                  <TableRow key={product.id}>
+                    <TableCell>
+                      <div className="w-12 h-12 rounded overflow-hidden bg-stone-50">
+                        <ImageWithFallback
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </TableCell>
+                    <TableCell>{product.name}</TableCell>
+                    <TableCell>{product.category}</TableCell>
+                    <TableCell>${product.price.toFixed(2)}</TableCell>
+                    <TableCell>
+                      <div className="flex gap-1">
+                        {product.isNew && <Badge variant="secondary">New</Badge>}
+                        {product.isSale && <Badge variant="destructive">Sale</Badge>}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <Button
+                          onClick={() => handleEdit(product)}
+                          variant="outline"
+                          size="sm"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          onClick={() => handleDelete(product.id)}
+                          variant="outline"
+                          size="sm"
+                        >
+                          <Trash2 className="h-4 w-4 text-red-600" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                    <TableCell colSpan={6} className="text-center text-gray-500 py-8">
+                        No products found in the database.
+                    </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </div>
@@ -352,7 +442,10 @@ export function ProductManagement() {
 
             <div className="space-y-2">
               <Label htmlFor="edit-category">Category</Label>
-              <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
+              <Select
+                value={formData.category}
+                onValueChange={(value: string) => setFormData({ ...formData, category: value })}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>

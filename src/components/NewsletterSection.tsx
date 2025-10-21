@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { toast } from 'sonner@2.0.3';
+import { Toaster, toast } from "sonner";
 
 export function NewsletterSection() {
   const [email, setEmail] = useState('');

@@ -20,7 +20,7 @@ export function Footer() {
             </button>
           </div>
           <p className="text-sm text-gray-600">
-            © 2025 Esterly Wear. All rights reserved.
+            © 2025 Fancybyaifie. All rights reserved.
           </p>
         </div>
       </div>
