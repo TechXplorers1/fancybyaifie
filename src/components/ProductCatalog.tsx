@@ -2,33 +2,24 @@ import { useState, useEffect } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { ExternalLink, Eye, ChevronDown } from 'lucide-react';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from './ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
+import { ExternalLink, Eye, DollarSign } from 'lucide-react'; // Added DollarSign for consistency
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from './ui/dialog';
 import { Label } from './ui/label';
-
-// 🔥 FIREBASE IMPORTS
-import { db } from '../firebaseConfig'; 
+import { db } from '../firebaseConfig';
 import { ref, onValue } from 'firebase/database';
-// ------------------------------------------
-
-// Re-defining the Product interface to be compatible with both individual products and outfits
-interface Product {
-  id: string; // Use string ID for Firebase keys
-  name: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
-  category: string;
-  isNew?: boolean;
-  isSale?: boolean;
-  sizes?: string[]; // Sizes are optional for outfits
-  description: string;
-  affiliateLink: string;
-  totalPrice?: number; // Added for outfits, matches the price field if needed
-  // Include a field to hold the outfit items, though not strictly needed for the main catalog view
-  items?: OutfitItem[];
-}
 
 interface OutfitItem {
   name: string;
@@ -38,36 +29,137 @@ interface OutfitItem {
   affiliateLink: string;
 }
 
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  category: string;
+  isNew?: boolean;
+  isSale?: boolean;
+  sizes?: string[];
+  description: string;
+  affiliateLink: string;
+  totalPrice?: number;
+  items?: OutfitItem[];
+}
+
 interface ProductCatalogProps {
   activeCategory: string;
 }
 
+// Helper function to sort and filter products (moved outside of the component)
+const sortProducts = (products: Product[], sortOption: string) => {
+    switch (sortOption) {
+      case 'price_low':
+        return [...products].sort((a, b) => a.price - b.price);
+      case 'price_high':
+        return [...products].sort((a, b) => b.price - a.price);
+      case 'newest':
+        return [...products].sort((a, b) => (b.isNew ? -1 : a.isNew ? 1 : 0)); // Sort newest first
+      default:
+        return products;
+    }
+};
+
+// ------------------------------------------
+// Outfit View Dialog Component (Implemented to show outfit items)
+// ------------------------------------------
+const OutfitViewDialog: React.FC<{ outfit: Product | null, isOpen: boolean, onClose: () => void }> = ({ outfit, isOpen, onClose }) => {
+    if (!outfit || !outfit.items || !isOpen) return null;
+  
+    const handleShopItem = (affiliateLink: string) => {
+        window.open(affiliateLink, '_blank', 'noopener,noreferrer');
+    };
+  
+    return (
+        <Dialog open={isOpen} onOpenChange={onClose}>
+            <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                    <DialogTitle className="flex items-center justify-between">
+                        {outfit.name}
+                        <span className="text-xl font-bold text-gray-900 flex items-center gap-1">
+                          <DollarSign className="h-5 w-5" />
+                          {(outfit.totalPrice || outfit.price).toFixed(2)}
+                        </span>
+                    </DialogTitle>
+                    <DialogDescription>{outfit.description}</DialogDescription>
+                </DialogHeader>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                    {/* Left: Full outfit image */}
+                    <div className="aspect-[3/4] rounded-lg overflow-hidden bg-stone-50">
+                        <ImageWithFallback
+                            src={outfit.image}
+                            alt={outfit.name}
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+
+                    {/* Right: Individual items */}
+                    <div className="space-y-4">
+                        <h4 className="text-lg font-semibold">Individual Items ({outfit.items.length})</h4>
+                        <div className="space-y-3">
+                            {outfit.items.map((item, index) => (
+                                <div key={index} className="flex items-center gap-4 p-3 border rounded-lg hover:bg-gray-50 transition-colors">
+                                    <div className="w-12 h-12 rounded overflow-hidden bg-stone-50">
+                                        <ImageWithFallback
+                                            src={item.image}
+                                            alt={item.name}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-sm font-medium">{item.name}</p>
+                                        <p className="text-xs text-gray-500">{item.category}</p>
+                                    </div>
+                                    <div className="text-right">
+                                        <p className="text-sm font-medium text-gray-800">${item.price.toFixed(2)}</p>
+                                        <Button
+                                            onClick={() => handleShopItem(item.affiliateLink)}
+                                            variant="outline"
+                                            size="sm"
+                                            className="mt-1 h-7 text-xs"
+                                        >
+                                            Shop <ExternalLink className="h-3 w-3 ml-1" />
+                                        </Button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </DialogContent>
+        </Dialog>
+    );
+};
+
+// ------------------------------------------
+
 export function ProductCatalog({ activeCategory }: ProductCatalogProps) {
-  const [products, setProducts] = useState<Product[]>([]); 
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [sortOption, setSortOption] = useState('featured');
   const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
   const [viewingOutfit, setViewingOutfit] = useState<Product | null>(null);
 
-  // -------------------------------------------------------------
-  // ✨ FETCH REAL-TIME DATA (Products and Outfits)
-  // -------------------------------------------------------------
+  // 🔥 Consolidated useEffect to fetch both datasets and merge them once.
   useEffect(() => {
     setLoading(true);
-    let allData: Product[] = [];
+    let allProducts: Product[] = [];
+    let allOutfits: Product[] = [];
     let productsLoaded = false;
     let outfitsLoaded = false;
 
-    // Function to check if both listeners have completed their initial load
-    const checkAndSetData = (newProducts: Product[], newOutfits: Product[]) => {
-        // Only set the combined data once both listeners have returned data
+    const checkAndSetData = () => {
         if (productsLoaded && outfitsLoaded) {
-            setProducts([...newProducts, ...newOutfits]);
+            setProducts([...allProducts, ...allOutfits]);
             setLoading(false);
         }
     };
-    
-    // 1. Fetch Outfits
+
+    // 1. Fetch Outfits from 'outfits' node
     const outfitsRef = ref(db, 'outfits');
     const unsubscribeOutfits = onValue(outfitsRef, (snapshot) => {
       const data = snapshot.val();
@@ -75,177 +167,103 @@ export function ProductCatalog({ activeCategory }: ProductCatalogProps) {
       if (data) {
         Object.keys(data).forEach((key) => {
           const outfit = data[key];
-          // Map Outfit structure to the Product interface for catalog display
           loadedOutfits.push({
             id: key,
             name: outfit.name,
-            price: outfit.totalPrice || 0, // Use totalPrice as the main price
+            price: outfit.totalPrice || 0,
             image: outfit.image,
-            category: "Outfits", // Hardcode category for filtering
+            category: 'Outfits', // Assign 'Outfits' category here
             description: outfit.description,
-            affiliateLink: "", // Outfits don't have a single affiliate link
-            isNew: false, 
-            isSale: false, 
-            items: outfit.items, // Keep the items array for the detail view
+            affiliateLink: '',
+            items: outfit.items || [],
             totalPrice: outfit.totalPrice,
           });
         });
       }
+      allOutfits = loadedOutfits;
       outfitsLoaded = true;
-      // Pass the *current* list of products that aren't outfits
-      checkAndSetData(allData.filter(p => p.category !== "Outfits"), loadedOutfits);
+      checkAndSetData();
     }, (error) => {
-      console.error("Firebase outfit data fetching failed:", error);
-      outfitsLoaded = true;
-      checkAndSetData(allData.filter(p => p.category !== "Outfits"), []);
+        console.error("Firebase Outfits fetch failed:", error);
+        outfitsLoaded = true;
+        checkAndSetData();
     });
-    
-    // 2. Fetch Products
+
+    // 2. Fetch Products from 'products' node
     const productsRef = ref(db, 'products');
     const unsubscribeProducts = onValue(productsRef, (snapshot) => {
       const data = snapshot.val();
       const loadedProducts: Product[] = [];
       if (data) {
         Object.keys(data).forEach((key) => {
-          loadedProducts.push({ id: key, ...data[key], sizes: data[key].sizes || [] });
+            const product = data[key];
+            loadedProducts.push({
+                id: key,
+                name: product.name,
+                price: product.price,
+                originalPrice: product.originalPrice,
+                image: product.image,
+                category: product.category, // This category must match the tile name (Top, Bottom, etc.)
+                isNew: product.isNew,
+                isSale: product.isSale,
+                sizes: product.sizes || [],
+                description: product.description,
+                affiliateLink: product.affiliateLink,
+            });
         });
       }
+      allProducts = loadedProducts;
       productsLoaded = true;
-      // Pass the *current* list of outfits that are already in allData
-      checkAndSetData(loadedProducts, allData.filter(p => p.category === "Outfits"));
+      checkAndSetData();
     }, (error) => {
-      console.error("Firebase product data fetching failed:", error);
-      productsLoaded = true;
-      checkAndSetData([], allData.filter(p => p.category === "Outfits"));
+        console.error("Firebase Products fetch failed:", error);
+        productsLoaded = true;
+        checkAndSetData();
     });
 
-
-    // Cleanup listeners
     return () => {
       unsubscribeProducts();
       unsubscribeOutfits();
     };
-  }, []);
-  // -------------------------------------------------------------
+  }, []); // Empty dependency array: fetches data once on mount
 
-  const filteredProducts = activeCategory === 'all'
-    ? products
-    : products.filter(product => product.category === activeCategory);
+  // 🔥 Filtering logic: Filters from the merged 'products' state based on activeCategory
+  const filteredProducts =
+    activeCategory === 'all' // Assuming 'all' is the default if no category is selected
+      ? products
+      : products.filter((product) => product.category === activeCategory);
 
-  const sortProducts = (products: Product[]) => {
-    switch (sortOption) {
-      case 'price_low':
-        return [...products].sort((a, b) => a.price - b.price);
-      case 'price_high':
-        return [...products].sort((a, b) => b.price - a.price);
-      case 'newest':
-        // Placeholder for newest logic (currently relies on isNew flag)
-        return [...products].sort((a, b) => (b.isNew ? 1 : a.isNew ? -1 : 0));
-      case 'featured':
-      default:
-        // No sorting for 'featured'
-        return products;
-    }
-  };
-
-  const sortedProducts = sortProducts(filteredProducts);
+  const sortedProducts = sortProducts(filteredProducts, sortOption);
 
   const handleShopNow = (product: Product) => {
     if (product.category === 'Outfits') {
-      // Logic to open a dedicated Outfit View Dialog
       setViewingOutfit(product);
       setIsViewDialogOpen(true);
     } else {
-      // For regular products, open affiliate link
-      window.open(product.affiliateLink, '_blank');
+      window.open(product.affiliateLink, '_blank', 'noopener,noreferrer');
     }
   };
 
-  // --- Outfit View Dialog Implementation ---
-  const OutfitViewDialog = () => {
-    if (!viewingOutfit) return null;
-
-    return (
-      <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
-        <DialogContent className="max-w-3xl">
-          <DialogHeader>
-            <DialogTitle>{viewingOutfit.name}</DialogTitle>
-            <DialogDescription>
-              {viewingOutfit.description} - Total Price: ${viewingOutfit.price.toFixed(2)}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div className="aspect-[3/4] rounded-lg overflow-hidden bg-stone-50">
-              <ImageWithFallback
-                src={viewingOutfit.image}
-                alt={viewingOutfit.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            
-            {/* Display the items that make up the outfit */}
-            {viewingOutfit.items && viewingOutfit.items.length > 0 && (
-              <div>
-                <h4 className="mb-3 text-lg font-semibold">Shop The Look ({viewingOutfit.items.length})</h4>
-                <div className="space-y-3">
-                  {viewingOutfit.items.map((item, index) => (
-                    <a 
-                      key={index} 
-                      href={item.affiliateLink} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="flex items-center gap-4 p-3 border rounded-lg hover:bg-gray-50 transition-colors cursor-pointer group"
-                    >
-                      <div className="w-12 h-12 rounded overflow-hidden bg-stone-50 flex-shrink-0">
-                        <ImageWithFallback
-                          src={item.image}
-                          alt={item.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-base font-medium">{item.name}</p>
-                        <p className="text-sm text-gray-500">{item.category}</p>
-                      </div>
-                      <p className="text-base font-semibold flex-shrink-0">${item.price.toFixed(2)}</p>
-                      <ExternalLink className="h-4 w-4 text-gray-400 group-hover:text-gray-900 transition-colors flex-shrink-0" />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
-    );
-  };
-  // ---------------------------------------------------------------------------------------------
-
   if (loading) {
     return (
-      <section className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="text-center py-12 text-gray-600">
-          <svg className="animate-spin h-5 w-5 mr-3 inline-block" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          Loading products and outfits...
-        </div>
+      <section className="max-w-7xl mx-auto py-12 px-4 text-center text-gray-600">
+        Loading products and outfits...
       </section>
     );
   }
 
   return (
-    <section className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <section className="max-w-7xl mx-auto py-12 px-4">
       <h2 className="text-3xl font-extrabold text-gray-900 mb-6">
         {activeCategory === 'all' ? 'Shop All' : activeCategory}
       </h2>
 
       <div className="flex justify-between items-center mb-8">
-        <p className="text-sm text-gray-600">{filteredProducts.length} items found</p>
-        
+        <p className="text-sm text-gray-600">{sortedProducts.length} items found</p>
         <div className="flex items-center space-x-4">
-          <Label htmlFor="sort-select" className="text-sm text-gray-700">Sort by:</Label>
+          <Label htmlFor="sort-select" className="text-sm text-gray-700">
+            Sort by:
+          </Label>
           <Select value={sortOption} onValueChange={setSortOption}>
             <SelectTrigger id="sort-select" className="w-[180px] text-left">
               <SelectValue placeholder="Featured" />
@@ -260,73 +278,54 @@ export function ProductCatalog({ activeCategory }: ProductCatalogProps) {
         </div>
       </div>
 
-      <div>
-        {/* The main grid container remains the same, which allows row-based height matching */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-3 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-12">
+      {/* Grid with uniform card height */}
+     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {sortedProducts.map((product) => (
-            // ✅ CHANGE 1: Use 'flex flex-col' to enable h-full children
-            <div key={product.id} className="group relative flex flex-col space-y-2"> 
-              
-              {/* This ensures the image is a perfect square */}
-              <div className="aspect-[1/1] w-full overflow-hidden rounded-lg bg-gray-200">
+            <div key={product.id} className="group">
+              <div 
+                className="relative aspect-[3/4] mb-4 overflow-hidden rounded-lg bg-stone-50 cursor-pointer"
+                onClick={() => handleShopNow(product)}
+              >
                 <ImageWithFallback
                   src={product.image}
                   alt={product.name}
-                  className="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 
-                <div className="absolute top-2 left-2 flex flex-col space-y-1">
-                  {product.category === "Outfits" && (
-                    <Badge className="bg-orange-500 text-white hover:bg-orange-600">
-                      Outfit
-                    </Badge>
-                  )}
-                  {product.isNew && product.category !== "Outfits" && (
-                    <Badge variant="secondary" className="bg-blue-600 text-white hover:bg-blue-700">
+                {/* Badges */}
+                <div className="absolute top-3 left-3 space-y-2">
+                  {product.isNew && (
+                    <Badge variant="secondary" className="bg-white text-gray-900">
                       New
                     </Badge>
                   )}
-                  {product.isSale && product.category !== "Outfits" && (
-                    <Badge variant="destructive" className="bg-red-600 text-white hover:bg-red-700">
+                  {product.isSale && (
+                    <Badge variant="destructive" className="bg-red-600 text-white">
                       Sale
                     </Badge>
                   )}
                 </div>
               </div>
 
-              {/* ✅ CHANGE 2: Use flex-grow/flex-shrink and minimal spacing to compress content and push the button down */}
-              <div className="flex flex-col flex-grow space-y-1">
-                <div className='flex justify-between items-start'>
-                  <h3 className="text-base text-gray-900 group-hover:text-gray-600 transition-colors font-medium leading-tight">
+              <div className="space-y-3">
+                <div>
+                  <h3 className="text-lg text-gray-900 group-hover:text-gray-600 transition-colors">
                     {product.name}
                   </h3>
-                  <p className="text-base font-bold text-gray-900 ml-4 flex-shrink-0 leading-tight">
-                    {product.category === 'Outfits' ? `$${product.price.toFixed(2)}` : `$${product.price.toFixed(2)}`}
+                  {/* Display price clearly */}
+                  <p className="text-sm font-medium text-gray-900">
+                      ${(product.price).toFixed(2)}
+                      {product.originalPrice && product.isSale && (
+                           <span className="line-through text-gray-500 ml-2">${product.originalPrice.toFixed(2)}</span>
+                      )}
                   </p>
+                  <p className="text-sm text-gray-500">{product.description}</p>
                 </div>
 
-                {/* ✅ CHANGE 3: Use line-clamp-1 to enforce single-line description height and flex-grow to push content away */}
-                <div className="min-h-[20px] flex-grow"> 
-                  <p className="text-xs text-gray-500 line-clamp-1">{product.description ?? 'No description available.'}</p> 
-                </div>
-
-                <div className="space-y-1 pt-1">
-                  {product.category !== "Outfits" && product.sizes && product.sizes.length > 0 && (
-                    <div className="flex items-center gap-2">
-                        <Label className="text-xs text-gray-600">Sizes:</Label>
-                        <div className="flex gap-1">
-                            {product.sizes.map(size => (
-                                <Badge key={size} variant="outline" className="text-xs bg-white text-gray-700 border-gray-300 h-5 px-1.5">
-                                    {size}
-                                </Badge>
-                            ))}
-                        </div>
-                    </div>
-                  )}
-
+                <div className="space-y-3">
                   <Button
                     onClick={() => handleShopNow(product)}
-                    className="w-full bg-gray-900 text-white hover:bg-gray-800 flex items-center justify-center gap-2 h-9"
+                    className="w-full bg-gray-900 text-white hover:bg-gray-800 flex items-center justify-center gap-2"
                   >
                     {product.category === "Outfits" ? "View Outfit Details" : "Shop Now"}
                     {product.category === "Outfits" ? (
@@ -341,15 +340,18 @@ export function ProductCatalog({ activeCategory }: ProductCatalogProps) {
           ))}
         </div>
 
-        {sortedProducts.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500">No products found in this category.</p>
-          </div>
-        )}
-      </div>
 
-      {/* RENDER THE OUTFIT VIEW DIALOG */}
-      <OutfitViewDialog />
+      {sortedProducts.length === 0 && (
+        <div className="text-center py-12 text-gray-500">
+          No products found in this category. Please check your Firebase data names.
+        </div>
+      )}
+
+      <OutfitViewDialog 
+        outfit={viewingOutfit} 
+        isOpen={isViewDialogOpen} 
+        onClose={() => setIsViewDialogOpen(false)} 
+      />
     </section>
   );
 }
