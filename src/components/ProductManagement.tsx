@@ -1,208 +1,122 @@
-import { useState, useEffect } from 'react';
+'use client';
+
+import { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Badge } from './ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
-
-// 🔥 FIREBASE IMPORTS
-import { db } from '../firebaseConfig'; 
-import { ref, onValue, push, update, remove } from 'firebase/database';
-// ------------------------------------------
+import Image from 'next/image';
+import { Product } from '@/lib/products';
+import { v4 as uuidv4 } from 'uuid';
 
 
-interface Product {
-  id: string; // Changed from number to string for Firebase key
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-  description: string;
-  affiliateLink: string;
-  isNew?: boolean;
-  isSale?: boolean;
+interface ProductManagementProps {
+  products: Product[];
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
-export function ProductManagement() {
-  // Initialize to empty array now, data will be populated by useEffect
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+export function ProductManagement({ products, setProducts }: ProductManagementProps) {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [filterCategory, setFilterCategory] = useState<string>('all');
+  const [productToDelete, setProductToDelete] = useState<Product | null>(null);
 
   const [formData, setFormData] = useState({
     name: '',
     price: '',
     image: '',
+    imageHint: '',
     category: '',
     description: '',
     affiliateLink: '',
-    isNew: false,
-    isSale: false,
   });
 
-  const categories = ['Top', 'Bottom', 'Accessories', 'Outerwear', 'Footwear'];
-
-  // -------------------------------------------------------------
-  // ✨ FETCH REAL-TIME DATA (Database Listener)
-  // -------------------------------------------------------------
-  useEffect(() => {
-    const productsRef = ref(db, 'products');
-    setLoading(true);
-
-    const unsubscribe = onValue(productsRef, (snapshot) => {
-      const data = snapshot.val();
-      const loadedProducts: Product[] = [];
-      if (data) {
-        Object.keys(data).forEach((key) => {
-          loadedProducts.push({
-            id: key, // Use Firebase key as the product ID
-            ...data[key],
-            price: parseFloat(data[key].price) || 0, // Ensure price is a number
-          });
-        });
-      }
-      setProducts(loadedProducts);
-      setLoading(false);
-    }, (error) => {
-      console.error("Firebase product data fetching failed:", error);
-      setProducts([]);
-      setLoading(false);
-    });
-
-    // Cleanup the listener on component unmount
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-  // -------------------------------------------------------------
-
+  const categories = [...new Set(products.map(p => p.category))];
 
   const resetForm = () => {
     setFormData({
       name: '',
       price: '',
       image: '',
+      imageHint: '',
       category: '',
       description: '',
       affiliateLink: '',
-      isNew: false,
-      isSale: false,
     });
   };
 
-  // -------------------------------------------------------------
-  // ✅ CRUD: ADD (Push data to Firebase)
-  // -------------------------------------------------------------
   const handleAdd = () => {
-    // Data structure to save to Firebase
-    const productData = {
+    const newProduct: Product = {
+      id: uuidv4(),
       name: formData.name,
       price: parseFloat(formData.price),
       image: formData.image,
+      imageHint: formData.imageHint,
       category: formData.category,
       description: formData.description,
       affiliateLink: formData.affiliateLink,
-      isNew: formData.isNew,
-      isSale: formData.isSale,
     };
-    
-    const productsRef = ref(db, 'products');
-    push(productsRef, productData)
-        .then(() => {
-            setIsAddDialogOpen(false);
-            resetForm();
-        })
-        .catch((error) => {
-            console.error("Error adding product: ", error);
-            alert("Failed to add product.");
-        });
+
+    setProducts([...products, newProduct]);
+    setIsAddDialogOpen(false);
+    resetForm();
   };
 
   const handleEdit = (product: Product) => {
     setEditingProduct(product);
     setFormData({
       name: product.name,
-      // Convert price back to string for input field display
-      price: product.price.toString(), 
+      price: product.price.toString(),
       image: product.image,
+      imageHint: product.imageHint,
       category: product.category,
       description: product.description,
-      affiliateLink: product.affiliateLink,
-      isNew: product.isNew || false,
-      isSale: product.isSale || false,
+      affiliateLink: product.affiliateLink || '',
     });
     setIsEditDialogOpen(true);
   };
 
-  // -------------------------------------------------------------
-  // ✅ CRUD: UPDATE (Update data in Firebase)
-  // -------------------------------------------------------------
   const handleUpdate = () => {
     if (!editingProduct) return;
-    
-    const updates = {
-        name: formData.name,
-        price: parseFloat(formData.price), // Save as number
-        image: formData.image,
-        category: formData.category,
-        description: formData.description,
-        affiliateLink: formData.affiliateLink,
-        isNew: formData.isNew,
-        isSale: formData.isSale,
-    };
 
-    // Reference to the specific product using its Firebase ID
-    const productRef = ref(db, `products/${editingProduct.id}`);
-    
-    update(productRef, updates)
-        .then(() => {
-            setIsEditDialogOpen(false);
-            setEditingProduct(null);
-            resetForm();
-        })
-        .catch((error) => {
-            console.error("Error updating product: ", error);
-            alert("Failed to update product.");
-        });
+    const updatedProducts = products.map(p =>
+      p.id === editingProduct.id
+        ? {
+          ...p,
+          name: formData.name,
+          price: parseFloat(formData.price),
+          image: formData.image,
+          imageHint: formData.imageHint,
+          category: formData.category,
+          description: formData.description,
+          affiliateLink: formData.affiliateLink,
+        }
+        : p
+    );
+
+    setProducts(updatedProducts);
+    setIsEditDialogOpen(false);
+    setEditingProduct(null);
+    resetForm();
   };
 
-  // -------------------------------------------------------------
-  // ✅ CRUD: DELETE (Remove data from Firebase)
-  // -------------------------------------------------------------
-  const handleDelete = (id: string) => { // ID is now string
-    if (confirm('Are you sure you want to delete this product?')) {
-        const productRef = ref(db, `products/${id}`);
-        remove(productRef)
-            .then(() => {
-                // The onValue listener handles the state update
-            })
-            .catch((error) => {
-                console.error("Error deleting product: ", error);
-                alert("Failed to delete product.");
-            });
+  const handleDelete = () => {
+    if (productToDelete) {
+      setProducts(products.filter(p => p.id !== productToDelete.id));
+      setProductToDelete(null);
     }
   };
 
   const filteredProducts = filterCategory === 'all'
     ? products
     : products.filter(p => p.category === filterCategory);
-
-  if (loading) {
-    return (
-      <Card className="min-h-[300px] flex items-center justify-center">
-        <p className="text-gray-500">Loading products from database...</p>
-      </Card>
-    );
-  }
 
   return (
     <Card>
@@ -214,7 +128,7 @@ export function ProductManagement() {
           </div>
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gray-900 text-white hover:bg-gray-800">
+              <Button>
                 <Plus className="h-4 w-4 mr-2" />
                 Add Product
               </Button>
@@ -231,7 +145,7 @@ export function ProductManagement() {
                     id="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Enter Product Name"
+                    placeholder="Classic Linen Shirt"
                   />
                 </div>
 
@@ -242,17 +156,13 @@ export function ProductManagement() {
                     type="number"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    placeholder="Enter price"
+                    placeholder="85.00"
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="category">Category</Label>
-                  <Select
-                    value={formData.category}
-                    onValueChange={(value: string) => setFormData({ ...formData, category: value })}
-                    placeholder="Select category"
-                  >
+                  <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
@@ -272,7 +182,7 @@ export function ProductManagement() {
                     id="description"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    placeholder="Description of the product"
+                    placeholder="A timeless linen shirt..."
                   />
                 </div>
 
@@ -282,7 +192,7 @@ export function ProductManagement() {
                     id="image"
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    placeholder="Image URL"
+                    placeholder="https://picsum.photos/seed/..."
                   />
                 </div>
 
@@ -292,34 +202,12 @@ export function ProductManagement() {
                     id="affiliateLink"
                     value={formData.affiliateLink}
                     onChange={(e) => setFormData({ ...formData, affiliateLink: e.target.value })}
-                    placeholder="Affiliate Link"
+                    placeholder="https://amazon.com/..."
                   />
                 </div>
 
-                <div className="flex gap-4">
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={formData.isNew}
-                      onChange={(e) => setFormData({ ...formData, isNew: e.target.checked })}
-                      className="rounded"
-                    />
-                    <span className="text-sm">New Product</span>
-                  </label>
-
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={formData.isSale}
-                      onChange={(e) => setFormData({ ...formData, isSale: e.target.checked })}
-                      className="rounded"
-                    />
-                    <span className="text-sm">On Sale</span>
-                  </label>
-                </div>
-
                 <div className="flex gap-2 pt-4">
-                  <Button onClick={handleAdd} className="flex-1 bg-gray-900 text-white hover:bg-gray-800">
+                  <Button onClick={handleAdd} className="flex-1">
                     Add Product
                   </Button>
                   <Button onClick={() => setIsAddDialogOpen(false)} variant="outline" className="flex-1">
@@ -356,59 +244,74 @@ export function ProductManagement() {
                 <TableHead>Name</TableHead>
                 <TableHead>Category</TableHead>
                 <TableHead>Price</TableHead>
-                <TableHead>Status</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredProducts.length > 0 ? (
-                filteredProducts.map((product) => (
-                  <TableRow key={product.id}>
-                    <TableCell>
-                      <div className="w-12 h-12 rounded overflow-hidden bg-stone-50">
-                        <ImageWithFallback
+              {filteredProducts.map((product) => (
+                <TableRow key={product.id}>
+                  <TableCell>
+                    <div className="w-12 h-16 relative rounded overflow-hidden bg-muted">
+                      {product.image && (product.image.startsWith('http') || product.image.startsWith('/')) ? (
+                        <Image
                           src={product.image}
                           alt={product.name}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="48px"
                         />
-                      </div>
-                    </TableCell>
-                    <TableCell>{product.name}</TableCell>
-                    <TableCell>{product.category}</TableCell>
-                    <TableCell>${product.price.toFixed(2)}</TableCell>
-                    <TableCell>
-                      <div className="flex gap-1">
-                        {product.isNew && <Badge variant="secondary">New</Badge>}
-                        {product.isSale && <Badge variant="destructive">Sale</Badge>}
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
-                        <Button
-                          onClick={() => handleEdit(product)}
-                          variant="outline"
-                          size="sm"
-                        >
-                          <Pencil className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          onClick={() => handleDelete(product.id)}
-                          variant="outline"
-                          size="sm"
-                        >
-                          <Trash2 className="h-4 w-4 text-red-600" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                    <TableCell colSpan={6} className="text-center text-gray-500 py-8">
-                        No products found in the database.
-                    </TableCell>
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-500 text-xs">
+                          No Image
+                        </div>
+                      )}
+
+                    </div>
+                  </TableCell>
+                  <TableCell className="font-medium">{product.name}</TableCell>
+                  <TableCell>{product.category}</TableCell>
+                  <TableCell>${product.price.toFixed(2)}</TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex justify-end gap-2">
+                      <Button
+                        onClick={() => handleEdit(product)}
+                        variant="outline"
+                        size="icon"
+                        className="h-8 w-8"
+                      >
+                        <Pencil className="h-4 w-4" />
+                        <span className="sr-only">Edit</span>
+                      </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button
+                            variant="destructive"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={() => setProductToDelete(product)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                            <span className="sr-only">Delete</span>
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This action cannot be undone. This will permanently delete the
+                              product.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel onClick={() => setProductToDelete(null)}>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
+                  </TableCell>
                 </TableRow>
-              )}
+              ))}
             </TableBody>
           </Table>
         </div>
@@ -443,10 +346,7 @@ export function ProductManagement() {
 
             <div className="space-y-2">
               <Label htmlFor="edit-category">Category</Label>
-              <Select
-                value={formData.category}
-                onValueChange={(value: string) => setFormData({ ...formData, category: value })}
-              >
+              <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -487,30 +387,8 @@ export function ProductManagement() {
               />
             </div>
 
-            <div className="flex gap-4">
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={formData.isNew}
-                  onChange={(e) => setFormData({ ...formData, isNew: e.target.checked })}
-                  className="rounded"
-                />
-                <span className="text-sm">New Product</span>
-              </label>
-
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={formData.isSale}
-                  onChange={(e) => setFormData({ ...formData, isSale: e.target.checked })}
-                  className="rounded"
-                />
-                <span className="text-sm">On Sale</span>
-              </label>
-            </div>
-
             <div className="flex gap-2 pt-4">
-              <Button onClick={handleUpdate} className="flex-1 bg-gray-900 text-white hover:bg-gray-800">
+              <Button onClick={handleUpdate} className="flex-1">
                 Update Product
               </Button>
               <Button onClick={() => setIsEditDialogOpen(false)} variant="outline" className="flex-1">

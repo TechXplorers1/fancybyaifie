@@ -1,11 +1,5 @@
+# Firebase Studio
 
-  # Duplicate Page
+This is a NextJS starter in Firebase Studio.
 
-  This is a code bundle for Duplicate Page. The original project is available at https://www.figma.com/design/AY121z1tQGWp9h8koZhlAE/Duplicate-Page.
-
-  ## Running the code
-
-  Run `npm i` to install the dependencies.
-
-  Run `npm run dev` to start the development server.
-  
+To get started, take a look at src/app/page.tsx.

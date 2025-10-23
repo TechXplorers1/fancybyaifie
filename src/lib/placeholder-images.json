@@ -1,0 +1,46 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero",
+      "description": "Model in white clothing, looking elegant.",
+      "imageUrl": "https://images.unsplash.com/photo-1619785292559-a15caa28bde6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxmYXNoaW9uJTIwbW9kZWx8ZW58MHx8fHwxNzYxMDk2MDc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fashion model"
+    },
+    {
+      "id": "product-101",
+      "description": "A stylish linen shirt on a hanger.",
+      "imageUrl": "https://images.unsplash.com/photo-1693008561904-4aea66aa18ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxsaW5lbiUyMHNoaXJ0fGVufDB8fHx8MTc2MTE2NjE4MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "linen shirt"
+    },
+    {
+      "id": "product-102",
+      "description": "Comfortable tailored trousers in a neutral color.",
+      "imageUrl": "https://images.unsplash.com/photo-1741915313755-208c59c21165?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0YWlsb3JlZCUyMHRyb3VzZXJzfGVufDB8fHx8MTc2MTIwNTMxNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tailored trousers"
+    },
+    {
+      "id": "product-103",
+      "description": "An elegant white blouse with puff sleeves.",
+      "imageUrl": "https://images.unsplash.com/photo-1611235115922-72aece5cf686?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8d2hpdGUlMjBibG91c2V8ZW58MHx8fHwxNzYxMTQxODkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "white blouse"
+    },
+    {
+      "id": "product-104",
+      "description": "A pair of classic denim jeans.",
+      "imageUrl": "https://images.unsplash.com/photo-1560243563-062bfc001d68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkZW5pbSUyMGplYW5zfGVufDB8fHx8MTc2MTE0NTU0MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "denim jeans"
+    },
+    {
+      "id": "product-105",
+      "description": "A cozy cashmere sweater.",
+      "imageUrl": "https://images.unsplash.com/photo-1677847208228-fe3c52feb441?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjYXNobWVyZSUyMHN3ZWF0ZXJ8ZW58MHx8fHwxNzYxMTY2MDM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cashmere sweater"
+    },
+    {
+      "id": "product-106",
+      "description": "A floral summer dress.",
+      "imageUrl": "https://images.unsplash.com/photo-1613966570650-add3cf83aa83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzdW1tZXIlMjBkcmVzc3xlbnwwfHx8fDE3NjEyMDUyNjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "summer dress"
+    }
+  ]
+}

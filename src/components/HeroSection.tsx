@@ -1,27 +1,34 @@
-import { ImageWithFallback } from './figma/ImageWithFallback';
+'use client';
+
+import Image from 'next/image';
 import { Button } from './ui/button';
-import homeImage from '../assets/home.png';
+import imageData from '@/lib/placeholder-images.json';
+
+const { placeholderImages: PlaceHolderImages } = imageData;
 
 export function HeroSection() {
+  const heroImage = PlaceHolderImages.find(p => p.id === 'hero');
+
   return (
-    <section className="relative bg-stone-50 min-h-screen flex items-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <section className="relative bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Text content */}
-          <div className="space-y-8">
+          <div className="space-y-8 text-center lg:text-left">
             <div className="space-y-6">
-              <h2 className="text-5xl lg:text-6xl tracking-wide text-gray-900 leading-tight">
+              <h1 className="text-5xl lg:text-6xl font-headline tracking-wide text-primary leading-tight">
                 Born Out of Free
-              </h2>
-              <p className="text-lg text-gray-600 max-w-md leading-relaxed">
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 leading-relaxed">
                 Embracing authenticity and individual expression through thoughtfully designed pieces that speak to your unique style.
               </p>
             </div>
-
+            
             <div className="space-y-4">
-              <Button
-                onClick={() => window.dispatchEvent(new CustomEvent('navigate-outfit', { detail: 103 }))}
-                className="bg-gray-900 text-white px-8 py-3 hover:bg-gray-800 transition-colors"
+              <Button 
+                size="lg"
+                onClick={() => window.dispatchEvent(new CustomEvent('show-outfits'))}
+                className="bg-primary text-primary-foreground px-8 py-3 hover:bg-primary/90 transition-colors"
               >
                 Shop My Outfit
               </Button>
@@ -29,13 +36,18 @@ export function HeroSection() {
           </div>
 
           {/* Right side - Model image */}
-          <div className="relative">
-            <div className="aspect-[3/4] w-full max-w-md mx-auto">
-              <ImageWithFallback
-                src={homeImage}
-                alt="Model in white clothing"
-                className="w-full h-full object-cover rounded-lg"
-              />
+          <div className="relative group">
+            <div className="relative aspect-[3/4] w-full max-w-md mx-auto rounded-lg overflow-hidden shadow-2xl shadow-primary/10">
+              {heroImage &&
+                <Image
+                  src={heroImage.imageUrl}
+                  alt="Model in white clothing"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
+                  data-ai-hint={heroImage.imageHint}
+                  priority
+                />
+              }
             </div>
           </div>
         </div>
