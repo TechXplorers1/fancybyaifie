@@ -988,16 +988,16 @@ body {
   user-select: none;
 }
 
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.grid-cols-1 {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
 .flex-row {
@@ -1607,6 +1607,10 @@ body {
   font-size: .8rem;
 }
 
+.text-\[8px\] {
+  font-size: 8px;
+}
+
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -1630,10 +1634,6 @@ body {
 .text-xs {
   font-size: .75rem;
   line-height: 1rem;
-}
-
-.text-\[8px\] {
-  font-size: 8px;
 }
 
 .font-bold {
@@ -1726,6 +1726,10 @@ body {
   color: hsl(var(--muted-foreground));
 }
 
+.text-muted-foreground\/70 {
+  color: hsl(var(--muted-foreground) / .7);
+}
+
 .text-muted-foreground\/80 {
   color: hsl(var(--muted-foreground) / .8);
 }
@@ -1752,10 +1756,6 @@ body {
 
 .text-sidebar-foreground\/70 {
   color: hsl(var(--sidebar-foreground) / .7);
-}
-
-.text-muted-foreground\/70 {
-  color: hsl(var(--muted-foreground) / .7);
 }
 
 .underline-offset-4 {
@@ -2988,12 +2988,12 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .lg\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .lg\:p-8 {

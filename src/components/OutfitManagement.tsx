@@ -15,7 +15,12 @@ import { ScrollArea } from './ui/scroll-area';
 import { Product } from '@/lib/products';
 import { Outfit } from '@/lib/outfits';
 
-// Removed FALLBACK_IMAGE_PATH since we are conditionally rendering
+// Utility function to check for a valid external URL structure (http or https)
+const isValidUrl = (url: string | null | undefined): boolean => {
+  if (!url || typeof url !== 'string' || url.length < 5) return false;
+  // Next.js requires absolute URLs for external images
+  return url.startsWith('http://') || url.startsWith('https://');
+};
 
 interface OutfitManagementProps {
   outfits: Outfit[];
@@ -191,8 +196,8 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
                         {formData.items.map((item, index) => (
                           <div key={index} className="flex items-center gap-3 p-2 bg-background rounded border">
                             <div className="w-12 h-16 relative rounded overflow-hidden bg-muted flex-shrink-0">
-                              {/* FIX 1: Conditional render the Image component */}
-                              {item.image && (
+                              {/* FIX 1: Use isValidUrl check */}
+                              {isValidUrl(item.image) ? (
                                 <Image
                                   src={item.image}
                                   alt={item.name}
@@ -200,8 +205,9 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
                                   sizes="48px"
                                   className="object-cover"
                                 />
+                              ) : (
+                                <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
                               )}
-                              {!item.image && <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>}
                             </div>
                             <div className="flex-1 min-w-0">
                               <p className="text-sm font-medium truncate">{item.name}</p>
@@ -241,8 +247,8 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
                                 onClick={() => !isAdded && handleToggleProductInOutfit(product, 'add')}
                               >
                                 <div className="w-12 h-16 relative rounded overflow-hidden bg-muted flex-shrink-0">
-                                  {/* FIX 2: Conditional render the Image component */}
-                                  {product.image && (
+                                  {/* FIX 2: Use isValidUrl check */}
+                                  {isValidUrl(product.image) ? (
                                     <Image
                                       src={product.image}
                                       alt={product.name}
@@ -250,8 +256,9 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
                                       sizes="48px"
                                       className="object-cover"
                                     />
+                                  ) : (
+                                    <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
                                   )}
-                                  {!product.image && <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>}
                                 </div>
                                 <div className="flex-1 min-w-0">
                                   <p className="text-sm font-medium truncate">{product.name}</p>
@@ -300,8 +307,8 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
                 <TableRow key={outfit.id}>
                   <TableCell>
                     <div className="w-12 h-16 relative rounded overflow-hidden bg-muted">
-                      {/* FIX 3 (Line 298 in error): Conditional render the Image component */}
-                      {outfit.image ? (
+                      {/* FIX 3 (The original location of the error): Use isValidUrl check */}
+                      {isValidUrl(outfit.image) ? (
                         <Image
                           src={outfit.image}
                           alt={outfit.name}
@@ -420,8 +427,8 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
                     {formData.items.map((item, index) => (
                       <div key={index} className="flex items-center gap-3 p-2 bg-background rounded border">
                         <div className="w-12 h-16 relative rounded overflow-hidden bg-muted flex-shrink-0">
-                          {/* FIX 4: Conditional render the Image component */}
-                          {item.image && (
+                          {/* FIX 4: Use isValidUrl check */}
+                          {isValidUrl(item.image) ? (
                             <Image
                               src={item.image}
                               alt={item.name}
@@ -429,8 +436,9 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
                               sizes="48px"
                               className="object-cover"
                             />
+                          ) : (
+                            <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
                           )}
-                          {!item.image && <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>}
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium truncate">{item.name}</p>
@@ -470,8 +478,8 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
                             onClick={() => !isAdded && handleToggleProductInOutfit(product, 'add')}
                           >
                             <div className="w-12 h-16 relative rounded overflow-hidden bg-muted flex-shrink-0">
-                              {/* FIX 5: Conditional render the Image component */}
-                              {product.image && (
+                              {/* FIX 5: Use isValidUrl check */}
+                              {isValidUrl(product.image) ? (
                                 <Image
                                   src={product.image}
                                   alt={product.name}
@@ -479,8 +487,9 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
                                   sizes="48px"
                                   className="object-cover"
                                 />
+                              ) : (
+                                <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
                               )}
-                              {!product.image && <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>}
                             </div>
                             <div className="flex-1 min-w-0">
                               <p className="text-sm font-medium truncate">{product.name}</p>
@@ -522,17 +531,17 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-4">
                 <div className="aspect-[3/4] relative rounded-lg overflow-hidden bg-muted">
-                  {/* FIX 6: Conditional render the Image component */}
-                  {viewingOutfit?.image ? (
+                  {/* FIX 6: Use isValidUrl check */}
+                  {isValidUrl(viewingOutfit?.image) ? (
                     <Image
-                      src={viewingOutfit.image}
+                      src={viewingOutfit?.image || ''}
                       alt={viewingOutfit?.name || 'Outfit Image'}
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover"
                     />
                   ) : (
-                    <div className="flex items-center justify-center h-full text-muted-foreground/70">
+                    <div className="flex items-center justify-center h-full text-muted-foreground/70 border border-dashed">
                       No Outfit Image Available
                     </div>
                   )}
@@ -552,8 +561,8 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
                     viewingOutfit.items.map((item, index) => (
                       <div key={index} className="flex items-center gap-4 p-3 border rounded-lg bg-background hover:shadow-sm transition-shadow">
                         <div className="w-16 h-20 relative rounded overflow-hidden bg-muted flex-shrink-0">
-                          {/* FIX 7: Conditional render the Image component */}
-                          {item.image && (
+                          {/* FIX 7: Use isValidUrl check */}
+                          {isValidUrl(item.image) ? (
                             <Image
                               src={item.image}
                               alt={item.name}
@@ -561,8 +570,9 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
                               sizes="64px"
                               className="object-cover"
                             />
+                          ) : (
+                            <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
                           )}
-                          {!item.image && <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>}
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="font-medium truncate">{item.name}</p>
