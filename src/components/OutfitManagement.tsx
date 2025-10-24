@@ -64,6 +64,8 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
       description: formData.description,
       image: formData.image,
       items: formData.items,
+      // 💥 FIX: Add the required 'createdAt' property
+      createdAt: new Date().toISOString(),
     };
     setOutfits([...outfits, newOutfit]);
     setIsAddDialogOpen(false);

@@ -351,6 +351,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
+// components/ui/dialog.tsx (CRITICAL FIXES APPLIED)
 __turbopack_context__.s({
     "Dialog": (()=>Dialog),
     "DialogClose": (()=>DialogClose),
@@ -367,7 +368,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$dialog$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@radix-ui/react-dialog/dist/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-client] (ecmascript) <export default as X>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/utils.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/utils.ts [app-client] (ecmascript)"); // Assuming cn utility is imported
 "use client";
 ;
 ;
@@ -378,27 +379,29 @@ const Dialog = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40
 const DialogTrigger = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$dialog$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Trigger"];
 const DialogPortal = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$dialog$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Portal"];
 const DialogClose = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$dialog$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Close"];
+// 💥 FIX 1: Ensure z-max is used on the Overlay
 const DialogOverlay = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["forwardRef"])(({ className, ...props }, ref)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$dialog$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Overlay"], {
         ref: ref,
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0", className),
+        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("fixed inset-0 z-max bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0", className),
         ...props
     }, void 0, false, {
         fileName: "[project]/src/components/ui/dialog.tsx",
-        lineNumber: 21,
+        lineNumber: 24,
         columnNumber: 3
     }, this));
 _c = DialogOverlay;
 DialogOverlay.displayName = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$dialog$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Overlay"].displayName;
+// 💥 FIX 2: Ensure z-max is used on the Content
 const DialogContent = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["forwardRef"])(_c1 = ({ className, children, ...props }, ref)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DialogPortal, {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DialogOverlay, {}, void 0, false, {
                 fileName: "[project]/src/components/ui/dialog.tsx",
-                lineNumber: 37,
+                lineNumber: 41,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$dialog$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Content"], {
                 ref: ref,
-                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg", className),
+                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("fixed left-[50%] top-[50%] z-max grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg", className),
                 ...props,
                 children: [
                     children,
@@ -409,7 +412,7 @@ const DialogContent = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$proje
                                 className: "h-4 w-4"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/ui/dialog.tsx",
-                                lineNumber: 48,
+                                lineNumber: 52,
                                 columnNumber: 9
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -417,25 +420,25 @@ const DialogContent = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$proje
                                 children: "Close"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/ui/dialog.tsx",
-                                lineNumber: 49,
+                                lineNumber: 53,
                                 columnNumber: 9
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/ui/dialog.tsx",
-                        lineNumber: 47,
+                        lineNumber: 51,
                         columnNumber: 7
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/ui/dialog.tsx",
-                lineNumber: 38,
+                lineNumber: 42,
                 columnNumber: 5
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/ui/dialog.tsx",
-        lineNumber: 36,
+        lineNumber: 40,
         columnNumber: 3
     }, this));
 _c2 = DialogContent;
@@ -445,7 +448,7 @@ const DialogHeader = ({ className, ...props })=>/*#__PURE__*/ (0, __TURBOPACK__i
         ...props
     }, void 0, false, {
         fileName: "[project]/src/components/ui/dialog.tsx",
-        lineNumber: 60,
+        lineNumber: 64,
         columnNumber: 3
     }, this);
 _c3 = DialogHeader;
@@ -455,7 +458,7 @@ const DialogFooter = ({ className, ...props })=>/*#__PURE__*/ (0, __TURBOPACK__i
         ...props
     }, void 0, false, {
         fileName: "[project]/src/components/ui/dialog.tsx",
-        lineNumber: 74,
+        lineNumber: 78,
         columnNumber: 3
     }, this);
 _c4 = DialogFooter;
@@ -466,7 +469,7 @@ const DialogTitle = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project
         ...props
     }, void 0, false, {
         fileName: "[project]/src/components/ui/dialog.tsx",
-        lineNumber: 88,
+        lineNumber: 92,
         columnNumber: 3
     }, this));
 _c6 = DialogTitle;
@@ -477,7 +480,7 @@ const DialogDescription = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$p
         ...props
     }, void 0, false, {
         fileName: "[project]/src/components/ui/dialog.tsx",
-        lineNumber: 103,
+        lineNumber: 107,
         columnNumber: 3
     }, this));
 _c8 = DialogDescription;
@@ -1007,6 +1010,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
+// src/components/ProductManagement.tsx
 __turbopack_context__.s({
     "ProductManagement": (()=>ProductManagement)
 });
@@ -1042,41 +1046,58 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+// 💥 FIX: Define categories array
+const categories = [
+    'Tops',
+    'Bottoms',
+    'Dresses',
+    'Outerwear',
+    'Accessories',
+    'Shoes'
+];
+// Initial form state
+const initialFormData = {
+    name: '',
+    price: '0.00',
+    image: '',
+    imageHint: '',
+    category: categories[0] || '',
+    description: '',
+    affiliateLink: ''
+};
 function ProductManagement({ products, setProducts }) {
     _s();
     const [isAddDialogOpen, setIsAddDialogOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isEditDialogOpen, setIsEditDialogOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    // 💥 FIX: Define missing state variables
     const [editingProduct, setEditingProduct] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [filterCategory, setFilterCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('all');
     const [productToDelete, setProductToDelete] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        name: '',
-        price: '',
-        image: '',
-        imageHint: '',
-        category: '',
-        description: '',
-        affiliateLink: ''
-    });
-    const categories = [
-        ...new Set(products.map((p)=>p.category))
-    ];
+    const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(initialFormData);
+    // 💥 FIX: Define resetForm function
     const resetForm = ()=>{
-        setFormData({
-            name: '',
-            price: '',
-            image: '',
-            imageHint: '',
-            category: '',
-            description: '',
-            affiliateLink: ''
-        });
+        setFormData(initialFormData);
     };
+    // 💥 FIX: Define filteredProducts logic
+    const filteredProducts = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "ProductManagement.useMemo[filteredProducts]": ()=>{
+            if (filterCategory === 'all') {
+                return products;
+            }
+            return products.filter({
+                "ProductManagement.useMemo[filteredProducts]": (p)=>p.category === filterCategory
+            }["ProductManagement.useMemo[filteredProducts]"]);
+        }
+    }["ProductManagement.useMemo[filteredProducts]"], [
+        products,
+        filterCategory
+    ]);
+    // 💥 FIX: Define handleAdd function
     const handleAdd = ()=>{
         const newProduct = {
             id: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$uuid$2f$dist$2f$esm$2d$browser$2f$v4$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__v4$3e$__["v4"])(),
             name: formData.name,
-            price: parseFloat(formData.price),
+            price: parseFloat(formData.price) || 0,
             image: formData.image,
             imageHint: formData.imageHint,
             category: formData.category,
@@ -1090,25 +1111,27 @@ function ProductManagement({ products, setProducts }) {
         setIsAddDialogOpen(false);
         resetForm();
     };
+    // 💥 FIX: Define handleEdit function
     const handleEdit = (product)=>{
         setEditingProduct(product);
         setFormData({
             name: product.name,
-            price: product.price.toString(),
+            price: product.price.toFixed(2),
             image: product.image,
             imageHint: product.imageHint,
             category: product.category,
             description: product.description,
-            affiliateLink: product.affiliateLink || ''
+            affiliateLink: product.affiliateLink
         });
         setIsEditDialogOpen(true);
     };
+    // 💥 FIX: Define handleUpdate function
     const handleUpdate = ()=>{
         if (!editingProduct) return;
         const updatedProducts = products.map((p)=>p.id === editingProduct.id ? {
                 ...p,
                 name: formData.name,
-                price: parseFloat(formData.price),
+                price: parseFloat(formData.price) || 0,
                 image: formData.image,
                 imageHint: formData.imageHint,
                 category: formData.category,
@@ -1120,13 +1143,13 @@ function ProductManagement({ products, setProducts }) {
         setEditingProduct(null);
         resetForm();
     };
+    // 💥 FIX: Define handleDelete function
     const handleDelete = ()=>{
         if (productToDelete) {
             setProducts(products.filter((p)=>p.id !== productToDelete.id));
             setProductToDelete(null);
         }
     };
-    const filteredProducts = filterCategory === 'all' ? products : products.filter((p)=>p.category === filterCategory);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardHeader"], {
@@ -1139,25 +1162,29 @@ function ProductManagement({ products, setProducts }) {
                                     children: "Product Management"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 126,
+                                    lineNumber: 136,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
                                     children: "Add, edit, or remove products from your catalog"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 127,
+                                    lineNumber: 137,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/ProductManagement.tsx",
-                            lineNumber: 125,
+                            lineNumber: 135,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Dialog"], {
                             open: isAddDialogOpen,
-                            onOpenChange: setIsAddDialogOpen,
+                            onOpenChange: (isOpen)=>{
+                                // Reset form on close
+                                if (!isOpen) resetForm();
+                                setIsAddDialogOpen(isOpen);
+                            },
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogTrigger"], {
                                     asChild: true,
@@ -1167,19 +1194,19 @@ function ProductManagement({ products, setProducts }) {
                                                 className: "h-4 w-4 mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/ProductManagement.tsx",
-                                                lineNumber: 132,
+                                                lineNumber: 146,
                                                 columnNumber: 17
                                             }, this),
                                             "Add Product"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                        lineNumber: 131,
+                                        lineNumber: 145,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 130,
+                                    lineNumber: 144,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogContent"], {
@@ -1191,20 +1218,20 @@ function ProductManagement({ products, setProducts }) {
                                                     children: "Add New Product"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 138,
+                                                    lineNumber: 152,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogDescription"], {
                                                     children: "Enter the product details below"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 139,
+                                                    lineNumber: 153,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 137,
+                                            lineNumber: 151,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1218,7 +1245,7 @@ function ProductManagement({ products, setProducts }) {
                                                             children: "Product Name"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 143,
+                                                            lineNumber: 157,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -1231,13 +1258,13 @@ function ProductManagement({ products, setProducts }) {
                                                             placeholder: "Classic Linen Shirt"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 144,
+                                                            lineNumber: 158,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 142,
+                                                    lineNumber: 156,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1248,7 +1275,7 @@ function ProductManagement({ products, setProducts }) {
                                                             children: "Price ($)"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 153,
+                                                            lineNumber: 167,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -1262,13 +1289,13 @@ function ProductManagement({ products, setProducts }) {
                                                             placeholder: "85.00"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 154,
+                                                            lineNumber: 168,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 152,
+                                                    lineNumber: 166,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1279,7 +1306,7 @@ function ProductManagement({ products, setProducts }) {
                                                             children: "Category"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 164,
+                                                            lineNumber: 178,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -1294,12 +1321,12 @@ function ProductManagement({ products, setProducts }) {
                                                                         placeholder: "Select category"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                        lineNumber: 167,
+                                                                        lineNumber: 181,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                    lineNumber: 166,
+                                                                    lineNumber: 180,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -1308,24 +1335,24 @@ function ProductManagement({ products, setProducts }) {
                                                                             children: cat
                                                                         }, cat, false, {
                                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                            lineNumber: 171,
+                                                                            lineNumber: 185,
                                                                             columnNumber: 25
                                                                         }, this))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                    lineNumber: 169,
+                                                                    lineNumber: 183,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 165,
+                                                            lineNumber: 179,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 163,
+                                                    lineNumber: 177,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1336,7 +1363,7 @@ function ProductManagement({ products, setProducts }) {
                                                             children: "Description"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 180,
+                                                            lineNumber: 194,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$textarea$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Textarea"], {
@@ -1349,13 +1376,13 @@ function ProductManagement({ products, setProducts }) {
                                                             placeholder: "A timeless linen shirt..."
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 181,
+                                                            lineNumber: 195,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 179,
+                                                    lineNumber: 193,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1366,7 +1393,7 @@ function ProductManagement({ products, setProducts }) {
                                                             children: "Image URL"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 190,
+                                                            lineNumber: 204,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -1379,13 +1406,13 @@ function ProductManagement({ products, setProducts }) {
                                                             placeholder: "https://picsum.photos/seed/..."
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 191,
+                                                            lineNumber: 205,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 189,
+                                                    lineNumber: 203,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1396,7 +1423,7 @@ function ProductManagement({ products, setProducts }) {
                                                             children: "Affiliate Link"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 200,
+                                                            lineNumber: 214,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -1409,13 +1436,13 @@ function ProductManagement({ products, setProducts }) {
                                                             placeholder: "https://amazon.com/..."
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 201,
+                                                            lineNumber: 215,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 199,
+                                                    lineNumber: 213,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1427,52 +1454,55 @@ function ProductManagement({ products, setProducts }) {
                                                             children: "Add Product"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 210,
+                                                            lineNumber: 224,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                                            onClick: ()=>setIsAddDialogOpen(false),
+                                                            onClick: ()=>{
+                                                                setIsAddDialogOpen(false);
+                                                                resetForm();
+                                                            },
                                                             variant: "outline",
                                                             className: "flex-1",
                                                             children: "Cancel"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 213,
+                                                            lineNumber: 227,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 209,
+                                                    lineNumber: 223,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 141,
+                                            lineNumber: 155,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 136,
+                                    lineNumber: 150,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/ProductManagement.tsx",
-                            lineNumber: 129,
+                            lineNumber: 139,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/ProductManagement.tsx",
-                    lineNumber: 124,
+                    lineNumber: 134,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/ProductManagement.tsx",
-                lineNumber: 123,
+                lineNumber: 133,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1489,12 +1519,12 @@ function ProductManagement({ products, setProducts }) {
                                         placeholder: "Filter by category"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                        lineNumber: 226,
+                                        lineNumber: 243,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 225,
+                                    lineNumber: 242,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -1504,7 +1534,7 @@ function ProductManagement({ products, setProducts }) {
                                             children: "All Categories"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 229,
+                                            lineNumber: 246,
                                             columnNumber: 15
                                         }, this),
                                         categories.map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1512,24 +1542,24 @@ function ProductManagement({ products, setProducts }) {
                                                 children: cat
                                             }, cat, false, {
                                                 fileName: "[project]/src/components/ProductManagement.tsx",
-                                                lineNumber: 231,
+                                                lineNumber: 248,
                                                 columnNumber: 17
                                             }, this))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 228,
+                                    lineNumber: 245,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/ProductManagement.tsx",
-                            lineNumber: 224,
+                            lineNumber: 241,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/ProductManagement.tsx",
-                        lineNumber: 223,
+                        lineNumber: 240,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1543,28 +1573,28 @@ function ProductManagement({ products, setProducts }) {
                                                 children: "Image"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/ProductManagement.tsx",
-                                                lineNumber: 243,
+                                                lineNumber: 260,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableHead"], {
                                                 children: "Name"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/ProductManagement.tsx",
-                                                lineNumber: 244,
+                                                lineNumber: 261,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableHead"], {
                                                 children: "Category"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/ProductManagement.tsx",
-                                                lineNumber: 245,
+                                                lineNumber: 262,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableHead"], {
                                                 children: "Price"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/ProductManagement.tsx",
-                                                lineNumber: 246,
+                                                lineNumber: 263,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableHead"], {
@@ -1572,18 +1602,18 @@ function ProductManagement({ products, setProducts }) {
                                                 children: "Actions"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/ProductManagement.tsx",
-                                                lineNumber: 247,
+                                                lineNumber: 264,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                        lineNumber: 242,
+                                        lineNumber: 259,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 241,
+                                    lineNumber: 258,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableBody"], {
@@ -1600,24 +1630,24 @@ function ProductManagement({ products, setProducts }) {
                                                             sizes: "48px"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 256,
+                                                            lineNumber: 273,
                                                             columnNumber: 25
                                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-500 text-xs",
                                                             children: "No Image"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 264,
+                                                            lineNumber: 281,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                                        lineNumber: 254,
+                                                        lineNumber: 271,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 253,
+                                                    lineNumber: 270,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableCell"], {
@@ -1625,14 +1655,14 @@ function ProductManagement({ products, setProducts }) {
                                                     children: product.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 271,
+                                                    lineNumber: 288,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableCell"], {
                                                     children: product.category
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 272,
+                                                    lineNumber: 289,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableCell"], {
@@ -1642,7 +1672,7 @@ function ProductManagement({ products, setProducts }) {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 273,
+                                                    lineNumber: 290,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableCell"], {
@@ -1660,7 +1690,7 @@ function ProductManagement({ products, setProducts }) {
                                                                         className: "h-4 w-4"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                        lineNumber: 282,
+                                                                        lineNumber: 299,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1668,13 +1698,13 @@ function ProductManagement({ products, setProducts }) {
                                                                         children: "Edit"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                        lineNumber: 283,
+                                                                        lineNumber: 300,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                lineNumber: 276,
+                                                                lineNumber: 293,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialog"], {
@@ -1691,7 +1721,7 @@ function ProductManagement({ products, setProducts }) {
                                                                                     className: "h-4 w-4"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                                    lineNumber: 293,
+                                                                                    lineNumber: 310,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1699,18 +1729,18 @@ function ProductManagement({ products, setProducts }) {
                                                                                     children: "Delete"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                                    lineNumber: 294,
+                                                                                    lineNumber: 311,
                                                                                     columnNumber: 29
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                            lineNumber: 287,
+                                                                            lineNumber: 304,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                        lineNumber: 286,
+                                                                        lineNumber: 303,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialogContent"], {
@@ -1721,20 +1751,20 @@ function ProductManagement({ products, setProducts }) {
                                                                                         children: "Are you absolutely sure?"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                                        lineNumber: 299,
+                                                                                        lineNumber: 316,
                                                                                         columnNumber: 29
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialogDescription"], {
                                                                                         children: "This action cannot be undone. This will permanently delete the product."
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                                        lineNumber: 300,
+                                                                                        lineNumber: 317,
                                                                                         columnNumber: 29
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                                lineNumber: 298,
+                                                                                lineNumber: 315,
                                                                                 columnNumber: 27
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialogFooter"], {
@@ -1744,7 +1774,7 @@ function ProductManagement({ products, setProducts }) {
                                                                                         children: "Cancel"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                                        lineNumber: 306,
+                                                                                        lineNumber: 323,
                                                                                         columnNumber: 29
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialogAction"], {
@@ -1752,92 +1782,101 @@ function ProductManagement({ products, setProducts }) {
                                                                                         children: "Continue"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                                        lineNumber: 307,
+                                                                                        lineNumber: 324,
                                                                                         columnNumber: 29
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                                lineNumber: 305,
+                                                                                lineNumber: 322,
                                                                                 columnNumber: 27
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                        lineNumber: 297,
+                                                                        lineNumber: 314,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/ProductManagement.tsx",
-                                                                lineNumber: 285,
+                                                                lineNumber: 302,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                                        lineNumber: 275,
+                                                        lineNumber: 292,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 274,
+                                                    lineNumber: 291,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, product.id, true, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 252,
+                                            lineNumber: 269,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 250,
+                                    lineNumber: 267,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/ProductManagement.tsx",
-                            lineNumber: 240,
+                            lineNumber: 257,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/ProductManagement.tsx",
-                        lineNumber: 239,
+                        lineNumber: 256,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/ProductManagement.tsx",
-                lineNumber: 222,
+                lineNumber: 239,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Dialog"], {
                 open: isEditDialogOpen,
-                onOpenChange: setIsEditDialogOpen,
+                onOpenChange: (isOpen)=>{
+                    if (!isOpen) {
+                        setEditingProduct(null);
+                        resetForm();
+                    }
+                    setIsEditDialogOpen(isOpen);
+                },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogContent"], {
                     className: "max-w-2xl max-h-[90vh] overflow-y-auto",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogHeader"], {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogTitle"], {
-                                    children: "Edit Product"
-                                }, void 0, false, {
+                                    children: [
+                                        "Edit Product: ",
+                                        editingProduct?.name
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 324,
+                                    lineNumber: 347,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogDescription"], {
                                     children: "Update the product details below"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 325,
+                                    lineNumber: 348,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/ProductManagement.tsx",
-                            lineNumber: 323,
+                            lineNumber: 346,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1851,7 +1890,7 @@ function ProductManagement({ products, setProducts }) {
                                             children: "Product Name"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 329,
+                                            lineNumber: 352,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -1863,13 +1902,13 @@ function ProductManagement({ products, setProducts }) {
                                                 })
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 330,
+                                            lineNumber: 353,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 328,
+                                    lineNumber: 351,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1880,7 +1919,7 @@ function ProductManagement({ products, setProducts }) {
                                             children: "Price ($)"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 338,
+                                            lineNumber: 361,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -1893,13 +1932,13 @@ function ProductManagement({ products, setProducts }) {
                                                 })
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 339,
+                                            lineNumber: 362,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 337,
+                                    lineNumber: 360,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1910,7 +1949,7 @@ function ProductManagement({ products, setProducts }) {
                                             children: "Category"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 348,
+                                            lineNumber: 371,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -1923,12 +1962,12 @@ function ProductManagement({ products, setProducts }) {
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectTrigger"], {
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectValue"], {}, void 0, false, {
                                                         fileName: "[project]/src/components/ProductManagement.tsx",
-                                                        lineNumber: 351,
+                                                        lineNumber: 374,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 350,
+                                                    lineNumber: 373,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -1937,24 +1976,24 @@ function ProductManagement({ products, setProducts }) {
                                                             children: cat
                                                         }, cat, false, {
                                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                                            lineNumber: 355,
+                                                            lineNumber: 378,
                                                             columnNumber: 21
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                                    lineNumber: 353,
+                                                    lineNumber: 376,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 349,
+                                            lineNumber: 372,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 347,
+                                    lineNumber: 370,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1965,7 +2004,7 @@ function ProductManagement({ products, setProducts }) {
                                             children: "Description"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 364,
+                                            lineNumber: 387,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$textarea$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Textarea"], {
@@ -1977,13 +2016,13 @@ function ProductManagement({ products, setProducts }) {
                                                 })
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 365,
+                                            lineNumber: 388,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 363,
+                                    lineNumber: 386,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1994,7 +2033,7 @@ function ProductManagement({ products, setProducts }) {
                                             children: "Image URL"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 373,
+                                            lineNumber: 396,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -2006,13 +2045,13 @@ function ProductManagement({ products, setProducts }) {
                                                 })
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 374,
+                                            lineNumber: 397,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 372,
+                                    lineNumber: 395,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2023,7 +2062,7 @@ function ProductManagement({ products, setProducts }) {
                                             children: "Affiliate Link"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 382,
+                                            lineNumber: 405,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -2035,13 +2074,13 @@ function ProductManagement({ products, setProducts }) {
                                                 })
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 383,
+                                            lineNumber: 406,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 381,
+                                    lineNumber: 404,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2053,7 +2092,7 @@ function ProductManagement({ products, setProducts }) {
                                             children: "Update Product"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 391,
+                                            lineNumber: 414,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -2063,40 +2102,40 @@ function ProductManagement({ products, setProducts }) {
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/ProductManagement.tsx",
-                                            lineNumber: 394,
+                                            lineNumber: 417,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/ProductManagement.tsx",
-                                    lineNumber: 390,
+                                    lineNumber: 413,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/ProductManagement.tsx",
-                            lineNumber: 327,
+                            lineNumber: 350,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/ProductManagement.tsx",
-                    lineNumber: 322,
+                    lineNumber: 345,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/ProductManagement.tsx",
-                lineNumber: 321,
+                lineNumber: 338,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/ProductManagement.tsx",
-        lineNumber: 122,
+        lineNumber: 132,
         columnNumber: 5
     }, this);
 }
-_s(ProductManagement, "bYtW+OGsTRakYICTWAEEbmNT4B0=");
+_s(ProductManagement, "/e1EdIOO2m0KjDHZJpcwPZCC33k=");
 _c = ProductManagement;
 var _c;
 __turbopack_context__.k.register(_c, "ProductManagement");
@@ -2255,7 +2294,9 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
             name: formData.name,
             description: formData.description,
             image: formData.image,
-            items: formData.items
+            items: formData.items,
+            // 💥 FIX: Add the required 'createdAt' property
+            createdAt: new Date().toISOString()
         };
         setOutfits([
             ...outfits,
@@ -2336,20 +2377,20 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                     children: "Outfit Management"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                    lineNumber: 137,
+                                    lineNumber: 139,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
                                     children: "Manage curated outfit collections"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                    lineNumber: 138,
+                                    lineNumber: 140,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                            lineNumber: 136,
+                            lineNumber: 138,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Dialog"], {
@@ -2367,19 +2408,19 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                 className: "h-4 w-4 mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 146,
+                                                lineNumber: 148,
                                                 columnNumber: 17
                                             }, this),
                                             "Add Outfit"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                        lineNumber: 145,
+                                        lineNumber: 147,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                    lineNumber: 144,
+                                    lineNumber: 146,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogContent"], {
@@ -2391,20 +2432,20 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                     children: "Add New Outfit"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                    lineNumber: 152,
+                                                    lineNumber: 154,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogDescription"], {
                                                     children: "Create a new curated outfit collection"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                    lineNumber: 153,
+                                                    lineNumber: 155,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                            lineNumber: 151,
+                                            lineNumber: 153,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$scroll$2d$area$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ScrollArea"], {
@@ -2420,7 +2461,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                 children: "Outfit Name"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 158,
+                                                                lineNumber: 160,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -2433,13 +2474,13 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                 placeholder: "Casual Elegance"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 159,
+                                                                lineNumber: 161,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                        lineNumber: 157,
+                                                        lineNumber: 159,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2450,7 +2491,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                 children: "Description"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 168,
+                                                                lineNumber: 170,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$textarea$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Textarea"], {
@@ -2463,13 +2504,13 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                 placeholder: "Perfect blend of comfort and style..."
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 169,
+                                                                lineNumber: 171,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                        lineNumber: 167,
+                                                        lineNumber: 169,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2480,7 +2521,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                 children: "Main Image URL"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 178,
+                                                                lineNumber: 180,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -2493,13 +2534,13 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                 placeholder: "https://picsum.photos/seed/..."
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 179,
+                                                                lineNumber: 181,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                        lineNumber: 177,
+                                                        lineNumber: 179,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2516,7 +2557,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 189,
+                                                                        lineNumber: 191,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2527,13 +2568,13 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 190,
+                                                                        lineNumber: 192,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 188,
+                                                                lineNumber: 190,
                                                                 columnNumber: 21
                                                             }, this),
                                                             formData.items.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2551,19 +2592,19 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                     className: "object-cover"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                    lineNumber: 201,
+                                                                                    lineNumber: 203,
                                                                                     columnNumber: 33
                                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                     className: "flex items-center justify-center h-full text-[8px] text-muted-foreground/70",
                                                                                     children: "No Img"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                    lineNumber: 209,
+                                                                                    lineNumber: 211,
                                                                                     columnNumber: 33
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                lineNumber: 198,
+                                                                                lineNumber: 200,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2574,7 +2615,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                         children: item.name
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                        lineNumber: 213,
+                                                                                        lineNumber: 215,
                                                                                         columnNumber: 31
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2582,13 +2623,13 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                         children: item.category
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                        lineNumber: 214,
+                                                                                        lineNumber: 216,
                                                                                         columnNumber: 31
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                lineNumber: 212,
+                                                                                lineNumber: 214,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2599,7 +2640,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                lineNumber: 216,
+                                                                                lineNumber: 218,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -2611,36 +2652,36 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                     className: "h-4 w-4 text-destructive"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                    lineNumber: 223,
+                                                                                    lineNumber: 225,
                                                                                     columnNumber: 31
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                lineNumber: 217,
+                                                                                lineNumber: 219,
                                                                                 columnNumber: 29
                                                                             }, this)
                                                                         ]
                                                                     }, index, true, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 197,
+                                                                        lineNumber: 199,
                                                                         columnNumber: 27
                                                                     }, this))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 195,
+                                                                lineNumber: 197,
                                                                 columnNumber: 23
                                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                                 className: "text-sm text-muted-foreground text-center py-4 border rounded-lg bg-muted/50",
                                                                 children: "No items added yet. Select products below."
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 229,
+                                                                lineNumber: 231,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                        lineNumber: 187,
+                                                        lineNumber: 189,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2650,7 +2691,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                 children: "Add Products to Outfit"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 236,
+                                                                lineNumber: 238,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2675,19 +2716,19 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                             className: "object-cover"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                            lineNumber: 252,
+                                                                                            lineNumber: 254,
                                                                                             columnNumber: 37
                                                                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                             className: "flex items-center justify-center h-full text-[8px] text-muted-foreground/70",
                                                                                             children: "No Img"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                            lineNumber: 260,
+                                                                                            lineNumber: 262,
                                                                                             columnNumber: 37
                                                                                         }, this)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                        lineNumber: 249,
+                                                                                        lineNumber: 251,
                                                                                         columnNumber: 33
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2698,7 +2739,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                                 children: product.name
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                                lineNumber: 264,
+                                                                                                lineNumber: 266,
                                                                                                 columnNumber: 35
                                                                                             }, this),
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2706,13 +2747,13 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                                 children: product.category
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                                lineNumber: 265,
+                                                                                                lineNumber: 267,
                                                                                                 columnNumber: 35
                                                                                             }, this)
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                        lineNumber: 263,
+                                                                                        lineNumber: 265,
                                                                                         columnNumber: 33
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2723,46 +2764,46 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                        lineNumber: 267,
+                                                                                        lineNumber: 269,
                                                                                         columnNumber: 33
                                                                                     }, this)
                                                                                 ]
                                                                             }, product.id, true, {
                                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                lineNumber: 243,
+                                                                                lineNumber: 245,
                                                                                 columnNumber: 31
                                                                             }, this);
                                                                         })
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 239,
+                                                                        lineNumber: 241,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                    lineNumber: 238,
+                                                                    lineNumber: 240,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 237,
+                                                                lineNumber: 239,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                        lineNumber: 235,
+                                                        lineNumber: 237,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 156,
+                                                lineNumber: 158,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                            lineNumber: 155,
+                                            lineNumber: 157,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2774,7 +2815,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                     children: "Add Outfit"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                    lineNumber: 279,
+                                                    lineNumber: 281,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -2787,36 +2828,36 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                     children: "Cancel"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                    lineNumber: 282,
+                                                    lineNumber: 284,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                            lineNumber: 278,
+                                            lineNumber: 280,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                    lineNumber: 150,
+                                    lineNumber: 152,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                            lineNumber: 140,
+                            lineNumber: 142,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                    lineNumber: 135,
+                    lineNumber: 137,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                lineNumber: 134,
+                lineNumber: 136,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -2831,28 +2872,28 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                             children: "Image"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                            lineNumber: 298,
+                                            lineNumber: 300,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableHead"], {
                                             children: "Name"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                            lineNumber: 299,
+                                            lineNumber: 301,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableHead"], {
                                             children: "Items"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                            lineNumber: 300,
+                                            lineNumber: 302,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableHead"], {
                                             children: "Total Price"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                            lineNumber: 301,
+                                            lineNumber: 303,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableHead"], {
@@ -2860,18 +2901,18 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                             children: "Actions"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                            lineNumber: 302,
+                                            lineNumber: 304,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                    lineNumber: 297,
+                                    lineNumber: 299,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                lineNumber: 296,
+                                lineNumber: 298,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableBody"], {
@@ -2888,24 +2929,24 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                         className: "object-cover"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                        lineNumber: 312,
+                                                        lineNumber: 314,
                                                         columnNumber: 25
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "flex items-center justify-center h-full text-[8px] text-muted-foreground/70 border border-dashed",
                                                         children: "No Img"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                        lineNumber: 320,
+                                                        lineNumber: 322,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                    lineNumber: 309,
+                                                    lineNumber: 311,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 308,
+                                                lineNumber: 310,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableCell"], {
@@ -2913,7 +2954,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                 children: outfit.name
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 326,
+                                                lineNumber: 328,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableCell"], {
@@ -2923,7 +2964,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 327,
+                                                lineNumber: 329,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableCell"], {
@@ -2933,7 +2974,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 328,
+                                                lineNumber: 330,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$table$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TableCell"], {
@@ -2950,12 +2991,12 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                 className: "h-4 w-4"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 336,
+                                                                lineNumber: 338,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                            lineNumber: 331,
+                                                            lineNumber: 333,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -2967,12 +3008,12 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                 className: "h-4 w-4"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 343,
+                                                                lineNumber: 345,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                            lineNumber: 338,
+                                                            lineNumber: 340,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialog"], {
@@ -2988,17 +3029,17 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                             className: "h-4 w-4"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                            lineNumber: 353,
+                                                                            lineNumber: 355,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 347,
+                                                                        lineNumber: 349,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                    lineNumber: 346,
+                                                                    lineNumber: 348,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialogContent"], {
@@ -3009,20 +3050,20 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                     children: "Are you absolutely sure?"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                    lineNumber: 358,
+                                                                                    lineNumber: 360,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialogDescription"], {
                                                                                     children: "This action cannot be undone. This will permanently delete this outfit."
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                    lineNumber: 359,
+                                                                                    lineNumber: 361,
                                                                                     columnNumber: 29
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                            lineNumber: 357,
+                                                                            lineNumber: 359,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialogFooter"], {
@@ -3032,7 +3073,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                     children: "Cancel"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                    lineNumber: 365,
+                                                                                    lineNumber: 367,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialogAction"], {
@@ -3040,63 +3081,63 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                     children: "Continue"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                    lineNumber: 366,
+                                                                                    lineNumber: 368,
                                                                                     columnNumber: 29
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                            lineNumber: 364,
+                                                                            lineNumber: 366,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                    lineNumber: 356,
+                                                                    lineNumber: 358,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                            lineNumber: 345,
+                                                            lineNumber: 347,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                    lineNumber: 330,
+                                                    lineNumber: 332,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 329,
+                                                lineNumber: 331,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, outfit.id, true, {
                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                        lineNumber: 307,
+                                        lineNumber: 309,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                lineNumber: 305,
+                                lineNumber: 307,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                        lineNumber: 295,
+                        lineNumber: 297,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                    lineNumber: 294,
+                    lineNumber: 296,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                lineNumber: 293,
+                lineNumber: 295,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Dialog"], {
@@ -3114,20 +3155,20 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                     children: "Edit Outfit"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                    lineNumber: 386,
+                                    lineNumber: 388,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogDescription"], {
                                     children: "Update the outfit details and manage items"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                    lineNumber: 387,
+                                    lineNumber: 389,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                            lineNumber: 385,
+                            lineNumber: 387,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$scroll$2d$area$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ScrollArea"], {
@@ -3143,7 +3184,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                 children: "Outfit Name"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 392,
+                                                lineNumber: 394,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -3155,13 +3196,13 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                     })
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 393,
+                                                lineNumber: 395,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                        lineNumber: 391,
+                                        lineNumber: 393,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3172,7 +3213,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                 children: "Description"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 401,
+                                                lineNumber: 403,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$textarea$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Textarea"], {
@@ -3184,13 +3225,13 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                     })
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 402,
+                                                lineNumber: 404,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                        lineNumber: 400,
+                                        lineNumber: 402,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3201,7 +3242,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                 children: "Main Image URL"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 410,
+                                                lineNumber: 412,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -3213,13 +3254,13 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                     })
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 411,
+                                                lineNumber: 413,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                        lineNumber: 409,
+                                        lineNumber: 411,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3236,7 +3277,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                        lineNumber: 420,
+                                                        lineNumber: 422,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3247,13 +3288,13 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                        lineNumber: 421,
+                                                        lineNumber: 423,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 419,
+                                                lineNumber: 421,
                                                 columnNumber: 17
                                             }, this),
                                             formData.items.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3271,19 +3312,19 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                     className: "object-cover"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                    lineNumber: 432,
+                                                                    lineNumber: 434,
                                                                     columnNumber: 29
                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "flex items-center justify-center h-full text-[8px] text-muted-foreground/70",
                                                                     children: "No Img"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                    lineNumber: 440,
+                                                                    lineNumber: 442,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 429,
+                                                                lineNumber: 431,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3294,7 +3335,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                         children: item.name
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 444,
+                                                                        lineNumber: 446,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3302,13 +3343,13 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                         children: item.category
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 445,
+                                                                        lineNumber: 447,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 443,
+                                                                lineNumber: 445,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3319,7 +3360,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 447,
+                                                                lineNumber: 449,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -3331,36 +3372,36 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                     className: "h-4 w-4 text-destructive"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                    lineNumber: 454,
+                                                                    lineNumber: 456,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 448,
+                                                                lineNumber: 450,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, index, true, {
                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                        lineNumber: 428,
+                                                        lineNumber: 430,
                                                         columnNumber: 23
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 426,
+                                                lineNumber: 428,
                                                 columnNumber: 19
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                 className: "text-sm text-muted-foreground text-center py-4 border rounded-lg bg-muted/50",
                                                 children: "No items added yet. Select products below."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 460,
+                                                lineNumber: 462,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                        lineNumber: 418,
+                                        lineNumber: 420,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3370,7 +3411,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                 children: "Add Products to Outfit"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 467,
+                                                lineNumber: 469,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3395,19 +3436,19 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                             className: "object-cover"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                            lineNumber: 483,
+                                                                            lineNumber: 485,
                                                                             columnNumber: 33
                                                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             className: "flex items-center justify-center h-full text-[8px] text-muted-foreground/70",
                                                                             children: "No Img"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                            lineNumber: 491,
+                                                                            lineNumber: 493,
                                                                             columnNumber: 33
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 480,
+                                                                        lineNumber: 482,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3418,7 +3459,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                 children: product.name
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                lineNumber: 495,
+                                                                                lineNumber: 497,
                                                                                 columnNumber: 31
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3426,13 +3467,13 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                                 children: product.category
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                                lineNumber: 496,
+                                                                                lineNumber: 498,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 494,
+                                                                        lineNumber: 496,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3443,46 +3484,46 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 498,
+                                                                        lineNumber: 500,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, product.id, true, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 474,
+                                                                lineNumber: 476,
                                                                 columnNumber: 27
                                                             }, this);
                                                         })
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                        lineNumber: 470,
+                                                        lineNumber: 472,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                    lineNumber: 469,
+                                                    lineNumber: 471,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 468,
+                                                lineNumber: 470,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                        lineNumber: 466,
+                                        lineNumber: 468,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                lineNumber: 390,
+                                lineNumber: 392,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                            lineNumber: 389,
+                            lineNumber: 391,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3494,7 +3535,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                     children: "Update Outfit"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                    lineNumber: 510,
+                                    lineNumber: 512,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -3507,24 +3548,24 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                    lineNumber: 513,
+                                    lineNumber: 515,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                            lineNumber: 509,
+                            lineNumber: 511,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                    lineNumber: 384,
+                    lineNumber: 386,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                lineNumber: 380,
+                lineNumber: 382,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Dialog"], {
@@ -3539,20 +3580,20 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                     children: viewingOutfit?.name
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                    lineNumber: 527,
+                                    lineNumber: 529,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogDescription"], {
                                     children: viewingOutfit?.description
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                    lineNumber: 528,
+                                    lineNumber: 530,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                            lineNumber: 526,
+                            lineNumber: 528,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$scroll$2d$area$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ScrollArea"], {
@@ -3573,19 +3614,19 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                     className: "object-cover"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                    lineNumber: 536,
+                                                    lineNumber: 538,
                                                     columnNumber: 21
                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "flex items-center justify-center h-full text-muted-foreground/70 border border-dashed",
                                                     children: "No Outfit Image Available"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                    lineNumber: 544,
+                                                    lineNumber: 546,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 533,
+                                                lineNumber: 535,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3597,7 +3638,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                             children: "Total Price:"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                            lineNumber: 551,
+                                                            lineNumber: 553,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3607,24 +3648,24 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                            lineNumber: 552,
+                                                            lineNumber: 554,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                    lineNumber: 550,
+                                                    lineNumber: 552,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 549,
+                                                lineNumber: 551,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                        lineNumber: 532,
+                                        lineNumber: 534,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3638,7 +3679,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 558,
+                                                lineNumber: 560,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3656,19 +3697,19 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                     className: "object-cover"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                    lineNumber: 566,
+                                                                    lineNumber: 568,
                                                                     columnNumber: 29
                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "flex items-center justify-center h-full text-[8px] text-muted-foreground/70",
                                                                     children: "No Img"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                    lineNumber: 574,
+                                                                    lineNumber: 576,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 563,
+                                                                lineNumber: 565,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3679,7 +3720,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                         children: item.name
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 578,
+                                                                        lineNumber: 580,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3687,7 +3728,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                         children: item.category
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 579,
+                                                                        lineNumber: 581,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3698,65 +3739,65 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                        lineNumber: 580,
+                                                                        lineNumber: 582,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                                lineNumber: 577,
+                                                                lineNumber: 579,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, index, true, {
                                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                        lineNumber: 562,
+                                                        lineNumber: 564,
                                                         columnNumber: 23
                                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                     className: "text-muted-foreground text-center py-8",
                                                     children: "No items in this outfit"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                    lineNumber: 585,
+                                                    lineNumber: 587,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                                lineNumber: 559,
+                                                lineNumber: 561,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/OutfitManagement.tsx",
-                                        lineNumber: 557,
+                                        lineNumber: 559,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                                lineNumber: 531,
+                                lineNumber: 533,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/OutfitManagement.tsx",
-                            lineNumber: 530,
+                            lineNumber: 532,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/OutfitManagement.tsx",
-                    lineNumber: 525,
+                    lineNumber: 527,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/OutfitManagement.tsx",
-                lineNumber: 524,
+                lineNumber: 526,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/OutfitManagement.tsx",
-        lineNumber: 133,
+        lineNumber: 135,
         columnNumber: 5
     }, this);
 }
@@ -3777,7 +3818,7 @@ __turbopack_context__.s({
     "default": (()=>AdminDashboardPage)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)"); // 👈 Import SetStateAction
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chart$2d$no$2d$axes$2d$column$2d$increasing$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__BarChart$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chart-no-axes-column-increasing.js [app-client] (ecmascript) <export default as BarChart>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$package$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Package$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/package.js [app-client] (ecmascript) <export default as Package>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layout$2d$grid$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LayoutGrid$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/layout-grid.js [app-client] (ecmascript) <export default as LayoutGrid>");
@@ -3875,8 +3916,12 @@ function AdminDashboardPage() {
         }
         setProducts(newProducts);
     };
-    const handleSetOutfits = (newOutfits)=>{
+    // 💥 FIX: Change the handler signature to accept the full SetStateAction type
+    const handleSetOutfits = (newOutfitsAction)=>{
+        // Use the original setter function to get the actual new state
+        const newOutfits = typeof newOutfitsAction === 'function' ? newOutfitsAction(outfits) : newOutfitsAction;
         if (db) {
+            // Logic to convert the array to an object for Firebase
             const outfitsObject = newOutfits.reduce((acc, outfit)=>{
                 const { id, ...rest } = outfit;
                 acc[id] = rest;
@@ -3894,6 +3939,7 @@ function AdminDashboardPage() {
                 });
             });
         }
+        // Update the local state
         setOutfits(newOutfits);
     };
     const categories = [
@@ -3940,7 +3986,7 @@ function AdminDashboardPage() {
                                 children: "fancybyaifie Admin"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                lineNumber: 100,
+                                lineNumber: 110,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -3952,30 +3998,30 @@ function AdminDashboardPage() {
                                         className: "mr-2 h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                        lineNumber: 102,
+                                        lineNumber: 112,
                                         columnNumber: 29
                                     }, this),
                                     "Logout"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                lineNumber: 101,
+                                lineNumber: 111,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                        lineNumber: 99,
+                        lineNumber: 109,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                    lineNumber: 98,
+                    lineNumber: 108,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                lineNumber: 97,
+                lineNumber: 107,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -3993,7 +4039,7 @@ function AdminDashboardPage() {
                                         children: "Overview"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                        lineNumber: 112,
+                                        lineNumber: 122,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsTrigger"], {
@@ -4001,7 +4047,7 @@ function AdminDashboardPage() {
                                         children: "Products"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                        lineNumber: 113,
+                                        lineNumber: 123,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsTrigger"], {
@@ -4009,13 +4055,13 @@ function AdminDashboardPage() {
                                         children: "Outfits"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                        lineNumber: 114,
+                                        lineNumber: 124,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                lineNumber: 111,
+                                lineNumber: 121,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsContent"], {
@@ -4035,20 +4081,20 @@ function AdminDashboardPage() {
                                                             children: stat.title
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                                            lineNumber: 123,
+                                                            lineNumber: 133,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
                                                             className: "h-4 w-4 text-muted-foreground"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                                            lineNumber: 124,
+                                                            lineNumber: 134,
                                                             columnNumber: 49
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                                    lineNumber: 122,
+                                                    lineNumber: 132,
                                                     columnNumber: 45
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -4058,7 +4104,7 @@ function AdminDashboardPage() {
                                                             children: stat.value
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                                            lineNumber: 127,
+                                                            lineNumber: 137,
                                                             columnNumber: 49
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4066,30 +4112,30 @@ function AdminDashboardPage() {
                                                             children: stat.description
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                                            lineNumber: 128,
+                                                            lineNumber: 138,
                                                             columnNumber: 49
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                                    lineNumber: 126,
+                                                    lineNumber: 136,
                                                     columnNumber: 45
                                                 }, this)
                                             ]
                                         }, stat.title, true, {
                                             fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                            lineNumber: 121,
+                                            lineNumber: 131,
                                             columnNumber: 41
                                         }, this);
                                     })
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                    lineNumber: 117,
+                                    lineNumber: 127,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                lineNumber: 116,
+                                lineNumber: 126,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsContent"], {
@@ -4099,50 +4145,51 @@ function AdminDashboardPage() {
                                     setProducts: handleSetProducts
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                    lineNumber: 136,
+                                    lineNumber: 146,
                                     columnNumber: 28
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                lineNumber: 135,
+                                lineNumber: 145,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsContent"], {
                                 value: "outfits",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$OutfitManagement$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["OutfitManagement"], {
                                     outfits: outfits,
+                                    // Now handleSetOutfits matches the required SetStateAction type
                                     setOutfits: handleSetOutfits,
                                     allProducts: products
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                    lineNumber: 139,
+                                    lineNumber: 149,
                                     columnNumber: 28
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                                lineNumber: 138,
+                                lineNumber: 148,
                                 columnNumber: 26
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                        lineNumber: 110,
+                        lineNumber: 120,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                    lineNumber: 109,
+                    lineNumber: 119,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/admin/dashboard/page.tsx",
-                lineNumber: 108,
+                lineNumber: 118,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/admin/dashboard/page.tsx",
-        lineNumber: 96,
+        lineNumber: 106,
         columnNumber: 9
     }, this);
 }

@@ -479,6 +479,10 @@ body {
   top: 50%;
 }
 
+.z-0 {
+  z-index: 0;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -501,6 +505,10 @@ body {
 
 .z-\[100\] {
   z-index: 100;
+}
+
+.z-max {
+  z-index: 9999;
 }
 
 .-mx-1 {
@@ -555,6 +563,10 @@ body {
 
 .mb-8 {
   margin-bottom: 2rem;
+}
+
+.ml-2 {
+  margin-left: .5rem;
 }
 
 .ml-auto {
@@ -654,6 +666,10 @@ body {
   height: 5rem;
 }
 
+.h-3 {
+  height: .75rem;
+}
+
 .h-3\.5 {
   height: .875rem;
 }
@@ -718,6 +734,10 @@ body {
   max-height: 70vh;
 }
 
+.max-h-\[75vh\] {
+  max-height: 75vh;
+}
+
 .max-h-\[90vh\] {
   max-height: 90vh;
 }
@@ -772,6 +792,10 @@ body {
 
 .w-2\.5 {
   width: .625rem;
+}
+
+.w-3 {
+  width: .75rem;
 }
 
 .w-3\.5 {
@@ -866,6 +890,10 @@ body {
   max-width: var(--skeleton-width);
 }
 
+.max-w-full {
+  max-width: 100%;
+}
+
 .max-w-lg {
   max-width: 32rem;
 }
@@ -892,6 +920,10 @@ body {
 
 .grow-0 {
   flex-grow: 0;
+}
+
+.basis-0 {
+  flex-basis: 0;
 }
 
 .basis-full {
@@ -1281,8 +1313,16 @@ body {
   border-color: hsl(var(--input));
 }
 
+.border-muted-foreground\/30 {
+  border-color: hsl(var(--muted-foreground) / .3);
+}
+
 .border-primary {
   border-color: hsl(var(--primary));
+}
+
+.border-primary\/20 {
+  border-color: hsl(var(--primary) / .2);
 }
 
 .border-sidebar-border {
@@ -1317,6 +1357,10 @@ body {
   background-color: hsl(var(--background) / .8);
 }
 
+.bg-black\/70 {
+  background-color: #000000b3;
+}
+
 .bg-black\/80 {
   background-color: #000c;
 }
@@ -1333,9 +1377,9 @@ body {
   background-color: hsl(var(--destructive));
 }
 
-.bg-gray-200 {
+.bg-gray-100 {
   --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
 }
 
 .bg-muted {
@@ -1348,6 +1392,10 @@ body {
 
 .bg-muted\/50 {
   background-color: hsl(var(--muted) / .5);
+}
+
+.bg-muted\/60 {
+  background-color: hsl(var(--muted) / .6);
 }
 
 .bg-popover {
@@ -1381,6 +1429,11 @@ body {
 
 .bg-white\/80 {
   background-color: #fffc;
+}
+
+.bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
 }
 
 .fill-current {
@@ -1717,11 +1770,6 @@ body {
   color: hsl(var(--foreground) / .5);
 }
 
-.text-gray-500 {
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity, 1));
-}
-
 .text-muted-foreground {
   color: hsl(var(--muted-foreground));
 }
@@ -1756,6 +1804,16 @@ body {
 
 .text-sidebar-foreground\/70 {
   color: hsl(var(--sidebar-foreground) / .7);
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity, 1));
 }
 
 .underline-offset-4 {
@@ -2148,6 +2206,12 @@ body {
 .hover\:shadow-\[0_0_0_1px_hsl\(var\(--sidebar-accent\)\)\]:hover {
   --tw-shadow: 0 0 0 1px hsl(var(--sidebar-accent));
   --tw-shadow-colored: 0 0 0 1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.hover\:shadow-md:hover {
+  --tw-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -2801,8 +2865,17 @@ body {
   background-color: hsl(var(--muted) / .4);
 }
 
+.dark\:bg-white:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
 .dark\:bg-zinc-900\/40:is(.dark *) {
   background-color: #18181b66;
+}
+
+.dark\:text-foreground:is(.dark *) {
+  color: hsl(var(--foreground));
 }
 
 @media (width >= 640px) {
@@ -2893,6 +2966,11 @@ body {
     text-align: left;
   }
 
+  .sm\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
   .data-\[state\=open\]\:sm\:slide-in-from-bottom-full[data-state="open"] {
     --tw-enter-translate-y: 100%;
   }
@@ -2917,6 +2995,14 @@ body {
 
   .md\:hidden {
     display: none;
+  }
+
+  .md\:max-h-\[90vh\] {
+    max-height: 90vh;
+  }
+
+  .md\:w-full {
+    width: 100%;
   }
 
   .md\:max-w-\[420px\] {

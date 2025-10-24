@@ -21,7 +21,7 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
 
   const socialLinks = [
-    { name: 'Shop', icon: ShoppingBag, url: 'https://example.com' },
+    { name: 'Shop', icon: ShoppingBag, url: 'https://www.amazon.com/fashion' },
     { name: 'Instagram', icon: Instagram, url: 'https://instagram.com' },
     { name: 'Facebook', icon: Facebook, url: 'https://facebook.com' },
     { name: 'Pinterest', icon: PinterestIcon, url: 'https://pinterest.com' }

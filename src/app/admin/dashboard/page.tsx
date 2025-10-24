@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react'; // 👈 Import SetStateAction
 import { BarChart, Package, LayoutGrid, Users, LogOut } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -67,19 +67,29 @@ export default function AdminDashboardPage() {
         setProducts(newProducts);
     };
     
-    const handleSetOutfits = (newOutfits: Outfit[]) => {
+    // 💥 FIX: Change the handler signature to accept the full SetStateAction type
+    const handleSetOutfits = (newOutfitsAction: SetStateAction<Outfit[]>) => {
+        // Use the original setter function to get the actual new state
+        const newOutfits = typeof newOutfitsAction === 'function' 
+            ? newOutfitsAction(outfits) 
+            : newOutfitsAction;
+            
         if (db) {
+            // Logic to convert the array to an object for Firebase
             const outfitsObject = newOutfits.reduce((acc, outfit) => {
                 const { id, ...rest } = outfit;
                 acc[id] = rest;
                 return acc;
             }, {} as Record<string | number, Omit<Outfit, 'id'>>);
+
             set(ref(db, 'outfits'), outfitsObject).then(() => {
                  toast({ title: "Outfits updated successfully!" });
             }).catch(error => {
                 toast({ variant: "destructive", title: "Error updating outfits", description: error.message });
             });
         }
+        
+        // Update the local state
         setOutfits(newOutfits);
     };
 
@@ -138,6 +148,7 @@ export default function AdminDashboardPage() {
                          <TabsContent value="outfits">
                            <OutfitManagement 
                              outfits={outfits} 
+                             // Now handleSetOutfits matches the required SetStateAction type
                              setOutfits={handleSetOutfits} 
                              allProducts={products}
                            />

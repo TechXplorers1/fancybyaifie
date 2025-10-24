@@ -13,7 +13,7 @@ export function ProductGrid({ products, category, onProductClick }: ProductGridP
     const filteredProducts = category ? products.filter(p => p.category.toLowerCase() === category.toLowerCase()) : products;
 
     return (
-        <section className="bg-white dark:bg-card">
+        <section className="bg-background">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <h2 className="text-3xl font-headline text-center text-primary mb-12 capitalize">{category ? category : 'All Products'}</h2>
                 {filteredProducts.length > 0 ? (

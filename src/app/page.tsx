@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -5,7 +6,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { HeroSection } from '@/components/HeroSection';
 import { ProductGrid } from '@/components/ProductGrid';
-import { OutfitGrid } from '@/components/OutfitGrid'; // Ensure the file exists at 'src/components/OutfitGrid.tsx' or adjust the path accordingly.
+import { OutfitGrid } from '@/components/OutfitGrid';
 import { ProductDetail } from '@/components/ProductDetail';
 import type { Product } from '@/lib/products';
 import { CategoryNav } from '@/components/CategoryNav';
@@ -18,7 +19,7 @@ type View = 'home' | 'product' | 'outfits';
 
 export default function Home() {
   const [view, setView] = useState<View>('home');
-  const [currentCategory, setCurrentCategory] = useState<string | null>(null);
+  const [currentCategory, setCurrentCategory] = useState<string | null>('All');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [outfits, setOutfits] = useState<Outfit[]>([]);
@@ -30,7 +31,7 @@ export default function Home() {
       const unsubscribeProducts = onValue(productsRef, (snapshot) => {
         const data = snapshot.val();
         if (data) {
-          const productsArray = Object.keys(data).map(key => ({
+          const productsArray: Product[] = Object.keys(data).map(key => ({
             id: key,
             ...data[key]
           }));
@@ -41,14 +42,26 @@ export default function Home() {
       });
 
       const outfitsRef = ref(db, 'outfits');
-        const unsubscribeOutfits = onValue(outfitsRef, (snapshot) => {
-            const data = snapshot.val();
-            const outfitsArray: Outfit[] = data ? Object.keys(data).map(key => ({
+      const unsubscribeOutfits = onValue(outfitsRef, (snapshot) => {
+          const data = snapshot.val();
+          const outfitsArray: Outfit[] = data ? Object.keys(data).map(key => {
+            const outfitData = data[key];
+            
+            const itemsArray = outfitData.items && typeof outfitData.items === 'object' 
+              ? Object.keys(outfitData.items).map(itemKey => ({
+                  id: itemKey,
+                  ...(outfitData.items[itemKey] as Omit<Product, 'id'>)
+                }))
+              : [];
+
+            return {
               id: key,
-              ...data[key]
-            })) : [];
-            setOutfits(outfitsArray);
-        });
+              ...outfitData,
+              items: itemsArray as Product[]
+            };
+          }) : [];
+          setOutfits(outfitsArray);
+      });
 
       return () => {
         unsubscribeProducts();
@@ -99,7 +112,7 @@ export default function Home() {
     console.log('Selected outfit:', outfit);
   }
 
-  const categories = [...new Set(products.map(p => p.category))];
+  const categories = ['All', ...new Set(products.map(p => p.category))];
 
   const renderContent = () => {
     if (view === 'product' && selectedProduct) {
@@ -118,7 +131,7 @@ export default function Home() {
             />
             <ProductGrid 
                 products={products}
-                category={currentCategory}
+                category={currentCategory === 'All' ? null : currentCategory}
                 onProductClick={handleSelectProduct} 
             />
         </>

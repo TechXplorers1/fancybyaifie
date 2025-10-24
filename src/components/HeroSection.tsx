@@ -1,8 +1,10 @@
+// components/HeroSection.tsx
+
 'use client';
 
 import Image from 'next/image';
 import { Button } from './ui/button';
-import imageData from '@/lib/placeholder-images.json';
+import imageData from '@/lib/placeholder-images.json'; // Assumed import
 
 const { placeholderImages: PlaceHolderImages } = imageData;
 
@@ -45,6 +47,8 @@ export function HeroSection() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
                   data-ai-hint={heroImage.imageHint}
+                  // 💥 FIX: Added the required 'sizes' prop
+                  sizes="(max-width: 1024px) 100vw, 50vw" 
                   priority
                 />
               }

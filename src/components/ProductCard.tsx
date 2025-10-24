@@ -17,7 +17,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
     
     return (
         <button onClick={onClick} className="group text-left w-full h-full flex flex-col">
-            <Card className="overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 border-none flex-grow flex flex-col bg-card">
+            <Card className="overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 border-none flex-grow flex flex-col bg-white dark:bg-white text-foreground dark:text-foreground">
                 <CardContent className="p-0 flex-grow flex flex-col">
                     <div className="aspect-[3/4] relative w-full">
                         <Image

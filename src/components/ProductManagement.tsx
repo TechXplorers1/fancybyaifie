@@ -1,6 +1,7 @@
+// src/components/ProductManagement.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -15,48 +16,57 @@ import Image from 'next/image';
 import { Product } from '@/lib/products';
 import { v4 as uuidv4 } from 'uuid';
 
+// Define the shape of the form data (price is a string for input fields)
+type ProductFormData = Omit<Product, 'id' | 'price'> & { price: string };
+
+// 💥 FIX: Define categories array
+const categories = ['Tops', 'Bottoms', 'Dresses', 'Outerwear', 'Accessories', 'Shoes'];
 
 interface ProductManagementProps {
   products: Product[];
-  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  // Corrected type from previous step
+  setProducts: (newProducts: Product[]) => void; 
 }
+
+// Initial form state
+const initialFormData: ProductFormData = {
+  name: '',
+  price: '0.00',
+  image: '',
+  imageHint: '',
+  category: categories[0] || '',
+  description: '',
+  affiliateLink: '',
+};
 
 export function ProductManagement({ products, setProducts }: ProductManagementProps) {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  // 💥 FIX: Define missing state variables
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
+  const [formData, setFormData] = useState<ProductFormData>(initialFormData); 
 
-  const [formData, setFormData] = useState({
-    name: '',
-    price: '',
-    image: '',
-    imageHint: '',
-    category: '',
-    description: '',
-    affiliateLink: '',
-  });
-
-  const categories = [...new Set(products.map(p => p.category))];
-
+  // 💥 FIX: Define resetForm function
   const resetForm = () => {
-    setFormData({
-      name: '',
-      price: '',
-      image: '',
-      imageHint: '',
-      category: '',
-      description: '',
-      affiliateLink: '',
-    });
+    setFormData(initialFormData);
   };
 
+  // 💥 FIX: Define filteredProducts logic
+  const filteredProducts = useMemo(() => {
+    if (filterCategory === 'all') {
+      return products;
+    }
+    return products.filter(p => p.category === filterCategory);
+  }, [products, filterCategory]);
+
+  // 💥 FIX: Define handleAdd function
   const handleAdd = () => {
     const newProduct: Product = {
       id: uuidv4(),
       name: formData.name,
-      price: parseFloat(formData.price),
+      price: parseFloat(formData.price) || 0,
       image: formData.image,
       imageHint: formData.imageHint,
       category: formData.category,
@@ -69,20 +79,22 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
     resetForm();
   };
 
+  // 💥 FIX: Define handleEdit function
   const handleEdit = (product: Product) => {
     setEditingProduct(product);
     setFormData({
       name: product.name,
-      price: product.price.toString(),
+      price: product.price.toFixed(2), // Convert number price back to string for input
       image: product.image,
       imageHint: product.imageHint,
       category: product.category,
       description: product.description,
-      affiliateLink: product.affiliateLink || '',
+      affiliateLink: product.affiliateLink,
     });
     setIsEditDialogOpen(true);
   };
 
+  // 💥 FIX: Define handleUpdate function
   const handleUpdate = () => {
     if (!editingProduct) return;
 
@@ -91,7 +103,7 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
         ? {
           ...p,
           name: formData.name,
-          price: parseFloat(formData.price),
+          price: parseFloat(formData.price) || 0,
           image: formData.image,
           imageHint: formData.imageHint,
           category: formData.category,
@@ -107,6 +119,7 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
     resetForm();
   };
 
+  // 💥 FIX: Define handleDelete function
   const handleDelete = () => {
     if (productToDelete) {
       setProducts(products.filter(p => p.id !== productToDelete.id));
@@ -114,9 +127,6 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
     }
   };
 
-  const filteredProducts = filterCategory === 'all'
-    ? products
-    : products.filter(p => p.category === filterCategory);
 
   return (
     <Card>
@@ -126,7 +136,11 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
             <CardTitle>Product Management</CardTitle>
             <CardDescription>Add, edit, or remove products from your catalog</CardDescription>
           </div>
-          <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+          <Dialog open={isAddDialogOpen} onOpenChange={(isOpen) => {
+            // Reset form on close
+            if (!isOpen) resetForm();
+            setIsAddDialogOpen(isOpen);
+          }}>
             <DialogTrigger asChild>
               <Button>
                 <Plus className="h-4 w-4 mr-2" />
@@ -210,7 +224,10 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
                   <Button onClick={handleAdd} className="flex-1">
                     Add Product
                   </Button>
-                  <Button onClick={() => setIsAddDialogOpen(false)} variant="outline" className="flex-1">
+                  <Button onClick={() => {
+                    setIsAddDialogOpen(false);
+                    resetForm();
+                  }} variant="outline" className="flex-1">
                     Cancel
                   </Button>
                 </div>
@@ -317,11 +334,17 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
         </div>
       </CardContent>
 
-      {/* Edit Dialog */}
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+      {/* Edit Dialog (Handles edit form submission and updates) */}
+      <Dialog open={isEditDialogOpen} onOpenChange={(isOpen) => {
+        if (!isOpen) {
+          setEditingProduct(null);
+          resetForm();
+        }
+        setIsEditDialogOpen(isOpen);
+      }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Edit Product</DialogTitle>
+            <DialogTitle>Edit Product: {editingProduct?.name}</DialogTitle>
             <DialogDescription>Update the product details below</DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
