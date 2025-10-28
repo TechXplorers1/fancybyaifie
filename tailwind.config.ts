@@ -1,5 +1,3 @@
-// tailwind.config.js
-
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -8,13 +6,9 @@ export default {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/lib/**/*.{js,ts,jsx,tsx,mdx}', // Recommended to include lib if it has components
   ],
   theme: {
     extend: {
-      zIndex: {
-        'max': '9999', // <--- THIS MUST BE PRESENT
-      },
       fontFamily: {
         body: ['Inter', 'sans-serif'],
         headline: ['Belleza', 'sans-serif'],
