@@ -15,45 +15,44 @@ import { Plus, Pencil, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { Product } from '@/lib/products';
 import { v4 as uuidv4 } from 'uuid';
+import { useDatabase } from '@/firebase';
+import { ref, set, push, remove } from 'firebase/database';
 
 // Define the shape of the form data (price is a string for input fields)
 type ProductFormData = Omit<Product, 'id' | 'price'> & { price: string };
 
-// 💥 FIX: Define categories array
-const categories = ['Tops', 'Bottoms', 'Dresses', 'Outerwear', 'Accessories', 'Shoes'];
+// Define categories array
+const categories = ['Top', 'Bottom', 'Accessories', 'Footwear', 'Outerwear'];
 
 interface ProductManagementProps {
   products: Product[];
-  // Corrected type from previous step
-  setProducts: (newProducts: Product[]) => void; 
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>; 
 }
 
-// Initial form state
+// Initial form state - all optional string fields initialized to empty string
 const initialFormData: ProductFormData = {
   name: '',
   price: '0.00',
   image: '',
-  imageHint: '',
+  imageHint: '', // Must be explicitly set to '' not undefined
   category: categories[0] || '',
   description: '',
   affiliateLink: '',
 };
 
 export function ProductManagement({ products, setProducts }: ProductManagementProps) {
+  const db = useDatabase();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  // 💥 FIX: Define missing state variables
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
   const [formData, setFormData] = useState<ProductFormData>(initialFormData); 
 
-  // 💥 FIX: Define resetForm function
   const resetForm = () => {
     setFormData(initialFormData);
   };
 
-  // 💥 FIX: Define filteredProducts logic
   const filteredProducts = useMemo(() => {
     if (filterCategory === 'all') {
       return products;
@@ -61,32 +60,32 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
     return products.filter(p => p.category === filterCategory);
   }, [products, filterCategory]);
 
-  // 💥 FIX: Define handleAdd function
   const handleAdd = () => {
-    const newProduct: Product = {
-      id: uuidv4(),
+    if (!db) return;
+    const newProductData = {
       name: formData.name,
       price: parseFloat(formData.price) || 0,
       image: formData.image,
-      imageHint: formData.imageHint,
+      imageHint: formData.imageHint || '',
       category: formData.category,
       description: formData.description,
       affiliateLink: formData.affiliateLink,
     };
-
-    setProducts([...products, newProduct]);
+    
+    const newProductRef = push(ref(db, 'products'));
+    set(newProductRef, newProductData);
+    
     setIsAddDialogOpen(false);
     resetForm();
   };
 
-  // 💥 FIX: Define handleEdit function
   const handleEdit = (product: Product) => {
     setEditingProduct(product);
     setFormData({
       name: product.name,
-      price: product.price.toFixed(2), // Convert number price back to string for input
+      price: product.price.toFixed(2),
       image: product.image,
-      imageHint: product.imageHint,
+      imageHint: product.imageHint || '', // Ensure it's handled on edit load
       category: product.category,
       description: product.description,
       affiliateLink: product.affiliateLink,
@@ -94,35 +93,31 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
     setIsEditDialogOpen(true);
   };
 
-  // 💥 FIX: Define handleUpdate function
   const handleUpdate = () => {
-    if (!editingProduct) return;
+    if (!editingProduct || !db) return;
 
-    const updatedProducts = products.map(p =>
-      p.id === editingProduct.id
-        ? {
-          ...p,
-          name: formData.name,
-          price: parseFloat(formData.price) || 0,
-          image: formData.image,
-          imageHint: formData.imageHint,
-          category: formData.category,
-          description: formData.description,
-          affiliateLink: formData.affiliateLink,
-        }
-        : p
-    );
+    const updatedProductData = {
+        name: formData.name,
+        price: parseFloat(formData.price) || 0,
+        image: formData.image || '',
+        imageHint: formData.imageHint || '',
+        category: formData.category,
+        description: formData.description || '',
+        affiliateLink: formData.affiliateLink || '',
+    };
+    
+    const productRef = ref(db, `products/${editingProduct.id}`);
+    set(productRef, updatedProductData);
 
-    setProducts(updatedProducts);
-    setIsEditDialogOpen(false);
+    setIsEditDialogOpen(false); 
     setEditingProduct(null);
     resetForm();
   };
 
-  // 💥 FIX: Define handleDelete function
   const handleDelete = () => {
-    if (productToDelete) {
-      setProducts(products.filter(p => p.id !== productToDelete.id));
+    if (productToDelete && db) {
+      const productRef = ref(db, `products/${productToDelete.id}`);
+      remove(productRef);
       setProductToDelete(null);
     }
   };
@@ -209,7 +204,9 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
                     placeholder="https://picsum.photos/seed/..."
                   />
                 </div>
-
+                
+                {/* Note: imageHint input is missing in the dialogs, which is why it might be undefined */}
+                
                 <div className="space-y-2">
                   <Label htmlFor="affiliateLink">Affiliate Link</Label>
                   <Input
@@ -400,6 +397,16 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
                 onChange={(e) => setFormData({ ...formData, image: e.target.value })}
               />
             </div>
+            
+            {/* 💡 Note: If you have an imageHint field in your data structure, it needs an input here: */}
+            {/* <div className="space-y-2">
+              <Label htmlFor="edit-imageHint">Image Hint</Label>
+              <Input
+                id="edit-imageHint"
+                value={formData.imageHint}
+                onChange={(e) => setFormData({ ...formData, imageHint: e.target.value })}
+              />
+            </div> */}
 
             <div className="space-y-2">
               <Label htmlFor="edit-affiliateLink">Affiliate Link</Label>

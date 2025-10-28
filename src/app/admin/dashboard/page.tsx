@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, SetStateAction } from 'react'; // 👈 Import SetStateAction
+import { useState, useEffect } from 'react';
 import { BarChart, Package, LayoutGrid, Users, LogOut } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -11,15 +11,13 @@ import { OutfitManagement } from '@/components/OutfitManagement';
 import { Product } from '@/lib/products';
 import { Outfit } from '@/lib/outfits';
 import { useDatabase } from '@/firebase';
-import { ref, onValue, set } from 'firebase/database';
-import { useToast } from '@/hooks/use-toast';
+import { ref, onValue } from 'firebase/database';
 
 export default function AdminDashboardPage() {
     const router = useRouter();
     const [products, setProducts] = useState<Product[]>([]);
     const [outfits, setOutfits] = useState<Outfit[]>([]);
     const db = useDatabase();
-    const { toast } = useToast();
     
     useEffect(() => {
         if (!db) return;
@@ -40,7 +38,8 @@ export default function AdminDashboardPage() {
             const data = snapshot.val();
             const outfitsArray: Outfit[] = data ? Object.keys(data).map(key => ({
               id: key,
-              ...data[key]
+              ...data[key],
+              items: data[key].items ? Object.values(data[key].items) : []
             })) : [];
             setOutfits(outfitsArray);
         });
@@ -50,48 +49,6 @@ export default function AdminDashboardPage() {
             unsubscribeOutfits();
         };
     }, [db]);
-
-    const handleSetProducts = (newProducts: Product[]) => {
-        if (db) {
-            const productsObject = newProducts.reduce((acc, product) => {
-                const { id, ...rest } = product;
-                acc[id] = rest;
-                return acc;
-            }, {} as Record<string | number, Omit<Product, 'id'>>);
-            set(ref(db, 'products'), productsObject).then(() => {
-                toast({ title: "Products updated successfully!" });
-            }).catch(error => {
-                toast({ variant: "destructive", title: "Error updating products", description: error.message });
-            });
-        }
-        setProducts(newProducts);
-    };
-    
-    // 💥 FIX: Change the handler signature to accept the full SetStateAction type
-    const handleSetOutfits = (newOutfitsAction: SetStateAction<Outfit[]>) => {
-        // Use the original setter function to get the actual new state
-        const newOutfits = typeof newOutfitsAction === 'function' 
-            ? newOutfitsAction(outfits) 
-            : newOutfitsAction;
-            
-        if (db) {
-            // Logic to convert the array to an object for Firebase
-            const outfitsObject = newOutfits.reduce((acc, outfit) => {
-                const { id, ...rest } = outfit;
-                acc[id] = rest;
-                return acc;
-            }, {} as Record<string | number, Omit<Outfit, 'id'>>);
-
-            set(ref(db, 'outfits'), outfitsObject).then(() => {
-                 toast({ title: "Outfits updated successfully!" });
-            }).catch(error => {
-                toast({ variant: "destructive", title: "Error updating outfits", description: error.message });
-            });
-        }
-        
-        // Update the local state
-        setOutfits(newOutfits);
-    };
 
     const categories = [...new Set(products.map(p => p.category))];
 
@@ -143,14 +100,13 @@ export default function AdminDashboardPage() {
                             </div>
                         </TabsContent>
                         <TabsContent value="products">
-                           <ProductManagement products={products} setProducts={handleSetProducts} />
+                           <ProductManagement products={products} setProducts={setProducts} />
                         </TabsContent>
                          <TabsContent value="outfits">
                            <OutfitManagement 
                              outfits={outfits} 
-                             // Now handleSetOutfits matches the required SetStateAction type
-                             setOutfits={handleSetOutfits} 
                              allProducts={products}
+                             setOutfits={setOutfits}
                            />
                         </TabsContent>
                     </Tabs>

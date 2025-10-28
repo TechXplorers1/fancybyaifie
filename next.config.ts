@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'via.placeholder.com', // ADD THIS ENTRY
+        hostname: 'via.placeholder.com',
         port: '',
         pathname: '/**',
       },
@@ -37,6 +37,31 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'm.media-amazon.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.freepik.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'encrypted-tbn0.gstatic.com',
+        port: '',
+        pathname: '/**',
+      },
+      // ✅ FIX: Add the missing hostname for Vecteezy images
+      {
+        protocol: 'https',
+        hostname: 'static.vecteezy.com',
         port: '',
         pathname: '/**',
       },

@@ -8,6 +8,7 @@ import { SearchModal } from './SearchModal';
 import { PinterestIcon } from './icons';
 import { useTheme } from '@/context/ThemeProvider';
 import { Product } from '@/lib/products';
+import Link from 'next/link';
 
 interface HeaderProps {
   onNavigate: (category: string) => void;
@@ -21,7 +22,7 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
 
   const socialLinks = [
-    { name: 'Shop', icon: ShoppingBag, url: 'https://www.amazon.com/fashion' },
+    { name: 'Outfits', icon: ShoppingBag, url: '/outfits', isInternal: true },
     { name: 'Instagram', icon: Instagram, url: 'https://instagram.com' },
     { name: 'Facebook', icon: Facebook, url: 'https://facebook.com' },
     { name: 'Pinterest', icon: PinterestIcon, url: 'https://pinterest.com' }
@@ -58,6 +59,21 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
             <nav className="hidden md:flex items-center space-x-8">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
+
+                if (social.isInternal) {
+                  return (
+                    <Link
+                      key={social.name}
+                      href={social.url}
+                      aria-label={social.name}
+                      className="flex flex-col items-center gap-1 text-muted-foreground hover:text-primary transition-colors group"
+                    >
+                      <Icon className="h-7 w-7" />
+                      <span className="text-xs font-medium">{social.name}</span>
+                    </Link>
+                  );
+                }
+
                 return (
                   <a
                     key={social.name}
@@ -103,6 +119,22 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
               <nav className="flex justify-center space-x-6 px-4">
                 {socialLinks.map((social) => {
                   const Icon = social.icon;
+
+                  if (social.isInternal) {
+                    return (
+                       <Link
+                        key={social.name}
+                        href={social.url}
+                        aria-label={social.name}
+                        className="flex flex-col items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <Icon className="h-7 w-7"/>
+                        <span className="text-xs font-medium">{social.name}</span>
+                      </Link>
+                    )
+                  }
+
                   return (
                     <a
                       key={social.name}

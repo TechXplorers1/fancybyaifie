@@ -1,6 +1,6 @@
 'use client';
 
-import { initializeApp, type FirebaseOptions } from 'firebase/app';
+import { initializeApp, getApps, getApp, type FirebaseOptions } from 'firebase/app';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getDatabase, connectDatabaseEmulator } from 'firebase/database';
@@ -9,18 +9,23 @@ import { firebaseConfig } from './config';
 
 // The function to initialize Firebase services
 function initializeFirebase(config: FirebaseOptions) {
-  const app = initializeApp(config);
+  const app = getApps().length === 0 ? initializeApp(config) : getApp();
   const auth = getAuth(app);
   const firestore = getFirestore(app);
   const db = getDatabase(app);
 
   // NOTE: This is a placeholder for the emulator URLs.
   // In a real-world scenario, you would use environment variables.
-  if (process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR) {
+  if (process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR === 'true' && (global as any).emulatorConnected !== true) {
     console.log('Using Firebase Emulators');
-    connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true });
-    connectFirestoreEmulator(firestore, '127.0.0.1', 8080);
-    connectDatabaseEmulator(db, '127.0.0.1', 9000);
+    try {
+      connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true });
+      connectFirestoreEmulator(firestore, '127.0.0.1', 8080);
+      connectDatabaseEmulator(db, '127.0.0.1', 9000);
+      (global as any).emulatorConnected = true;
+    } catch(e) {
+      console.error('Error connecting to emulators, this is expected in production', e);
+    }
   }
   
   return { app, auth, firestore, db };

@@ -622,9 +622,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$b
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$SearchModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/SearchModal.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$icons$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/icons.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$ThemeProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/context/ThemeProvider.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
+;
 ;
 ;
 ;
@@ -638,9 +640,10 @@ function Header({ onNavigate, onProductSelect, products }) {
     const { theme, toggleTheme } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$ThemeProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTheme"])();
     const socialLinks = [
         {
-            name: 'Shop',
+            name: 'Outfits',
             icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$bag$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingBag$3e$__["ShoppingBag"],
-            url: 'https://example.com'
+            url: '/outfits',
+            isInternal: true
         },
         {
             name: 'Instagram',
@@ -679,17 +682,17 @@ function Header({ onNavigate, onProductSelect, products }) {
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Header.tsx",
-                                            lineNumber: 43,
+                                            lineNumber: 44,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Header.tsx",
-                                        lineNumber: 37,
+                                        lineNumber: 38,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Header.tsx",
-                                    lineNumber: 36,
+                                    lineNumber: 37,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -700,18 +703,46 @@ function Header({ onNavigate, onProductSelect, products }) {
                                         children: "fancybyaifie"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Header.tsx",
-                                        lineNumber: 49,
+                                        lineNumber: 50,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Header.tsx",
-                                    lineNumber: 48,
+                                    lineNumber: 49,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
                                     className: "hidden md:flex items-center space-x-8",
                                     children: socialLinks.map((social)=>{
                                         const Icon = social.icon;
+                                        if (social.isInternal) {
+                                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                href: social.url,
+                                                "aria-label": social.name,
+                                                className: "flex flex-col items-center gap-1 text-muted-foreground hover:text-primary transition-colors group",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
+                                                        className: "h-7 w-7"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Header.tsx",
+                                                        lineNumber: 71,
+                                                        columnNumber: 23
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-xs font-medium",
+                                                        children: social.name
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/components/Header.tsx",
+                                                        lineNumber: 72,
+                                                        columnNumber: 23
+                                                    }, this)
+                                                ]
+                                            }, social.name, true, {
+                                                fileName: "[project]/src/components/Header.tsx",
+                                                lineNumber: 65,
+                                                columnNumber: 21
+                                            }, this);
+                                        }
                                         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                             href: social.url,
                                             target: "_blank",
@@ -723,7 +754,7 @@ function Header({ onNavigate, onProductSelect, products }) {
                                                     className: "h-7 w-7"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Header.tsx",
-                                                    lineNumber: 70,
+                                                    lineNumber: 86,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -731,19 +762,19 @@ function Header({ onNavigate, onProductSelect, products }) {
                                                     children: social.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Header.tsx",
-                                                    lineNumber: 71,
+                                                    lineNumber: 87,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, social.name, true, {
                                             fileName: "[project]/src/components/Header.tsx",
-                                            lineNumber: 62,
+                                            lineNumber: 78,
                                             columnNumber: 19
                                         }, this);
                                     })
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Header.tsx",
-                                    lineNumber: 58,
+                                    lineNumber: 59,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -758,12 +789,12 @@ function Header({ onNavigate, onProductSelect, products }) {
                                                 className: "h-5 w-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/Header.tsx",
-                                                lineNumber: 85,
+                                                lineNumber: 101,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Header.tsx",
-                                            lineNumber: 79,
+                                            lineNumber: 95,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -776,14 +807,14 @@ function Header({ onNavigate, onProductSelect, products }) {
                                                     className: "h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Header.tsx",
-                                                    lineNumber: 93,
+                                                    lineNumber: 109,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$moon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Moon$3e$__["Moon"], {
                                                     className: "absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Header.tsx",
-                                                    lineNumber: 94,
+                                                    lineNumber: 110,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -791,25 +822,25 @@ function Header({ onNavigate, onProductSelect, products }) {
                                                     children: "Toggle theme"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Header.tsx",
-                                                    lineNumber: 95,
+                                                    lineNumber: 111,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/Header.tsx",
-                                            lineNumber: 87,
+                                            lineNumber: 103,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Header.tsx",
-                                    lineNumber: 78,
+                                    lineNumber: 94,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Header.tsx",
-                            lineNumber: 34,
+                            lineNumber: 35,
                             columnNumber: 11
                         }, this),
                         isMobileMenuOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -818,6 +849,35 @@ function Header({ onNavigate, onProductSelect, products }) {
                                 className: "flex justify-center space-x-6 px-4",
                                 children: socialLinks.map((social)=>{
                                     const Icon = social.icon;
+                                    if (social.isInternal) {
+                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                            href: social.url,
+                                            "aria-label": social.name,
+                                            className: "flex flex-col items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors",
+                                            onClick: ()=>setIsMobileMenuOpen(false),
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
+                                                    className: "h-7 w-7"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/components/Header.tsx",
+                                                    lineNumber: 132,
+                                                    columnNumber: 25
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-xs font-medium",
+                                                    children: social.name
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/components/Header.tsx",
+                                                    lineNumber: 133,
+                                                    columnNumber: 25
+                                                }, this)
+                                            ]
+                                        }, social.name, true, {
+                                            fileName: "[project]/src/components/Header.tsx",
+                                            lineNumber: 125,
+                                            columnNumber: 24
+                                        }, this);
+                                    }
                                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                         href: social.url,
                                         target: "_blank",
@@ -830,7 +890,7 @@ function Header({ onNavigate, onProductSelect, products }) {
                                                 className: "h-7 w-7"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/Header.tsx",
-                                                lineNumber: 116,
+                                                lineNumber: 148,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -838,35 +898,35 @@ function Header({ onNavigate, onProductSelect, products }) {
                                                 children: social.name
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/Header.tsx",
-                                                lineNumber: 117,
+                                                lineNumber: 149,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, social.name, true, {
                                         fileName: "[project]/src/components/Header.tsx",
-                                        lineNumber: 107,
+                                        lineNumber: 139,
                                         columnNumber: 21
                                     }, this);
                                 })
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Header.tsx",
-                                lineNumber: 103,
+                                lineNumber: 119,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/Header.tsx",
-                            lineNumber: 102,
+                            lineNumber: 118,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/Header.tsx",
-                    lineNumber: 33,
+                    lineNumber: 34,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Header.tsx",
-                lineNumber: 32,
+                lineNumber: 33,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$SearchModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SearchModal"], {
@@ -876,7 +936,7 @@ function Header({ onNavigate, onProductSelect, products }) {
                 products: products
             }, void 0, false, {
                 fileName: "[project]/src/components/Header.tsx",
-                lineNumber: 127,
+                lineNumber: 159,
                 columnNumber: 7
             }, this)
         ]
@@ -903,12 +963,10 @@ __turbopack_context__.s({
     "Footer": (()=>Footer)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
-;
 ;
 function Footer() {
     _s();
@@ -918,6 +976,9 @@ function Footer() {
             setCurrentYear(new Date().getFullYear());
         }
     }["Footer.useEffect"], []);
+    const dispatchAdminEvent = ()=>{
+        window.dispatchEvent(new CustomEvent('admin-access-trigger'));
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
         className: "bg-white border-t border-gray-100 dark:bg-card dark:border-border/50",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -926,18 +987,17 @@ function Footer() {
                 className: "text-center space-y-3",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                            href: "/admin",
-                            className: "text-xs text-muted-foreground hover:text-foreground transition-colors",
-                            children: "Admin"
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/Footer.tsx",
-                            lineNumber: 18,
-                            columnNumber: 13
-                        }, this)
+                        onClick: dispatchAdminEvent,
+                        className: "cursor-pointer",
+                        style: {
+                            width: '1px',
+                            height: '1px',
+                            opacity: 0
+                        },
+                        children: "Admin Access"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Footer.tsx",
-                        lineNumber: 17,
+                        lineNumber: 21,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -949,23 +1009,23 @@ function Footer() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Footer.tsx",
-                        lineNumber: 25,
+                        lineNumber: 24,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Footer.tsx",
-                lineNumber: 16,
+                lineNumber: 20,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/Footer.tsx",
-            lineNumber: 15,
+            lineNumber: 19,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/Footer.tsx",
-        lineNumber: 14,
+        lineNumber: 18,
         columnNumber: 5
     }, this);
 }
@@ -994,7 +1054,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/button.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$placeholder$2d$images$2e$json__$28$json$29$__ = __turbopack_context__.i("[project]/src/lib/placeholder-images.json (json)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 'use client';
+;
 ;
 ;
 ;
@@ -1020,7 +1082,7 @@ function HeroSection() {
                                         children: "Born Out of Free"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/HeroSection.tsx",
-                                        lineNumber: 19,
+                                        lineNumber: 20,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1028,38 +1090,43 @@ function HeroSection() {
                                         children: "Embracing authenticity and individual expression through thoughtfully designed pieces that speak to your unique style."
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/HeroSection.tsx",
-                                        lineNumber: 22,
+                                        lineNumber: 23,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/HeroSection.tsx",
-                                lineNumber: 18,
+                                lineNumber: 19,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "space-y-4",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                     size: "lg",
-                                    onClick: ()=>window.dispatchEvent(new CustomEvent('navigate-outfit', {
-                                            detail: 103
-                                        })),
                                     className: "bg-primary text-primary-foreground px-8 py-3 hover:bg-primary/90 transition-colors",
-                                    children: "Shop My Outfit"
+                                    asChild: true,
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                        href: "/outfits",
+                                        children: "Shop My Outfit"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/HeroSection.tsx",
+                                        lineNumber: 34,
+                                        columnNumber: 17
+                                    }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeroSection.tsx",
-                                    lineNumber: 28,
+                                    lineNumber: 29,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/HeroSection.tsx",
-                                lineNumber: 27,
+                                lineNumber: 28,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 17,
+                        lineNumber: 18,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1075,33 +1142,33 @@ function HeroSection() {
                                 priority: true
                             }, void 0, false, {
                                 fileName: "[project]/src/components/HeroSection.tsx",
-                                lineNumber: 42,
+                                lineNumber: 43,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 40,
+                            lineNumber: 41,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 39,
+                        lineNumber: 40,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 15,
+                lineNumber: 16,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/HeroSection.tsx",
-            lineNumber: 14,
+            lineNumber: 15,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/HeroSection.tsx",
-        lineNumber: 13,
+        lineNumber: 14,
         columnNumber: 5
     }, this);
 }
@@ -1239,7 +1306,7 @@ function ProductCard({ product, onClick }) {
         className: "group text-left w-full h-full flex flex-col",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
-                className: "overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 border-none flex-grow flex flex-col bg-card",
+                className: "overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 border-none flex-grow flex flex-col bg-white dark:bg-white text-foreground dark:text-foreground",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
                     className: "p-0 flex-grow flex flex-col",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1329,7 +1396,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Product
 function ProductGrid({ products, category, onProductClick }) {
     const filteredProducts = category ? products.filter((p)=>p.category.toLowerCase() === category.toLowerCase()) : products;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: "bg-white dark:bg-card",
+        className: "bg-background",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16",
             children: [
@@ -1408,7 +1475,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 function ProductDetail({ product, onBack }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: "bg-white dark:bg-card",
+        className: "bg-background",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16",
             children: [
@@ -1435,7 +1502,7 @@ function ProductDetail({ product, onBack }) {
                     className: "grid md:grid-cols-2 gap-12 items-center",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "relative aspect-[3/4] w-full max-w-lg mx-auto rounded-lg overflow-hidden shadow-lg",
+                            className: "relative aspect-[3/4] w-full max-w-lg mx-auto rounded-lg overflow-hidden shadow-lg bg-white",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                 src: product.image,
                                 alt: product.name,
@@ -1490,7 +1557,7 @@ function ProductDetail({ product, onBack }) {
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         href: product.affiliateLink,
                                         target: "_blank",
-                                        children: "View Link"
+                                        children: "Shop Me"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/ProductDetail.tsx",
                                         lineNumber: 37,
@@ -1541,52 +1608,79 @@ __turbopack_context__.s({
     "CategoryNav": (()=>CategoryNav)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/button.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/utils.ts [app-client] (ecmascript)");
 'use client';
 ;
 ;
 function CategoryNav({ categories, selectedCategory, onSelectCategory }) {
+    const selectedIndex = categories.findIndex((c)=>c === selectedCategory);
+    if (!categories || categories.length === 0) {
+        return null;
+    }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: "bg-background/80 backdrop-blur-lg sticky top-20 z-30 border-b",
+        className: "bg-background/80 backdrop-blur-lg sticky top-20 z-30 border-b py-4",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+            className: "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex justify-center items-center space-x-2 sm:space-x-4 h-16 overflow-x-auto",
+                className: "relative flex items-center p-1 rounded-full border border-primary/20 bg-muted/60 w-full max-w-full overflow-x-auto",
                 children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                        variant: selectedCategory === null ? 'secondary' : 'ghost',
-                        onClick: ()=>onSelectCategory(null),
-                        className: "rounded-full flex-shrink-0",
-                        children: "All"
+                    categories.map((category)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex-shrink-0 flex-grow basis-0",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                    type: "radio",
+                                    id: `category-${category}`,
+                                    name: "category-switch",
+                                    checked: selectedCategory === category,
+                                    onChange: ()=>onSelectCategory(category),
+                                    className: "hidden"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/CategoryNav.tsx",
+                                    lineNumber: 26,
+                                    columnNumber: 29
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                    htmlFor: `category-${category}`,
+                                    className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("block w-full text-center px-4 sm:px-6 py-2 rounded-full cursor-pointer transition-colors duration-300 relative z-10 text-sm sm:text-base whitespace-nowrap", selectedCategory === category ? "text-primary-foreground font-semibold" : "text-muted-foreground hover:text-foreground"),
+                                    children: category
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/CategoryNav.tsx",
+                                    lineNumber: 34,
+                                    columnNumber: 29
+                                }, this)
+                            ]
+                        }, category, true, {
+                            fileName: "[project]/src/components/CategoryNav.tsx",
+                            lineNumber: 25,
+                            columnNumber: 25
+                        }, this)),
+                    selectedIndex !== -1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "absolute bg-primary h-full top-0 rounded-full transition-all duration-300 ease-in-out z-0",
+                        style: {
+                            width: `calc(${100 / categories.length}% - 4px)`,
+                            left: `calc(${selectedIndex * (100 / categories.length)}% + 2px)`,
+                            height: 'calc(100% - 8px)',
+                            top: '4px'
+                        }
                     }, void 0, false, {
                         fileName: "[project]/src/components/CategoryNav.tsx",
-                        lineNumber: 16,
-                        columnNumber: 21
-                    }, this),
-                    categories.map((category)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                            variant: selectedCategory === category ? 'secondary' : 'ghost',
-                            onClick: ()=>onSelectCategory(category),
-                            className: "rounded-full capitalize flex-shrink-0",
-                            children: category
-                        }, category, false, {
-                            fileName: "[project]/src/components/CategoryNav.tsx",
-                            lineNumber: 24,
-                            columnNumber: 25
-                        }, this))
+                        lineNumber: 48,
+                        columnNumber: 25
+                    }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/CategoryNav.tsx",
-                lineNumber: 15,
+                lineNumber: 23,
                 columnNumber: 17
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/CategoryNav.tsx",
-            lineNumber: 14,
+            lineNumber: 22,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/CategoryNav.tsx",
-        lineNumber: 13,
+        lineNumber: 21,
         columnNumber: 9
     }, this);
 }
@@ -1743,6 +1837,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$index$2e$
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/firebase/provider.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$firebase$2f$database$2f$dist$2f$esm$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/node_modules/firebase/database/dist/esm/index.esm.js [app-client] (ecmascript) <module evaluation>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$firebase$2f$database$2f$dist$2f$index$2e$esm2017$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@firebase/database/dist/index.esm2017.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
@@ -1756,36 +1851,39 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+;
 function Home() {
     _s();
     const [view, setView] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('home');
-    const [currentCategory, setCurrentCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [currentCategory, setCurrentCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('All');
     const [selectedProduct, setSelectedProduct] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const db = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDatabase"])();
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Home.useEffect": ()=>{
             if (db) {
                 const productsRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$firebase$2f$database$2f$dist$2f$index$2e$esm2017$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ref"])(db, 'products');
-                const unsubscribe = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$firebase$2f$database$2f$dist$2f$index$2e$esm2017$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["onValue"])(productsRef, {
-                    "Home.useEffect.unsubscribe": (snapshot)=>{
+                const unsubscribeProducts = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$firebase$2f$database$2f$dist$2f$index$2e$esm2017$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["onValue"])(productsRef, {
+                    "Home.useEffect.unsubscribeProducts": (snapshot)=>{
                         const data = snapshot.val();
                         if (data) {
-                            // Firebase Realtime Database returns an object, so we convert it to an array
                             const productsArray = Object.keys(data).map({
-                                "Home.useEffect.unsubscribe.productsArray": (key)=>({
+                                "Home.useEffect.unsubscribeProducts.productsArray": (key)=>({
                                         id: key,
                                         ...data[key]
                                     })
-                            }["Home.useEffect.unsubscribe.productsArray"]);
+                            }["Home.useEffect.unsubscribeProducts.productsArray"]);
                             setProducts(productsArray);
                         } else {
                             setProducts([]);
                         }
                     }
-                }["Home.useEffect.unsubscribe"]);
+                }["Home.useEffect.unsubscribeProducts"]);
                 return ({
-                    "Home.useEffect": ()=>unsubscribe()
+                    "Home.useEffect": ()=>{
+                        unsubscribeProducts();
+                    }
                 })["Home.useEffect"];
             }
         }
@@ -1818,6 +1916,23 @@ function Home() {
     }["Home.useEffect"], [
         products
     ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "Home.useEffect": ()=>{
+            const handleAdminAccess = {
+                "Home.useEffect.handleAdminAccess": ()=>{
+                    router.push('/admin');
+                }
+            }["Home.useEffect.handleAdminAccess"];
+            window.addEventListener('admin-access-trigger', handleAdminAccess);
+            return ({
+                "Home.useEffect": ()=>{
+                    window.removeEventListener('admin-access-trigger', handleAdminAccess);
+                }
+            })["Home.useEffect"];
+        }
+    }["Home.useEffect"], [
+        router
+    ]);
     const handleSelectProduct = (product)=>{
         setSelectedProduct(product);
         setView('product');
@@ -1828,6 +1943,7 @@ function Home() {
         setView('home');
     };
     const categories = [
+        'All',
         ...new Set(products.map((p)=>p.category))
     ];
     const renderContent = ()=>{
@@ -1837,7 +1953,7 @@ function Home() {
                 onBack: handleBackToHome
             }, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 79,
+                lineNumber: 94,
                 columnNumber: 16
             }, this);
         }
@@ -1845,7 +1961,7 @@ function Home() {
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$HeroSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["HeroSection"], {}, void 0, false, {
                     fileName: "[project]/src/app/page.tsx",
-                    lineNumber: 83,
+                    lineNumber: 99,
                     columnNumber: 13
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$CategoryNav$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CategoryNav"], {
@@ -1854,16 +1970,16 @@ function Home() {
                     onSelectCategory: setCurrentCategory
                 }, void 0, false, {
                     fileName: "[project]/src/app/page.tsx",
-                    lineNumber: 84,
+                    lineNumber: 100,
                     columnNumber: 13
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ProductGrid$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ProductGrid"], {
                     products: products,
-                    category: currentCategory,
+                    category: currentCategory === 'All' ? null : currentCategory,
                     onProductClick: handleSelectProduct
                 }, void 0, false, {
                     fileName: "[project]/src/app/page.tsx",
-                    lineNumber: 89,
+                    lineNumber: 105,
                     columnNumber: 13
                 }, this)
             ]
@@ -1878,7 +1994,7 @@ function Home() {
                 products: products
             }, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 100,
+                lineNumber: 116,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1886,29 +2002,30 @@ function Home() {
                 children: renderContent()
             }, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 101,
+                lineNumber: 117,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Newsletter$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Newsletter"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 104,
+                lineNumber: 120,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Footer"], {}, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 105,
+                lineNumber: 121,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/page.tsx",
-        lineNumber: 99,
+        lineNumber: 115,
         columnNumber: 5
     }, this);
 }
-_s(Home, "cE22RrErpw41GhbIT5tH2uckC4I=", false, function() {
+_s(Home, "ifkbh4mK6kuYQoLwxlD363yLxPk=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDatabase"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDatabase"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
 });
 _c = Home;

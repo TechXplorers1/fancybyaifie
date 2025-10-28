@@ -2135,7 +2135,11 @@ function ProductManagement({ products, setProducts }) {
         columnNumber: 5
     }, this);
 }
+<<<<<<< HEAD
 _s(ProductManagement, "/e1EdIOO2m0KjDHZJpcwPZCC33k=");
+=======
+_s(ProductManagement, "QPTYdVB9K4gk5KoJ0gpwsa0XG6U=");
+>>>>>>> 115d2b35b6b841931cb5dfaa95c04ada53294b65
 _c = ProductManagement;
 var _c;
 __turbopack_context__.k.register(_c, "ProductManagement");
@@ -3801,7 +3805,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
         columnNumber: 5
     }, this);
 }
-_s(OutfitManagement, "T2bFx4vILatJmVsxGJaxvZX3KSc=");
+_s(OutfitManagement, "JQ5qBBxlfglkhx4olykmItdTO1M=");
 _c = OutfitManagement;
 var _c;
 __turbopack_context__.k.register(_c, "OutfitManagement");
