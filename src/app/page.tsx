@@ -14,6 +14,7 @@ import { useDatabase } from '@/firebase';
 import { ref, onValue } from 'firebase/database';
 import { Outfit } from '@/lib/outfits';
 import { useRouter } from 'next/navigation';
+import { OutfitDetailDialog } from '@/components/OutfitDetailDialog';
 
 type View = 'home' | 'product';
 
@@ -22,6 +23,9 @@ export default function Home() {
   const [currentCategory, setCurrentCategory] = useState<string | null>('All');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
+  const [outfits, setOutfits] = useState<Outfit[]>([]);
+  const [selectedOutfit, setSelectedOutfit] = useState<Outfit | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
   const db = useDatabase();
   const router = useRouter();
 
@@ -41,8 +45,29 @@ export default function Home() {
         }
       });
       
+      const outfitsRef = ref(db, 'outfits');
+      const unsubscribeOutfits = onValue(outfitsRef, (snapshot) => {
+          const data = snapshot.val();
+          const outfitsArray: Outfit[] = data ? Object.keys(data).map(key => {
+            const outfitData = data[key];
+            
+            const itemsArray = outfitData.items && typeof outfitData.items === 'object' 
+              ? Object.values(outfitData.items)
+              : [];
+
+            return {
+              id: key,
+              ...outfitData,
+              items: itemsArray as Product[],
+              createdAt: outfitData.createdAt
+            };
+          }) : [];
+          setOutfits(outfitsArray);
+      });
+
       return () => {
         unsubscribeProducts();
+        unsubscribeOutfits();
       };
     }
   }, [db]);
@@ -87,6 +112,16 @@ export default function Home() {
     setView('home');
   }
 
+  const handleShowOutfitDetail = (outfit: Outfit) => {
+    setSelectedOutfit(outfit);
+    setIsDetailOpen(true);
+  };
+
+  const handleCloseDetail = () => {
+    setIsDetailOpen(false);
+    setSelectedOutfit(null);
+  };
+
   const categories = ['All', ...new Set(products.map(p => p.category))];
 
   const renderContent = () => {
@@ -119,6 +154,11 @@ export default function Home() {
       </main>
       <Newsletter />
       <Footer />
+      <OutfitDetailDialog
+        outfit={selectedOutfit}
+        isOpen={isDetailOpen}
+        onClose={handleCloseDetail}
+      />
     </div>
   );
 }

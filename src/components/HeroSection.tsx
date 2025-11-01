@@ -1,9 +1,12 @@
+
 'use client';
 
 import Image from 'next/image';
 import { Button } from './ui/button';
 import imageData from '@/lib/placeholder-images.json';
 import Link from 'next/link';
+import { Outfit } from '@/lib/outfits';
+import { useMemo } from 'react';
 
 const { placeholderImages: PlaceHolderImages } = imageData;
 
@@ -31,7 +34,7 @@ export function HeroSection() {
                 className="bg-primary text-primary-foreground px-8 py-3 hover:bg-primary/90 transition-colors"
                 asChild
               >
-                <Link href="/outfits">Shop My Outfit</Link>
+                <Link href="/outfits">Shop My Outfits</Link>
               </Button>
             </div>
           </div>
