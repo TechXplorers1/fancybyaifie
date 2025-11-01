@@ -1,7 +1,5 @@
 {
   "/admin/dashboard/page": "app/admin/dashboard/page.js",
-  "/admin/page": "app/admin/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/outfits/page": "app/outfits/page.js",
   "/page": "app/page.js"
 }

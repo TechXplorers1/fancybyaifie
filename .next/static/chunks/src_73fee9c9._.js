@@ -3812,7 +3812,7 @@ function OutfitManagement({ outfits, setOutfits, allProducts }) {
         columnNumber: 5
     }, this);
 }
-_s(OutfitManagement, "C65ea8KGFu66DDACj7+e0kAyYC0=", false, function() {
+_s(OutfitManagement, "hQRqlLGFiwWWB+OTDQK9ZB2dUcU=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$firebase$2f$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDatabase"]
     ];
