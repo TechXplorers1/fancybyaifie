@@ -29,7 +29,7 @@ export function OutfitDetailDialog({ outfit, isOpen, onClose }: OutfitDetailDial
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogPortal>
         <DialogOverlay />
-        <DialogContent className="max-w-4xl w-full h-[90vh] p-0 flex flex-col sm:rounded-lg">
+        <DialogContent className="max-w-3xl w-full h-full sm:h-[85vh] p-0 flex flex-col sm:rounded-lg">
           <DialogHeader className="p-4 sm:p-6 pb-2 border-b flex-shrink-0">
             <DialogTitle className="text-xl sm:text-2xl">{outfit.name}</DialogTitle>
             <DialogDescription>{outfit.description}</DialogDescription>
