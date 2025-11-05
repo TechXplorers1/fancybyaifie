@@ -5,8 +5,6 @@ import Image from 'next/image';
 import { Button } from './ui/button';
 import imageData from '@/lib/placeholder-images.json';
 import Link from 'next/link';
-import { Outfit } from '@/lib/outfits';
-import { useMemo } from 'react';
 
 const { placeholderImages: PlaceHolderImages } = imageData;
 
@@ -15,12 +13,12 @@ export function HeroSection() {
 
   return (
     <section className="relative bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Text content */}
           <div className="space-y-8 text-center lg:text-left">
             <div className="space-y-6">
-              <h1 className="text-5xl lg:text-6xl font-headline tracking-wide text-primary leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-headline tracking-wide text-primary leading-tight">
                 Born Out of Free
               </h1>
               <p className="text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 leading-relaxed">
@@ -31,7 +29,7 @@ export function HeroSection() {
             <div className="space-y-4">
               <Button 
                 size="lg"
-                className="bg-primary text-primary-foreground px-8 py-3 hover:bg-primary/90 transition-colors"
+                className="bg-primary text-primary-foreground px-8 py-3 hover:bg-primary/90 transition-colors w-full sm:w-auto"
                 asChild
               >
                 <Link href="/outfits">Shop My Outfits</Link>
@@ -41,7 +39,7 @@ export function HeroSection() {
 
           {/* Right side - Model image */}
           <div className="relative group">
-            <div className="relative aspect-[3/4] w-full max-w-md mx-auto rounded-lg overflow-hidden shadow-2xl shadow-primary/10">
+            <div className="relative aspect-[3/4] w-full max-w-sm sm:max-w-md mx-auto rounded-lg overflow-hidden shadow-2xl shadow-primary/10">
               {heroImage &&
                 <Image
                   src={heroImage.imageUrl}

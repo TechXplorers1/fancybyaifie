@@ -58,6 +58,14 @@ export default function OutfitsPage() {
               items: itemsArray as Product[]
             };
           }) : [];
+
+          // Sort outfits by createdAt date, newest first
+          outfitsArray.sort((a, b) => {
+            const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return dateB - dateA;
+          });
+
           setOutfits(outfitsArray);
       });
 
@@ -73,7 +81,6 @@ export default function OutfitsPage() {
   }
 
   const handleOutfitClick = (outfit: Outfit) => {
-    console.log("Selected outfit:", outfit);
     setSelectedOutfit(outfit);
     setIsDetailOpen(true);
   };

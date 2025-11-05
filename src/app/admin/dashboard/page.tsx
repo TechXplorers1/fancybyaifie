@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -64,7 +65,7 @@ export default function AdminDashboardPage() {
             <header className="bg-background dark:bg-card border-b sticky top-0 z-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
-                        <h1 className="text-xl font-semibold text-foreground">fancybyaifie Admin</h1>
+                        <h1 className="text-lg sm:text-xl font-semibold text-foreground">fancybyaifie Admin</h1>
                         <Button variant="outline" size="sm" onClick={() => router.push('/admin')}>
                             <LogOut className="mr-2 h-4 w-4" />
                             Logout
@@ -72,16 +73,16 @@ export default function AdminDashboardPage() {
                     </div>
                 </div>
             </header>
-            <main className="flex-1 p-4 sm:p-6 lg:p-8">
+            <main className="flex-1 p-2 sm:p-6 lg:p-8">
                 <div className="max-w-7xl mx-auto">
-                    <Tabs defaultValue="overview">
-                        <TabsList className="grid w-full grid-cols-3">
+                    <Tabs defaultValue="overview" className="flex flex-col w-full">
+                        <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 h-auto sm:h-10">
                             <TabsTrigger value="overview">Overview</TabsTrigger>
                             <TabsTrigger value="products">Products</TabsTrigger>
                             <TabsTrigger value="outfits">Outfits</TabsTrigger>
                         </TabsList>
                         <TabsContent value="overview" className="mt-6">
-                            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                            <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
                                 {stats.map((stat) => {
                                     const Icon = stat.icon;
                                     return (

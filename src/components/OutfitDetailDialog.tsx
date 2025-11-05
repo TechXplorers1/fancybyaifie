@@ -22,7 +22,6 @@ const getTotalPrice = (items: Product[] | undefined) => {
     return items.reduce((sum, item) => sum + (item.price || 0), 0).toFixed(2);
 }
 
-
 export function OutfitDetailDialog({ outfit, isOpen, onClose }: OutfitDetailDialogProps) {
   if (!outfit) return null;
 
@@ -30,73 +29,91 @@ export function OutfitDetailDialog({ outfit, isOpen, onClose }: OutfitDetailDial
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogPortal>
         <DialogOverlay />
-        <DialogContent className="max-w-6xl p-0 z-[100]">
-          <DialogHeader className="p-6 pb-2">
-            <DialogTitle className="text-2xl">{outfit.name}</DialogTitle>
+        <DialogContent className="max-w-4xl w-full h-[90vh] p-0 flex flex-col sm:rounded-lg">
+          <DialogHeader className="p-4 sm:p-6 pb-2 border-b flex-shrink-0">
+            <DialogTitle className="text-xl sm:text-2xl">{outfit.name}</DialogTitle>
             <DialogDescription>{outfit.description}</DialogDescription>
           </DialogHeader>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 max-h-[80vh]">
-            {/* Left Side: Main Outfit Image */}
-            <div className="relative aspect-[3/4] bg-muted overflow-hidden">
-              {isValidUrl(outfit.image) ? (
-                <Image
-                  src={outfit.image}
-                  alt={outfit.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                  priority
-                />
-              ) : (
-                <div className="flex items-center justify-center h-full text-muted-foreground/70 border border-dashed">
-                  Main Outfit Image Not Available
-                </div>
-              )}
-              <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-2 text-center text-lg font-bold">
-                  Total Price: ${getTotalPrice(outfit.items)}
-              </div>
+          {/* Main content area */}
+          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 min-h-0">
+            
+            {/* Left side: Image (visible on all screens) */}
+            <div className="w-full h-full relative overflow-hidden bg-muted md:border-r">
+                <ScrollArea className="h-full w-full">
+                    <div className="p-4">
+                        <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden min-h-[400px]">
+                            {isValidUrl(outfit.image) ? (
+                                <Image
+                                src={outfit.image}
+                                alt={outfit.name}
+                                fill
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                className="object-cover"
+                                priority
+                                />
+                            ) : (
+                                <div className="flex items-center justify-center h-full text-muted-foreground/70">
+                                Main Outfit Image Not Available
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </ScrollArea>
             </div>
-
-            {/* Right Side: Product List */}
-            <ScrollArea className="h-full p-6 space-y-4">
-              <h3 className="text-xl font-semibold mb-4">Items in Outfit ({(outfit.items || []).length})</h3>
-              {(outfit.items || []).map((item) => (
-                <div key={item.id} className="flex gap-4 p-3 border rounded-lg hover:shadow-sm transition-shadow">
-                  {/* Product Image */}
-                  <div className="w-16 h-20 relative rounded overflow-hidden bg-gray-100 flex-shrink-0">
-                    {isValidUrl(item.image) ? (
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        sizes="64px"
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
-                    )}
-                  </div>
-                  {/* Product Details */}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium truncate">{item.name}</p>
-                    <p className="text-sm text-muted-foreground">{item.category}</p>
-                    <p className="text-sm font-semibold mt-1">${(item.price || 0).toFixed(2)}</p>
-                  </div>
-                  {/* Affiliate Link Button (Optional) */}
-                  {item.affiliateLink && (
-                    <a 
-                      href={item.affiliateLink} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex-shrink-0"
-                    >
-                      <Button size="sm">Buy Now</Button>
-                    </a>
-                  )}
+            
+            {/* Right side: Items */}
+            <div className="flex flex-col min-h-0">
+              <div className="p-4 sm:p-6 border-b md:border-b-0 md:border-t-0">
+                <div className="flex justify-between items-baseline">
+                  <h3 className="text-lg sm:text-xl font-semibold">Items in Outfit ({(outfit.items || []).length})</h3>
+                  <span className="text-base sm:text-lg font-bold text-primary">
+                      Total: ${getTotalPrice(outfit.items)}
+                  </span>
                 </div>
-              ))}
-            </ScrollArea>
+              </div>
+              <ScrollArea className="flex-1 p-4 sm:p-6 pt-0">
+                <div className="space-y-4">
+                  {(outfit.items || []).map((item) => (
+                    <div key={item.id} className="flex gap-4 p-3 border rounded-lg hover:shadow-sm transition-shadow">
+                      <div className="w-16 h-20 relative rounded overflow-hidden bg-gray-100 flex-shrink-0">
+                        {isValidUrl(item.image) ? (
+                          <Image
+                            src={item.image}
+                            alt={item.name}
+                            fill
+                            sizes="64px"
+                            className="object-cover"
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium whitespace-normal text-sm sm:text-base">{item.name}</p>
+                        <p className="text-sm text-muted-foreground">{item.category}</p>
+                        <p className="text-sm font-semibold mt-1">${(item.price || 0).toFixed(2)}</p>
+                      </div>
+                      {item.affiliateLink && (
+                        <a 
+                          href={item.affiliateLink} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex-shrink-0 self-center"
+                        >
+                          <Button size="sm">Buy Now</Button>
+                        </a>
+                      )}
+                    </div>
+                  ))}
+                   {(!outfit.items || outfit.items.length === 0) && (
+                      <div className="text-center text-muted-foreground py-10">
+                        <p>No items found in this outfit.</p>
+                      </div>
+                    )}
+                </div>
+              </ScrollArea>
+            </div>
           </div>
         </DialogContent>
       </DialogPortal>

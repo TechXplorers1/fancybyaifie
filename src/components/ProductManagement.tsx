@@ -1,3 +1,4 @@
+
 // src/components/ProductManagement.tsx
 'use client';
 
@@ -126,7 +127,7 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <CardTitle>Product Management</CardTitle>
             <CardDescription>Add, edit, or remove products from your catalog</CardDescription>
@@ -137,17 +138,17 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
             setIsAddDialogOpen(isOpen);
           }}>
             <DialogTrigger asChild>
-              <Button>
+              <Button className="w-full sm:w-auto">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Product
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="max-w-2xl">
               <DialogHeader>
                 <DialogTitle>Add New Product</DialogTitle>
                 <DialogDescription>Enter the product details below</DialogDescription>
               </DialogHeader>
-              <div className="space-y-4">
+              <div className="space-y-4 py-4 max-h-[70vh] overflow-y-auto pr-2">
                 <div className="space-y-2">
                   <Label htmlFor="name">Product Name</Label>
                   <Input
@@ -205,7 +206,15 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
                   />
                 </div>
                 
-                {/* Note: imageHint input is missing in the dialogs, which is why it might be undefined */}
+                <div className="space-y-2">
+                  <Label htmlFor="imageHint">Image Hint</Label>
+                  <Input
+                    id="imageHint"
+                    value={formData.imageHint}
+                    onChange={(e) => setFormData({ ...formData, imageHint: e.target.value })}
+                    placeholder="e.g. 'white shirt'"
+                  />
+                </div>
                 
                 <div className="space-y-2">
                   <Label htmlFor="affiliateLink">Affiliate Link</Label>
@@ -216,18 +225,18 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
                     placeholder="https://amazon.com/..."
                   />
                 </div>
+              </div>
 
-                <div className="flex gap-2 pt-4">
-                  <Button onClick={handleAdd} className="flex-1">
-                    Add Product
-                  </Button>
-                  <Button onClick={() => {
-                    setIsAddDialogOpen(false);
-                    resetForm();
-                  }} variant="outline" className="flex-1">
-                    Cancel
-                  </Button>
-                </div>
+              <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t">
+                <Button onClick={handleAdd} className="flex-1">
+                  Add Product
+                </Button>
+                <Button onClick={() => {
+                  setIsAddDialogOpen(false);
+                  resetForm();
+                }} variant="outline" className="flex-1">
+                  Cancel
+                </Button>
               </div>
             </DialogContent>
           </Dialog>
@@ -236,7 +245,7 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
       <CardContent>
         <div className="mb-4">
           <Select value={filterCategory} onValueChange={setFilterCategory}>
-            <SelectTrigger className="w-[200px]">
+            <SelectTrigger className="w-full sm:w-[200px]">
               <SelectValue placeholder="Filter by category" />
             </SelectTrigger>
             <SelectContent>
@@ -251,83 +260,85 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
         </div>
 
         <div className="rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Image</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredProducts.map((product) => (
-                <TableRow key={product.id}>
-                  <TableCell>
-                    <div className="w-12 h-16 relative rounded overflow-hidden bg-muted">
-                      {product.image && (product.image.startsWith('http') || product.image.startsWith('/')) ? (
-                        <Image
-                          src={product.image}
-                          alt={product.name}
-                          fill
-                          className="object-cover"
-                          sizes="48px"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-500 text-xs">
-                          No Image
-                        </div>
-                      )}
-
-                    </div>
-                  </TableCell>
-                  <TableCell className="font-medium">{product.name}</TableCell>
-                  <TableCell>{product.category}</TableCell>
-                  <TableCell>${product.price.toFixed(2)}</TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        onClick={() => handleEdit(product)}
-                        variant="outline"
-                        size="icon"
-                        className="h-8 w-8"
-                      >
-                        <Pencil className="h-4 w-4" />
-                        <span className="sr-only">Edit</span>
-                      </Button>
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <Button
-                            variant="destructive"
-                            size="icon"
-                            className="h-8 w-8"
-                            onClick={() => setProductToDelete(product)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                            <span className="sr-only">Delete</span>
-                          </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                              This action cannot be undone. This will permanently delete the
-                              product.
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel onClick={() => setProductToDelete(null)}>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
-                    </div>
-                  </TableCell>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[80px] hidden sm:table-cell">Image</TableHead>
+                  <TableHead>Name</TableHead>
+                  <TableHead className="hidden md:table-cell">Category</TableHead>
+                  <TableHead className="hidden sm:table-cell">Price</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {filteredProducts.map((product) => (
+                  <TableRow key={product.id}>
+                    <TableCell className="hidden sm:table-cell">
+                      <div className="w-12 h-16 relative rounded overflow-hidden bg-muted">
+                        {product.image && (product.image.startsWith('http') || product.image.startsWith('/')) ? (
+                          <Image
+                            src={product.image}
+                            alt={product.name}
+                            fill
+                            className="object-cover"
+                            sizes="48px"
+                          />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-500 text-xs">
+                            No Image
+                          </div>
+                        )}
+
+                      </div>
+                    </TableCell>
+                    <TableCell className="font-medium max-w-[150px] whitespace-normal">{product.name}</TableCell>
+                    <TableCell className="hidden md:table-cell">{product.category}</TableCell>
+                    <TableCell className="hidden sm:table-cell">${product.price.toFixed(2)}</TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-1 sm:gap-2">
+                        <Button
+                          onClick={() => handleEdit(product)}
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8"
+                        >
+                          <Pencil className="h-4 w-4" />
+                          <span className="sr-only">Edit</span>
+                        </Button>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              variant="destructive"
+                              size="icon"
+                              className="h-8 w-8"
+                              onClick={() => setProductToDelete(product)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                              <span className="sr-only">Delete</span>
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                This action cannot be undone. This will permanently delete the
+                                product.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel onClick={() => setProductToDelete(null)}>Cancel</AlertDialogCancel>
+                              <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </CardContent>
 
@@ -339,12 +350,12 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
         }
         setIsEditDialogOpen(isOpen);
       }}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>Edit Product: {editingProduct?.name}</DialogTitle>
             <DialogDescription>Update the product details below</DialogDescription>
           </DialogHeader>
-          <div className="space-y-4">
+          <div className="space-y-4 py-4 max-h-[70vh] overflow-y-auto pr-2">
             <div className="space-y-2">
               <Label htmlFor="edit-name">Product Name</Label>
               <Input
@@ -398,15 +409,14 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
               />
             </div>
             
-            {/* 💡 Note: If you have an imageHint field in your data structure, it needs an input here: */}
-            {/* <div className="space-y-2">
+             <div className="space-y-2">
               <Label htmlFor="edit-imageHint">Image Hint</Label>
               <Input
                 id="edit-imageHint"
                 value={formData.imageHint}
                 onChange={(e) => setFormData({ ...formData, imageHint: e.target.value })}
               />
-            </div> */}
+            </div>
 
             <div className="space-y-2">
               <Label htmlFor="edit-affiliateLink">Affiliate Link</Label>
@@ -416,15 +426,14 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
                 onChange={(e) => setFormData({ ...formData, affiliateLink: e.target.value })}
               />
             </div>
-
-            <div className="flex gap-2 pt-4">
-              <Button onClick={handleUpdate} className="flex-1">
-                Update Product
-              </Button>
-              <Button onClick={() => setIsEditDialogOpen(false)} variant="outline" className="flex-1">
-                Cancel
-              </Button>
-            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t">
+            <Button onClick={handleUpdate} className="flex-1">
+              Update Product
+            </Button>
+            <Button onClick={() => setIsEditDialogOpen(false)} variant="outline" className="flex-1">
+              Cancel
+            </Button>
           </div>
         </DialogContent>
       </Dialog>

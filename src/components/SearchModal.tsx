@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -47,58 +48,60 @@ export function SearchModal({ isOpen, onClose, onProductSelect, products }: Sear
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-lg bg-background">
+            <DialogContent className="sm:max-w-lg bg-background w-full h-full sm:h-auto sm:max-h-[80vh] flex flex-col sm:rounded-lg">
                 <DialogHeader>
                     <DialogTitle className="font-headline text-2xl text-primary">Search Products</DialogTitle>
                      <DialogDescription>
                         Find your perfect piece of clothing.
                     </DialogDescription>
                 </DialogHeader>
-                <div className="relative mt-4">
+                <div className="relative">
                     <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                     <Input 
                         placeholder="e.g. 'White T-Shirt'" 
-                        className="pl-12 h-12 text-lg" 
+                        className="pl-12 h-12 text-base sm:text-lg" 
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
-                <ScrollArea className="mt-6 max-h-[60vh]">
-                    {searchTerm.length > 1 ? (
-                        results.length > 0 ? (
-                             <div className="space-y-4">
-                                {results.map((product) => (
-                                    <button 
-                                        key={product.id} 
-                                        onClick={() => handleSelect(product)}
-                                        className="w-full text-left flex items-center gap-4 p-3 rounded-lg hover:bg-muted transition-colors"
-                                    >
-                                        <div className="relative w-16 h-20 rounded-md overflow-hidden bg-muted flex-shrink-0">
-                                            <Image
-                                                src={product.image}
-                                                alt={product.name}
-                                                fill
-                                                className="object-cover"
-                                                sizes="64px"
-                                            />
-                                        </div>
-                                        <div className="flex-grow">
-                                            <h3 className="font-medium text-foreground">{product.name}</h3>
-                                            <p className="text-sm text-muted-foreground">${product.price.toFixed(2)}</p>
-                                        </div>
-                                    </button>
-                                ))}
-                            </div>
+                <ScrollArea className="mt-4 flex-1 -mx-6">
+                    <div className="px-6">
+                        {searchTerm.length > 1 ? (
+                            results.length > 0 ? (
+                                <div className="space-y-4">
+                                    {results.map((product) => (
+                                        <button 
+                                            key={product.id} 
+                                            onClick={() => handleSelect(product)}
+                                            className="w-full text-left flex items-center gap-4 p-3 rounded-lg hover:bg-muted transition-colors"
+                                        >
+                                            <div className="relative w-16 h-20 rounded-md overflow-hidden bg-muted flex-shrink-0">
+                                                <Image
+                                                    src={product.image}
+                                                    alt={product.name}
+                                                    fill
+                                                    className="object-cover"
+                                                    sizes="64px"
+                                                />
+                                            </div>
+                                            <div className="flex-grow min-w-0">
+                                                <h3 className="font-medium text-foreground whitespace-normal">{product.name}</h3>
+                                                <p className="text-sm text-muted-foreground">${product.price.toFixed(2)}</p>
+                                            </div>
+                                        </button>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="text-center text-muted-foreground py-10">
+                                    <p>No results found for &quot;{searchTerm}&quot;</p>
+                                </div>
+                            )
                         ) : (
                             <div className="text-center text-muted-foreground py-10">
-                                <p>No results found for &quot;{searchTerm}&quot;</p>
+                                <p>Start typing to see search results.</p>
                             </div>
-                        )
-                    ) : (
-                         <div className="text-center text-muted-foreground py-10">
-                            <p>Start typing to see search results.</p>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </ScrollArea>
             </DialogContent>
         </Dialog>

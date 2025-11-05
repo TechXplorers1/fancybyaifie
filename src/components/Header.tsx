@@ -116,7 +116,7 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
             <div className="md:hidden border-t border-gray-100 dark:border-border/50 py-4">
-              <nav className="flex justify-center space-x-6 px-4">
+              <nav className="flex justify-center space-x-4 sm:space-x-6 px-2 sm:px-4 overflow-x-auto">
                 {socialLinks.map((social) => {
                   const Icon = social.icon;
 
@@ -126,7 +126,7 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
                         key={social.name}
                         href={social.url}
                         aria-label={social.name}
-                        className="flex flex-col items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors"
+                        className="flex flex-col items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors flex-shrink-0"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <Icon className="h-7 w-7"/>
@@ -141,7 +141,7 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex flex-col items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors"
+                      className="flex flex-col items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors flex-shrink-0"
                       aria-label={social.name}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
