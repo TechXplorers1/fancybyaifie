@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
-import { Plus, Pencil, Trash2, Eye, X } from 'lucide-react';
+import { Plus, Pencil, Trash2, Eye, X, Search } from 'lucide-react';
 import Image from 'next/image';
 import { ScrollArea } from './ui/scroll-area';
 import { Product } from '@/lib/products';
@@ -39,6 +39,7 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
   const [editingOutfit, setEditingOutfit] = useState<Outfit | null>(null);
   const [viewingOutfit, setViewingOutfit] = useState<Outfit | null>(null);
   const [outfitToDelete, setOutfitToDelete] = useState<Outfit | null>(null);
+  const [productSearchTerm, setProductSearchTerm] = useState('');
 
   const [formData, setFormData] = useState<{
     name: string;
@@ -59,6 +60,7 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
       image: '',
       items: [],
     });
+    setProductSearchTerm('');
   };
 
   const handleAdd = () => {
@@ -145,6 +147,153 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
     const safeItems = Array.isArray(items) ? items : []; 
     return safeItems.reduce((sum, item) => sum + (item.price || 0), 0).toFixed(2);
   }
+  
+  const filteredProducts = useMemo(() => {
+    if (!productSearchTerm) {
+      return allProducts;
+    }
+    return allProducts.filter(product =>
+      product.name.toLowerCase().includes(productSearchTerm.toLowerCase())
+    );
+  }, [allProducts, productSearchTerm]);
+
+  const OutfitForm = ({ isEditing = false }: { isEditing?: boolean }) => (
+    <div className="grid md:grid-cols-2 gap-6 h-full">
+        {/* Left Column: Form Fields & Selected Items */}
+        <div className="flex flex-col gap-4">
+            <div className="space-y-2">
+                <Label htmlFor="outfit-name">Outfit Name</Label>
+                <Input
+                    id="outfit-name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="Casual Elegance"
+                />
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="outfit-description">Description</Label>
+                <Textarea
+                    id="outfit-description"
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    placeholder="Perfect blend of comfort and style..."
+                />
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="outfit-image">Main Image URL</Label>
+                <Input
+                    id="outfit-image"
+                    value={formData.image}
+                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                    placeholder="https://picsum.photos/seed/..."
+                />
+            </div>
+            
+            {/* Selected Items Section */}
+            <div className="flex-1 flex flex-col min-h-0 space-y-3">
+                <div className="flex items-center justify-between">
+                    <Label>Selected Items ({formData.items.length})</Label>
+                    <span className="text-sm text-muted-foreground">
+                        Total: ${getTotalPrice(formData.items)}
+                    </span>
+                </div>
+                <ScrollArea className="border rounded-lg bg-muted/50 flex-1">
+                    <div className="p-3 space-y-2">
+                        {formData.items.length > 0 ? (
+                            formData.items.map((item, index) => (
+                                <div key={`${item.id}-${index}`} className="flex items-center gap-3 p-2 bg-background rounded border">
+                                    <div className="w-12 h-16 relative rounded overflow-hidden bg-muted flex-shrink-0">
+                                        {isValidUrl(item.image) ? (
+                                            <Image
+                                                src={item.image}
+                                                alt={item.name}
+                                                fill
+                                                sizes="48px"
+                                                className="object-cover"
+                                            />
+                                        ) : (
+                                            <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
+                                        )}
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-sm font-medium whitespace-normal">{item.name}</p>
+                                        <p className="text-xs text-muted-foreground">{item.category}</p>
+                                    </div>
+                                    <p className="text-sm flex-shrink-0">${(item.price || 0).toFixed(2)}</p>
+                                    <Button
+                                        onClick={() => handleToggleProductInOutfit(item, 'remove')}
+                                        variant="ghost"
+                                        size="icon"
+                                        className="flex-shrink-0 h-8 w-8"
+                                    >
+                                        <X className="h-4 w-4 text-destructive" />
+                                    </Button>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="flex items-center justify-center h-full py-4">
+                                <p className="text-sm text-muted-foreground text-center">No items added yet.</p>
+                            </div>
+                        )}
+                    </div>
+                </ScrollArea>
+            </div>
+        </div>
+
+        {/* Right Column: Product List */}
+        <div className="flex flex-col gap-2 min-h-0">
+            <Label>Add Products to Outfit</Label>
+            <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                    placeholder="Search products..."
+                    value={productSearchTerm}
+                    onChange={(e) => setProductSearchTerm(e.target.value)}
+                    className="pl-9"
+                />
+            </div>
+            <ScrollArea className="border rounded-lg bg-muted/50 flex-1">
+                <div className="p-3 space-y-2">
+                    {filteredProducts.map((product) => {
+                        const isAdded = formData.items.some(item => item.id === product.id);
+                        return (
+                            <div
+                                key={product.id}
+                                className={`flex items-center gap-3 p-2 rounded border bg-background cursor-pointer hover:bg-muted/80 ${isAdded ? 'opacity-50 pointer-events-none' : ''}`}
+                                onClick={() => !isAdded && handleToggleProductInOutfit(product, 'add')}
+                            >
+                                <div className="w-12 h-16 relative rounded overflow-hidden bg-muted flex-shrink-0">
+                                    {isValidUrl(product.image) ? (
+                                        <Image
+                                            src={product.image}
+                                            alt={product.name}
+                                            fill
+                                            sizes="48px"
+                                            className="object-cover"
+                                        />
+                                    ) : (
+                                        <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
+                                    )}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-sm font-medium whitespace-normal">{product.name}</p>
+                                    <p className="text-xs text-muted-foreground">{product.category}</p>
+                                </div>
+                                <p className="text-sm flex-shrink-0">${(product.price || 0).toFixed(2)}</p>
+                            </div>
+                        );
+                    })}
+                    {filteredProducts.length === 0 && (
+                        <div className="flex items-center justify-center h-full py-4">
+                             <p className="text-sm text-muted-foreground text-center">No products found.</p>
+                        </div>
+                    )}
+                </div>
+            </ScrollArea>
+        </div>
+    </div>
+);
+
 
   return (
     <Card>
@@ -164,140 +313,23 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
                 Add Outfit
               </Button>
             </DialogTrigger>
-            <DialogContent className="w-full max-w-4xl h-[90vh]">
-              <DialogHeader>
+            <DialogContent className="max-w-4xl w-full h-full sm:h-[90vh] p-0 flex flex-col sm:rounded-lg">
+              <DialogHeader className="p-6 pb-4 border-b flex-shrink-0">
                 <DialogTitle>Add New Outfit</DialogTitle>
                 <DialogDescription>Create a new curated outfit collection</DialogDescription>
               </DialogHeader>
-              <div className="flex flex-col md:flex-row gap-6 h-full min-h-0">
-                <div className="md:w-1/2 flex flex-col gap-4">
-                   <div className="space-y-2">
-                    <Label htmlFor="outfit-name">Outfit Name</Label>
-                    <Input
-                      id="outfit-name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Casual Elegance"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="outfit-description">Description</Label>
-                    <Textarea
-                      id="outfit-description"
-                      value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      placeholder="Perfect blend of comfort and style..."
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="outfit-image">Main Image URL</Label>
-                    <Input
-                      id="outfit-image"
-                      value={formData.image}
-                      onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                      placeholder="https://picsum.photos/seed/..."
-                    />
-                  </div>
-                  
-                  <div className="space-y-3 flex-1 flex flex-col min-h-0">
-                    <div className="flex items-center justify-between">
-                      <Label>Selected Items ({formData.items.length})</Label>
-                      <span className="text-sm text-muted-foreground">
-                        Total: ${getTotalPrice(formData.items)}
-                      </span>
-                    </div>
-                    <ScrollArea className="border rounded-lg bg-muted/50 flex-1">
-                      <div className="p-3 space-y-2">
-                        {formData.items.length > 0 ? (
-                          formData.items.map((item, index) => (
-                            <div key={index} className="flex items-center gap-3 p-2 bg-background rounded border">
-                              <div className="w-12 h-16 relative rounded overflow-hidden bg-muted flex-shrink-0">
-                                {isValidUrl(item.image) ? (
-                                  <Image
-                                    src={item.image}
-                                    alt={item.name}
-                                    fill
-                                    sizes="48px"
-                                    className="object-cover"
-                                  />
-                                ) : (
-                                  <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
-                                )}
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium whitespace-normal">{item.name}</p>
-                                <p className="text-xs text-muted-foreground">{item.category}</p>
-                              </div>
-                              <p className="text-sm flex-shrink-0">${(item.price || 0).toFixed(2)}</p>
-                              <Button
-                                onClick={() => handleToggleProductInOutfit(item, 'remove')}
-                                variant="ghost"
-                                size="icon"
-                                className="flex-shrink-0 h-8 w-8"
-                              >
-                                <X className="h-4 w-4 text-destructive" />
-                              </Button>
-                            </div>
-                          ))
-                        ) : (
-                          <p className="text-sm text-muted-foreground text-center py-4">
-                            No items added yet.
-                          </p>
-                        )}
-                      </div>
-                    </ScrollArea>
-                  </div>
-                </div>
-                <div className="md:w-1/2 flex flex-col gap-4 min-h-0">
-                   <Label>Add Products to Outfit</Label>
-                   <ScrollArea className="border rounded-lg bg-muted/50 flex-1">
-                     <div className="p-3 space-y-2">
-                        {allProducts.map((product) => {
-                          const isAdded = formData.items.some(item => item.id === product.id);
-                          return (
-                            <div
-                              key={product.id}
-                              className={`flex items-center gap-3 p-2 rounded border bg-background cursor-pointer hover:bg-muted/80 ${isAdded ? 'opacity-50 pointer-events-none' : ''
-                                }`}
-                              onClick={() => !isAdded && handleToggleProductInOutfit(product, 'add')}
-                            >
-                              <div className="w-12 h-16 relative rounded overflow-hidden bg-muted flex-shrink-0">
-                                {isValidUrl(product.image) ? (
-                                  <Image
-                                    src={product.image}
-                                    alt={product.name}
-                                    fill
-                                    sizes="48px"
-                                    className="object-cover"
-                                  />
-                                ) : (
-                                  <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
-                                )}
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium whitespace-normal">{product.name}</p>
-                                <p className="text-xs text-muted-foreground">{product.category}</p>
-                              </div>
-                              <p className="text-sm flex-shrink-0">${(product.price || 0).toFixed(2)}</p>
-                            </div>
-                          );
-                        })}
-                      </div>
-                   </ScrollArea>
-                </div>
+              <div className="flex-1 p-6 overflow-y-auto">
+                 <OutfitForm />
               </div>
-
-              <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t">
-                <Button onClick={handleAdd} className="flex-1">
-                  Add Outfit
-                </Button>
+              <div className="flex flex-col-reverse sm:flex-row gap-2 p-6 pt-4 border-t bg-background flex-shrink-0">
                 <Button onClick={() => {
                   setIsAddDialogOpen(false);
                   resetForm();
-                }} variant="outline" className="flex-1">
+                }} variant="outline" className="w-full">
                   Cancel
+                </Button>
+                <Button onClick={handleAdd} className="w-full">
+                  Add Outfit
                 </Button>
               </div>
             </DialogContent>
@@ -393,139 +425,29 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
 
       {/* Edit Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={(isOpen) => {
-        if (!isOpen) resetForm();
+        if (!isOpen) {
+          resetForm();
+          setEditingOutfit(null);
+        }
         setIsEditDialogOpen(isOpen);
       }}>
-        <DialogContent className="w-full max-w-4xl h-[90vh]">
-          <DialogHeader>
+        <DialogContent className="max-w-4xl w-full h-full sm:h-[90vh] p-0 flex flex-col sm:rounded-lg">
+          <DialogHeader className="p-6 pb-4 border-b flex-shrink-0">
             <DialogTitle>Edit Outfit: {editingOutfit?.name}</DialogTitle>
             <DialogDescription>Update the outfit details and manage items</DialogDescription>
           </DialogHeader>
-          <div className="flex flex-col md:flex-row gap-6 h-full min-h-0">
-             <div className="md:w-1/2 flex flex-col gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="edit-outfit-name">Outfit Name</Label>
-                  <Input
-                    id="edit-outfit-name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="edit-outfit-description">Description</Label>
-                  <Textarea
-                    id="edit-outfit-description"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="edit-outfit-image">Main Image URL</Label>
-                  <Input
-                    id="edit-outfit-image"
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  />
-                </div>
-                
-                <div className="space-y-3 flex-1 flex flex-col min-h-0">
-                  <div className="flex items-center justify-between">
-                    <Label>Selected Items ({formData.items.length})</Label>
-                    <span className="text-sm text-muted-foreground">
-                      Total: ${getTotalPrice(formData.items)}
-                    </span>
-                  </div>
-                  <ScrollArea className="border rounded-lg bg-muted/50 flex-1">
-                    <div className="p-3 space-y-2">
-                      {formData.items.length > 0 ? (
-                        formData.items.map((item, index) => (
-                          <div key={index} className="flex items-center gap-3 p-2 bg-background rounded border">
-                            <div className="w-12 h-16 relative rounded overflow-hidden bg-muted flex-shrink-0">
-                              {isValidUrl(item.image) ? (
-                                <Image
-                                  src={item.image}
-                                  alt={item.name}
-                                  fill
-                                  sizes="48px"
-                                  className="object-cover"
-                                />
-                              ) : (
-                                <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
-                              )}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium whitespace-normal">{item.name}</p>
-                              <p className="text-xs text-muted-foreground">{item.category}</p>
-                            </div>
-                            <p className="text-sm flex-shrink-0">${(item.price || 0).toFixed(2)}</p>
-                            <Button
-                              onClick={() => handleToggleProductInOutfit(item, 'remove')}
-                              variant="ghost"
-                              size="icon"
-                              className="flex-shrink-0 h-8 w-8"
-                            >
-                              <X className="h-4 w-4 text-destructive" />
-                            </Button>
-                          </div>
-                        ))
-                      ) : (
-                         <p className="text-sm text-muted-foreground text-center py-4">
-                            No items added yet.
-                          </p>
-                      )}
-                    </div>
-                  </ScrollArea>
-                </div>
-              </div>
-              <div className="md:w-1/2 flex flex-col gap-4 min-h-0">
-                  <Label>Add Products to Outfit</Label>
-                  <ScrollArea className="border rounded-lg bg-muted/50 flex-1">
-                    <div className="p-3 space-y-2">
-                      {allProducts.map((product) => {
-                        const isAdded = formData.items.some(item => item.id === product.id);
-                        return (
-                          <div
-                            key={product.id}
-                            className={`flex items-center gap-3 p-2 rounded border bg-background cursor-pointer hover:bg-muted/80 ${isAdded ? 'opacity-50 pointer-events-none' : ''
-                              }`}
-                            onClick={() => !isAdded && handleToggleProductInOutfit(product, 'add')}
-                          >
-                            <div className="w-12 h-16 relative rounded overflow-hidden bg-muted flex-shrink-0">
-                              {isValidUrl(product.image) ? (
-                                <Image
-                                  src={product.image}
-                                  alt={product.name}
-                                  fill
-                                  sizes="48px"
-                                  className="object-cover"
-                                />
-                              ) : (
-                                <div className="flex items-center justify-center h-full text-[8px] text-muted-foreground/70">No Img</div>
-                              )}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium whitespace-normal">{product.name}</p>
-                              <p className="text-xs text-muted-foreground">{product.category}</p>
-                            </div>
-                            <p className="text-sm flex-shrink-0">${(product.price || 0).toFixed(2)}</p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </ScrollArea>
-                </div>
+          <div className="flex-1 p-6 overflow-y-auto">
+            <OutfitForm isEditing={true} />
           </div>
-          <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t">
-            <Button onClick={handleUpdate} className="flex-1">
-              Update Outfit
-            </Button>
+          <div className="flex flex-col-reverse sm:flex-row gap-2 p-6 pt-4 border-t bg-background flex-shrink-0">
             <Button onClick={() => {
               setIsEditDialogOpen(false);
               resetForm();
-            }} variant="outline" className="flex-1">
+            }} variant="outline" className="w-full">
               Cancel
+            </Button>
+            <Button onClick={handleUpdate} className="w-full">
+              Update Outfit
             </Button>
           </div>
         </DialogContent>
@@ -533,7 +455,7 @@ export function OutfitManagement({ outfits, setOutfits, allProducts }: OutfitMan
 
       {/* View Dialog */}
       <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
-        <DialogContent className="max-w-3xl h-[90vh]">
+        <DialogContent className="max-w-3xl h-auto max-h-[85vh]">
           <DialogHeader>
             <DialogTitle>{viewingOutfit?.name}</DialogTitle>
             <DialogDescription>{viewingOutfit?.description}</DialogDescription>

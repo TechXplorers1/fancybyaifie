@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "fancybyaifie-43f12"
-  }
+    "default": "fancy-byaifie",
+    "fancy-byaifie": "fancy-byaifie"
+  },
+  "targets": {},
+  "etags": {}
 }
