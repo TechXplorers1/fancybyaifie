@@ -30,7 +30,7 @@ export function OutfitGrid({ outfits, onOutfitClick, onBack }: OutfitGridProps) 
                 ) : (
                     <div className="text-center text-muted-foreground py-16">
                         <p>No outfits found.</p>
-                        <p className="text-sm mt-2">Check back later or add some in the admin dashboard.</p>
+                        <p className="text-sm mt-2">Check back later.</p>
                     </div>
                 )}
             </div>
