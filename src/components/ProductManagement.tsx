@@ -1,4 +1,3 @@
-
 // src/components/ProductManagement.tsx
 'use client';
 
@@ -63,8 +62,11 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
 
   const handleAdd = () => {
     if (!db) return;
+    
+    // 🚀 FIREBASE REALTIME DATABASE ADD LOGIC 🚀
     const newProductData = {
       name: formData.name,
+      // Convert the string price from the form to a floating-point number
       price: parseFloat(formData.price) || 0,
       image: formData.image,
       imageHint: formData.imageHint || '',
@@ -73,11 +75,17 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
       affiliateLink: formData.affiliateLink,
     };
     
+    // 1. Get a reference to the 'products' node.
+    // 2. Use push() to generate a unique key for the new product.
     const newProductRef = push(ref(db, 'products'));
+    
+    // 3. Use set() to write the new product data to that unique key.
     set(newProductRef, newProductData);
     
+    // 4. Update UI state
     setIsAddDialogOpen(false);
     resetForm();
+    // -------------------------------------------
   };
 
   const handleEdit = (product: Product) => {
@@ -203,16 +211,6 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                     placeholder="https://picsum.photos/seed/..."
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="imageHint">Image Hint</Label>
-                  <Input
-                    id="imageHint"
-                    value={formData.imageHint}
-                    onChange={(e) => setFormData({ ...formData, imageHint: e.target.value })}
-                    placeholder="e.g. 'white shirt'"
                   />
                 </div>
                 
@@ -439,4 +437,4 @@ export function ProductManagement({ products, setProducts }: ProductManagementPr
       </Dialog>
     </Card>
   );
-}
+} 
