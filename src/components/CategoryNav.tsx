@@ -36,7 +36,7 @@ export function CategoryNav({ categories, selectedCategory, onSelectCategory }: 
                                 className={cn(
                                     "block w-full text-center px-3 sm:px-6 py-2 rounded-full cursor-pointer transition-colors duration-300 relative z-10 text-xs sm:text-sm whitespace-nowrap",
                                     selectedCategory === category 
-                                        ? "text-primary-foreground font-semibold"
+                                        ? "text-accent-foreground font-semibold"
                                         : "text-muted-foreground hover:text-foreground"
                                 )}
                             >
@@ -46,7 +46,7 @@ export function CategoryNav({ categories, selectedCategory, onSelectCategory }: 
                     ))}
                     {selectedIndex !== -1 && (
                         <span 
-                            className="absolute bg-primary h-full top-0 rounded-full transition-all duration-300 ease-in-out z-0"
+                            className="absolute bg-accent h-full top-0 rounded-full transition-all duration-300 ease-in-out z-0"
                             style={{
                                 width: `calc(${100 / categories.length}% - 4px)`,
                                 left: `calc(${selectedIndex * (100 / categories.length)}% + 2px)`,

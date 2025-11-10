@@ -30,7 +30,7 @@ export function Newsletter() {
   return (
     <section className="bg-muted dark:bg-muted/40">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center">
-        <h2 className="text-2xl sm:text-3xl font-headline text-primary">Stay in Touch</h2>
+        <h2 className="text-2xl sm:text-3xl font-headline text-accent">Stay in Touch</h2>
         <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
           Be the first to know about new arrivals, exclusive collections, and stories that inspire our designs.
         </p>
@@ -43,7 +43,7 @@ export function Newsletter() {
             onChange={(e) => setEmail(e.target.value)}
             aria-label="Email for newsletter"
           />
-          <Button type="submit" size="lg" className="w-full sm:w-auto">
+          <Button type="submit" size="lg" className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
             Subscribe
           </Button>
         </form>

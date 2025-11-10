@@ -18,7 +18,7 @@ export function HeroSection() {
           {/* Left side - Text content */}
           <div className="space-y-8 text-center lg:text-left">
             <div className="space-y-6">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-headline tracking-wide text-primary leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-headline tracking-wide text-accent leading-tight">
                 Born Out of Free
               </h1>
               <p className="text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 leading-relaxed">
@@ -29,7 +29,7 @@ export function HeroSection() {
             <div className="space-y-4">
               <Button 
                 size="lg"
-                className="bg-primary text-primary-foreground px-8 py-3 hover:bg-primary/90 transition-colors w-full sm:w-auto"
+                className="bg-accent text-accent-foreground px-8 py-3 hover:bg-accent/90 transition-colors w-full sm:w-auto"
                 asChild
               >
                 <Link href="/outfits">Shop My Outfits</Link>

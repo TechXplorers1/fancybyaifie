@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from "next/link";
@@ -21,9 +22,14 @@ export function Footer() {
           <div onClick={dispatchAdminEvent} className="cursor-pointer" style={{ width: '1px', height: '1px', opacity: 0 }}>
               Admin Access
           </div>
-          <p className="text-sm text-muted-foreground">
-            © {currentYear} fancybyaifie. All rights reserved.
-          </p>
+          <p className="text-xs text-muted-foreground">This Page Contains Affiliate Links</p>
+          <div className="text-sm text-muted-foreground">
+            <span>© {currentYear} fancybyaifie. All rights reserved.</span>
+            <span className="mx-2">|</span>
+            <Link href="/terms" className="hover:text-primary transition-colors">
+              Terms and Conditions
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

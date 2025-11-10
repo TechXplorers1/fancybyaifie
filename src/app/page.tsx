@@ -11,10 +11,14 @@ import type { Product } from '@/lib/products';
 import { CategoryNav } from '@/components/CategoryNav';
 import { Newsletter } from '@/components/Newsletter';
 import { useDatabase } from '@/firebase';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, query, orderByChild, limitToLast } from 'firebase/database';
 import { Outfit } from '@/lib/outfits';
 import { useRouter } from 'next/navigation';
 import { OutfitDetailDialog } from '@/components/OutfitDetailDialog';
+import { BlogSection, BlogPost } from '@/components/BlogSection';
+import { BlogDetailDialog } from '@/components/BlogDetailDialog';
+import { FeaturedOutfit } from '@/components/FeaturedOutfit';
+
 
 type View = 'home' | 'product';
 
@@ -24,8 +28,11 @@ export default function Home() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [outfits, setOutfits] = useState<Outfit[]>([]);
+  const [featuredOutfit, setFeaturedOutfit] = useState<Outfit | null>(null);
   const [selectedOutfit, setSelectedOutfit] = useState<Outfit | null>(null);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const [isPostDialogOpen, setIsPostDialogOpen] = useState(false);
   const db = useDatabase();
   const router = useRouter();
 
@@ -46,6 +53,8 @@ export default function Home() {
       });
       
       const outfitsRef = ref(db, 'outfits');
+      const latestOutfitQuery = query(outfitsRef, orderByChild('createdAt'), limitToLast(1));
+
       const unsubscribeOutfits = onValue(outfitsRef, (snapshot) => {
           const data = snapshot.val();
           const outfitsArray: Outfit[] = data ? Object.keys(data).map(key => {
@@ -65,9 +74,27 @@ export default function Home() {
           setOutfits(outfitsArray);
       });
 
+      const unsubscribeFeaturedOutfit = onValue(latestOutfitQuery, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          const [key] = Object.keys(data);
+          const outfitData = data[key];
+          const itemsArray = outfitData.items && typeof outfitData.items === 'object' 
+              ? Object.values(outfitData.items)
+              : [];
+          setFeaturedOutfit({
+            id: key,
+            ...outfitData,
+            items: itemsArray as Product[],
+            createdAt: outfitData.createdAt
+          });
+        }
+      });
+
       return () => {
         unsubscribeProducts();
         unsubscribeOutfits();
+        unsubscribeFeaturedOutfit();
       };
     }
   }, [db]);
@@ -122,6 +149,16 @@ export default function Home() {
     setSelectedOutfit(null);
   };
 
+  const handlePostClick = (post: BlogPost) => {
+    setSelectedPost(post);
+    setIsPostDialogOpen(true);
+  }
+
+  const handleClosePostDialog = () => {
+    setIsPostDialogOpen(false);
+    setSelectedPost(null);
+  }
+
   const categories = ['All', ...new Set(products.map(p => p.category))];
 
   const renderContent = () => {
@@ -132,6 +169,8 @@ export default function Home() {
     return (
         <>
             <HeroSection />
+            <BlogSection onPostClick={handlePostClick} />
+            {featuredOutfit && <FeaturedOutfit outfit={featuredOutfit} />}
             <CategoryNav 
                 categories={categories}
                 selectedCategory={currentCategory}
@@ -158,6 +197,11 @@ export default function Home() {
         outfit={selectedOutfit}
         isOpen={isDetailOpen}
         onClose={handleCloseDetail}
+      />
+      <BlogDetailDialog
+        post={selectedPost}
+        isOpen={isPostDialogOpen}
+        onClose={handleClosePostDialog}
       />
     </div>
   );

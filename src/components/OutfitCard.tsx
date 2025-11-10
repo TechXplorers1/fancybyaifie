@@ -4,6 +4,7 @@
 import Image from 'next/image';
 import type { Outfit } from '@/lib/outfits';
 import { Card, CardContent } from './ui/card';
+import { Button } from './ui/button';
 
 interface OutfitCardProps {
     outfit: Outfit;
@@ -12,12 +13,9 @@ interface OutfitCardProps {
 
 export function OutfitCard({ outfit, onClick }: OutfitCardProps) {
     const isValidUrl = outfit.image && (outfit.image.startsWith('http://') || outfit.image.startsWith('https://'));
-    const hasItems = outfit.items && Array.isArray(outfit.items);
-
-    const totalPrice = hasItems ? outfit.items.reduce((acc, item) => acc + (item.price || 0), 0) : 0;
     
     return (
-        <button onClick={onClick} className="group text-left w-full h-full flex flex-col">
+        <div onClick={onClick} className="group text-left w-full h-full flex flex-col cursor-pointer">
             <Card className="overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 border-none flex-grow flex flex-col bg-white dark:bg-white text-foreground dark:text-foreground">
                 <CardContent className="p-0 flex-grow flex flex-col">
                     <div className="aspect-[3/4] relative w-full bg-gray-100 dark:bg-gray-800">
@@ -38,14 +36,11 @@ export function OutfitCard({ outfit, onClick }: OutfitCardProps) {
                 </CardContent>
             </Card>
             <div className="mt-4">
-                <h3 className="text-sm text-foreground group-hover:text-primary transition-colors">{outfit.name}</h3>
-                {hasItems && (
-                    <>
-                        <p className="mt-1 text-lg font-medium text-foreground">${totalPrice.toFixed(2)}</p>
-                        <p className="text-xs text-muted-foreground">{outfit.items.length} {outfit.items.length === 1 ? 'item' : 'items'}</p>
-                    </>
-                )}
+                <h3 className="text-sm text-foreground group-hover:text-primary transition-colors min-h-[2.5rem]">{outfit.name}</h3>
+                <Button size="sm" variant="outline" className="mt-2 w-full bg-accent text-accent-foreground hover:bg-accent/90">
+                    Shop Now
+                </Button>
             </div>
-        </button>
+        </div>
     );
 }
