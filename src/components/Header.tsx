@@ -23,12 +23,11 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
 
   const socialLinks = [
     { name: 'Outfits', icon: ShoppingBag, url: '/outfits', isInternal: true },
-    { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/fancy_byaifie' },
-    { name: 'Facebook', icon: Facebook, url: 'https://www.facebook.com/fancybyaifie' },
-    { name: 'TikTok', icon: TikTokIcon, url: 'tiktok.com/@fancy_byaifie' },
-    { name: 'Pinterest', icon: PinterestIcon, url: 'https://pinterest.com/fancybyaifie' },
-    { name: 'YouTube', icon: Youtube, url: 'https://youtube.com/@fancybyaifie' }
-
+    { name: 'Instagram', icon: Instagram, url: 'https://instagram.com' },
+    { name: 'Facebook', icon: Facebook, url: 'https://facebook.com' },
+    { name: 'TikTok', icon: TikTokIcon, url: 'https://tiktok.com' },
+    { name: 'Pinterest', icon: PinterestIcon, url: 'https://pinterest.com' },
+    { name: 'YouTube', icon: Youtube, url: 'https://youtube.com' }
   ];
 
   return (
@@ -122,7 +121,7 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
             <div className="md:hidden border-t border-accent-foreground/20 py-4">
-              <nav className="flex justify-center space-x-4 sm:space-x-6 px-2 sm:px-4 overflow-x-auto">
+              <nav className="grid grid-cols-3 gap-y-4 gap-x-2 px-2">
                 {socialLinks.map((social) => {
                   const Icon = social.icon;
 
@@ -136,7 +135,7 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <Icon className="h-7 w-7"/>
-                        <span className="text-xs font-medium">{social.name}</span>
+                        <span className="text-xs font-medium text-center">{social.name}</span>
                       </Link>
                     )
                   }
@@ -152,7 +151,7 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <Icon className="h-7 w-7"/>
-                      <span className="text-xs font-medium">{social.name}</span>
+                      <span className="text-xs font-medium text-center">{social.name}</span>
                     </a>
                   );
                 })}
