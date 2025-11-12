@@ -39,13 +39,13 @@ export function HeroSection() {
 
           {/* Right side - Model image */}
           <div className="relative group">
-            <div className="relative aspect-[3/4] w-full max-w-sm sm:max-w-md mx-auto rounded-lg overflow-hidden shadow-2xl shadow-primary/10">
+            <div className="relative aspect-[3/4] w-full max-w-sm sm:max-w-md mx-auto rounded-lg overflow-hidden shadow-2xl shadow-primary/10 bg-background">
               {heroImage &&
                 <Image
                   src={heroImage.imageUrl}
                   alt="Model in white clothing"
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
+                  className="object-contain group-hover:scale-105 transition-transform duration-500 ease-in-out"
                   data-ai-hint={heroImage.imageHint}
                   priority
                 />
