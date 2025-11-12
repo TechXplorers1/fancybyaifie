@@ -2,11 +2,14 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+// I will import the X icon for the cancel button
+import { Search, X } from "lucide-react"; 
 import { useEffect, useState } from "react";
 import { Product } from "@/lib/products";
 import Image from "next/image";
 import { ScrollArea } from "./ui/scroll-area";
+// I will import the Button component for a proper click target, assuming it is available
+import { Button } from "@/components/ui/button"; 
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -56,7 +59,22 @@ export function SearchModal({ isOpen, onClose, onProductSelect, products }: Sear
             <DialogTitle className="font-headline text-2xl text-primary">Search Products</DialogTitle>
             <DialogDescription>Find your perfect piece of clothing.</DialogDescription>
           </DialogHeader>
-
+          
+          {/* * ADDED CANCEL BUTTON HERE 
+            * Using a standard Button (or just a plain button with classes) 
+            * and absolute positioning to place it in the top right.
+            * Since I cannot be sure of the Button component import, 
+            * I will use a simple button with appropriate styling.
+          */}
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
+            aria-label="Close"
+          >
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </button>
+          
           <div className="relative mt-4">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
