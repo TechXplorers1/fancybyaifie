@@ -4,7 +4,7 @@
 import Image from 'next/image';
 import type { Outfit } from '@/lib/outfits';
 import { Button } from './ui/button';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Product } from '@/lib/products';
 import {
   Carousel,
@@ -66,27 +66,22 @@ export function OutfitDetail({ outfit, onBack }: OutfitDetailProps) {
                     </div>
 
                     {/* Right Side */}
-                    <div className="space-y-6 pt-12">
-                        <p className="text-sm text-muted-foreground">{formatDate(outfit.createdAt)}</p>
-                        <h1 className="text-4xl md:text-5xl font-headline text-primary">{outfit.name || "Office Chic"}</h1>
+                    <div className="space-y-6 lg:pt-12">
+                        <div className="text-center lg:text-left">
+                            <p className="text-sm text-muted-foreground">{formatDate(outfit.createdAt)}</p>
+                            <h1 className="text-4xl md:text-5xl font-headline text-primary mt-1">{outfit.name || "Office Chic"}</h1>
+                        </div>
 
                         <Carousel
                             opts={{
                                 align: "start",
                                 loop: false,
                             }}
-                            className="w-full"
+                            className="w-full max-w-sm mx-auto lg:max-w-none lg:mx-0"
                         >
-                             <div className="flex justify-between items-center mb-4">
-                                <div />
-                                <div className="flex gap-2">
-                                    <CarouselPrevious variant="ghost" />
-                                    <CarouselNext variant="ghost" />
-                                </div>
-                            </div>
-                            <CarouselContent className="-ml-4">
+                            <CarouselContent className="-ml-2 sm:-ml-4">
                                 {(outfit.items || []).map((item: Product, index) => (
-                                <CarouselItem key={index} className="pl-4 basis-1/2 md:basis-1/3">
+                                <CarouselItem key={index} className="pl-2 sm:pl-4 basis-1/2 md:basis-1/3">
                                     <div className="group text-left">
                                         <div className="relative aspect-square w-full rounded-md overflow-hidden bg-muted">
                                             {isValidUrl(item.image) ? (
@@ -112,6 +107,12 @@ export function OutfitDetail({ outfit, onBack }: OutfitDetailProps) {
                                 </CarouselItem>
                                 ))}
                             </CarouselContent>
+                             <div className="mt-4 flex justify-center lg:justify-end">
+                                <div className="flex gap-2">
+                                    <CarouselPrevious variant="ghost" className="static -translate-y-0" />
+                                    <CarouselNext variant="ghost" className="static -translate-y-0" />
+                                </div>
+                            </div>
                         </Carousel>
                          {(!outfit.items || outfit.items.length === 0) && (
                             <div className="text-center text-muted-foreground py-10">

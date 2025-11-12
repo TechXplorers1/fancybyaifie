@@ -3,6 +3,8 @@
 
 import { cn } from "@/lib/utils";
 import React from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface CategoryNavProps {
     categories: string[];
@@ -12,9 +14,34 @@ interface CategoryNavProps {
 
 export function CategoryNav({ categories, selectedCategory, onSelectCategory }: CategoryNavProps) {
     const selectedIndex = categories.findIndex(c => c === selectedCategory);
+    const isMobile = useIsMobile();
     
     if (!categories || categories.length === 0) {
         return null;
+    }
+
+    if (isMobile) {
+        return (
+            <section className="bg-background/80 backdrop-blur-lg sticky top-20 z-30 border-b py-3">
+                <div className="max-w-4xl mx-auto px-4">
+                     <Select
+                        value={selectedCategory || ''}
+                        onValueChange={(value) => onSelectCategory(value === 'All' ? 'All' : value)}
+                    >
+                        <SelectTrigger className="w-full h-11 text-base">
+                            <SelectValue placeholder="Select a category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {categories.map((category) => (
+                                <SelectItem key={category} value={category}>
+                                    {category}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+            </section>
+        )
     }
 
     return (
@@ -60,3 +87,4 @@ export function CategoryNav({ categories, selectedCategory, onSelectCategory }: 
         </section>
     );
 }
+

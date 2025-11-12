@@ -3,9 +3,6 @@
 
 import Image from 'next/image';
 import type { Outfit } from '@/lib/outfits';
-import { Button } from './ui/button';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { Product } from '@/lib/products';
 import {
   Carousel,
   CarouselContent,
@@ -13,8 +10,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { AffLink } from '@/components/AffLink';
+import Autoplay from "embla-carousel-autoplay"
+import { Product } from '@/lib/products';
+import { AffLink } from './AffLink';
 import { format } from 'date-fns';
+import { Button } from './ui/button';
+import React from 'react';
 
 interface FeaturedOutfitProps {
     outfit: Outfit;
@@ -36,16 +37,26 @@ const formatDate = (dateString?: string) => {
 }
 
 export function FeaturedOutfit({ outfit }: FeaturedOutfitProps) {
-    if (!outfit) return null;
+    const plugin = React.useRef(
+      Autoplay({ delay: 2000, stopOnInteraction: true })
+    )
 
+    if (!outfit) {
+        return null;
+    }
+    
     return (
-        <section className="bg-background border-y featured-outfit">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-                <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
-                    {/* Left Side */}
-                    <div className="relative">
+        <section className="bg-background py-16 sm:py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-12">
+                    <h2 className="text-3xl sm:text-4xl font-headline text-accent">Featured Outfit</h2>
+                </div>
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
+                    
+                    {/* Left Side: Main Image */}
+                    <div className="relative mx-auto max-w-md w-full">
                         <AffLink />
-                        <div className="relative aspect-[3/4] w-full max-w-lg mx-auto rounded-lg overflow-hidden shadow-lg bg-muted border-8 border-card">
+                        <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg bg-muted border-8 border-card">
                              {isValidUrl(outfit.image) ? (
                                 <Image
                                     src={outfit.image}
@@ -62,27 +73,26 @@ export function FeaturedOutfit({ outfit }: FeaturedOutfitProps) {
                         </div>
                     </div>
 
-                    {/* Right Side */}
-                    <div className="space-y-6 pt-12">
-                        <p className="text-sm text-muted-foreground">{formatDate(outfit.createdAt)}</p>
-                        <h1 className="text-4xl md:text-5xl font-headline text-primary uppercase">{outfit.name || "Office Chic"}</h1>
+                    {/* Right Side: Details & Carousel */}
+                    <div className="flex flex-col justify-center text-center lg:text-left">
+                        <div className="mb-6">
+                            <p className="text-sm text-muted-foreground">{formatDate(outfit.createdAt)}</p>
+                            <h3 className="text-3xl md:text-4xl font-headline text-primary mt-1">{outfit.name || "Featured Outfit"}</h3>
+                        </div>
 
                         <Carousel
+                            plugins={[plugin.current]}
                             opts={{
                                 align: "start",
-                                loop: false,
+                                loop: true,
                             }}
-                            className="w-full"
+                            className="w-full max-w-sm mx-auto lg:max-w-none lg:mx-0"
+                            onMouseEnter={plugin.current.stop}
+                            onMouseLeave={plugin.current.reset}
                         >
-                             <div className="flex justify-between items-center mb-4 h-8 relative">
-                                <div className="absolute right-0 top-0 flex gap-2">
-                                    <CarouselPrevious variant="ghost" className="relative" />
-                                    <CarouselNext variant="ghost" className="relative" />
-                                </div>
-                            </div>
-                            <CarouselContent className="-ml-4">
+                            <CarouselContent className="-ml-2 sm:-ml-4">
                                 {(outfit.items || []).map((item: Product, index) => (
-                                <CarouselItem key={index} className="pl-4 basis-1/2 md:basis-1/3">
+                                <CarouselItem key={index} className="pl-2 sm:pl-4 basis-1/2 md:basis-1/3">
                                     <div className="group text-left">
                                         <div className="relative aspect-square w-full rounded-md overflow-hidden bg-muted">
                                             {isValidUrl(item.image) ? (
@@ -108,6 +118,10 @@ export function FeaturedOutfit({ outfit }: FeaturedOutfitProps) {
                                 </CarouselItem>
                                 ))}
                             </CarouselContent>
+                             <div className="hidden sm:flex justify-center lg:justify-end mt-4 gap-2">
+                                <CarouselPrevious variant="ghost" className="static -translate-y-0" />
+                                <CarouselNext variant="ghost" className="static -translate-y-0" />
+                            </div>
                         </Carousel>
                          {(!outfit.items || outfit.items.length === 0) && (
                             <div className="text-center text-muted-foreground py-10">

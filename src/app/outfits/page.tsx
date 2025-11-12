@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { OutfitGrid } from '@/components/OutfitGrid';
-import { Newsletter } from '@/components/Newsletter';
 import { useDatabase } from '@/firebase';
 import { ref, onValue } from 'firebase/database';
 import type { Outfit } from '@/lib/outfits';
@@ -107,7 +106,6 @@ export default function OutfitsPage() {
           <OutfitGrid outfits={outfits} onOutfitClick={handleOutfitClick} onBack={handleBackToHome}/>
         )}
       </main>
-      <Newsletter />
       <Footer />
     </div>
   );

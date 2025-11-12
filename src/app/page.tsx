@@ -9,7 +9,6 @@ import { ProductGrid } from '@/components/ProductGrid';
 import { ProductDetail } from '@/components/ProductDetail';
 import type { Product } from '@/lib/products';
 import { CategoryNav } from '@/components/CategoryNav';
-import { Newsletter } from '@/components/Newsletter';
 import { useDatabase } from '@/firebase';
 import { ref, onValue, query, orderByChild, limitToLast } from 'firebase/database';
 import { Outfit } from '@/lib/outfits';
@@ -191,7 +190,6 @@ export default function Home() {
       <main className="flex-grow">
         {renderContent()}
       </main>
-      <Newsletter />
       <Footer />
       <OutfitDetailDialog
         outfit={selectedOutfit}

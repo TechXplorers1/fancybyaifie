@@ -2,7 +2,14 @@
 'use client';
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 export function Footer() {
   const dispatchAdminEvent = () => {
@@ -17,16 +24,35 @@ export function Footer() {
             <div onClick={dispatchAdminEvent} className="cursor-pointer" style={{ width: '1px', height: '1px', opacity: 0 }}>
                 Admin Access
             </div>
-            <Link href="/terms" className="hover:underline uppercase">
-              Terms + Conditions
+            <Link href="/privacy" className="hover:underline uppercase">
+              Privacy Policy
             </Link>
-            <Link href="/about" className="hover:underline uppercase">
-              ABOUT FANCYBYAIFIE
+            <Link href="/disclaimer" className="hover:underline uppercase">
+              Disclaimer
             </Link>
           </div>
-          <div className="text-center opacity-80 italic">
-            This Page Contains Affiliate Links
-          </div>
+          
+          <Dialog>
+            <DialogTrigger asChild>
+              <div className="text-center opacity-80 italic cursor-pointer hover:underline">
+                This Page Contains Affiliate Links
+              </div>
+            </DialogTrigger>
+            <DialogContent className="w-[90vw] max-w-[425px] rounded-lg">
+              <DialogHeader>
+                <DialogTitle>Affiliate Disclosure</DialogTitle>
+                <DialogDescription>
+                  This disclosure details the affiliate relationships of Fancy by Aifie.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="text-sm text-muted-foreground space-y-4 py-4">
+                <p>Fancy by Aifie participates in affiliate marketing programs, which means I may earn a small commission when you click on links or make purchases through the links on this website — at no additional cost to you.</p>
+                <p>I only share products, brands, or services that I genuinely love, recommend, or personally use. These commissions help support this site and allow me to continue creating content, style guides, beauty inspiration, and lifestyle resources for you.</p>
+                <p>Thank you for supporting my work!</p>
+              </div>
+            </DialogContent>
+          </Dialog>
+
           <div className="text-right opacity-80">
              <a href="https://techxplorers.in/" target="_blank" rel="noopener noreferrer" className="hover:underline">
               Development by Techxplorers pvt ltd
