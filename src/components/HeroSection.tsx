@@ -19,10 +19,10 @@ export function HeroSection() {
           <div className="space-y-8 text-center lg:text-left">
             <div className="space-y-6">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-headline tracking-wide text-accent leading-tight">
-                Born Out of Free
+                Where Chic Simplicity Inspires Everyday Confidence
               </h1>
               <p className="text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 leading-relaxed">
-                Embracing authenticity and individual expression through thoughtfully designed pieces that speak to your unique style.
+                Welcome to a curated space where fashion, beauty, and lifestyle inspiration blend effortlessly. With daily outfit ideas, beauty tips, lifestyle gems, and thoughtfully selected fashion finds, my goal is to help you elevate your style and highlight your natural beauty.
               </p>
             </div>
             
