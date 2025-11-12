@@ -1,15 +1,29 @@
 
 'use client';
 
+import React from 'react';
 import Image from 'next/image';
 import { Button } from './ui/button';
-import imageData from '@/lib/placeholder-images.json';
 import Link from 'next/link';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
 
-const { placeholderImages: PlaceHolderImages } = imageData;
+const heroImages = [
+    "https://github.com/TechXplorers1/fancybyaifie/blob/main/outfit_images/PHOTO-2025-11-12-16-29-44.jpg?raw=true",
+    "https://github.com/TechXplorers1/fancybyaifie/blob/main/outfit_images/PHOTO-2025-11-12-16-30-21.jpg?raw=true",
+    "https://github.com/TechXplorers1/fancybyaifie/blob/main/outfit_images/3.jpeg?raw=true",
+    "https://github.com/TechXplorers1/fancybyaifie/blob/main/outfit_images/PHOTO-2025-11-12-16-32-16.jpg?raw=true",
+    "https://github.com/TechXplorers1/fancybyaifie/blob/main/outfit_images/PHOTO-2025-11-12-16-31-15.jpg?raw=true"
+]
 
 export function HeroSection() {
-  const heroImage = PlaceHolderImages.find(p => p.id === 'hero');
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+  )
 
   return (
     <section className="relative bg-background">
@@ -37,20 +51,30 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right side - Model image */}
-          <div className="relative group">
-            <div className="relative aspect-[3/4] w-full max-w-sm sm:max-w-md mx-auto rounded-lg overflow-hidden shadow-2xl shadow-primary/10 bg-background">
-              {heroImage &&
-                <Image
-                  src={heroImage.imageUrl}
-                  alt="Model in white clothing"
-                  fill
-                  className="object-contain group-hover:scale-105 transition-transform duration-500 ease-in-out"
-                  data-ai-hint={heroImage.imageHint}
-                  priority
-                />
-              }
-            </div>
+          {/* Right side - Image Carousel */}
+          <div className="relative flex justify-center">
+             <Carousel 
+                plugins={[plugin.current]}
+                className="w-full max-w-[20rem] sm:max-w-md"
+                onMouseEnter={plugin.current.stop}
+                onMouseLeave={plugin.current.reset}
+             >
+                <CarouselContent>
+                    {heroImages.map((src, index) => (
+                        <CarouselItem key={index}>
+                            <div className="relative aspect-[3/4] w-full rounded-lg overflow-hidden shadow-2xl shadow-primary/10 bg-background">
+                                <Image
+                                    src={src}
+                                    alt={`Hero image ${index + 1}`}
+                                    fill
+                                    className="object-cover"
+                                    priority={index === 0}
+                                />
+                            </div>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+            </Carousel>
           </div>
         </div>
       </div>
