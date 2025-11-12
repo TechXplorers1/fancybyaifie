@@ -55,7 +55,7 @@ export function Footer() {
 
           <div className="text-right opacity-80">
              <a href="https://techxplorers.in/" target="_blank" rel="noopener noreferrer" className="hover:underline">
-              Development by Techxplorers pvt ltd
+              Developed by Techxplorers pvt ltd
             </a>
           </div>
         </div>
