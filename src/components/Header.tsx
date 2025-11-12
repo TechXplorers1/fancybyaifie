@@ -23,11 +23,11 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
 
   const socialLinks = [
     { name: 'Outfits', icon: ShoppingBag, url: '/outfits', isInternal: true },
-    { name: 'Instagram', icon: Instagram, url: 'https://instagram.com' },
-    { name: 'Facebook', icon: Facebook, url: 'https://facebook.com' },
-    { name: 'TikTok', icon: TikTokIcon, url: 'https://tiktok.com' },
-    { name: 'Pinterest', icon: PinterestIcon, url: 'https://pinterest.com' },
-    { name: 'YouTube', icon: Youtube, url: 'https://youtube.com' }
+    { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/fancy_byaifie' },
+    { name: 'Facebook', icon: Facebook, url: 'https://www.facebook.com/fancybyaifie' },
+    { name: 'TikTok', icon: TikTokIcon, url: 'tiktok.com/@fancy_byaifie' },
+    { name: 'Pinterest', icon: PinterestIcon, url: 'https://pinterest.com/fancybyaifie' },
+    { name: 'YouTube', icon: Youtube, url: 'https://youtube.com/@fancybyaifie' }
   ];
 
   return (
