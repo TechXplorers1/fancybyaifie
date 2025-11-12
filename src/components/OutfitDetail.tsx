@@ -1,6 +1,7 @@
 
 'use client';
 
+import React from 'react';
 import Image from 'next/image';
 import type { Outfit } from '@/lib/outfits';
 import { Button } from './ui/button';
@@ -13,6 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
 import { AffLink } from '@/components/AffLink';
 import { format } from 'date-fns';
 
@@ -37,6 +39,10 @@ const formatDate = (dateString?: string) => {
 }
 
 export function OutfitDetail({ outfit, onBack }: OutfitDetailProps) {
+    const plugin = React.useRef(
+      Autoplay({ delay: 2000, stopOnInteraction: true })
+    )
+
     return (
         <section className="bg-background">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -66,18 +72,21 @@ export function OutfitDetail({ outfit, onBack }: OutfitDetailProps) {
                     </div>
 
                     {/* Right Side */}
-                    <div className="space-y-6 lg:pt-12">
+                    <div className="space-y-6 lg:pt-0">
                         <div className="text-center lg:text-left">
                             <p className="text-sm text-muted-foreground">{formatDate(outfit.createdAt)}</p>
                             <h1 className="text-4xl md:text-5xl font-headline text-primary mt-1">{outfit.name || "Office Chic"}</h1>
                         </div>
 
                         <Carousel
+                            plugins={[plugin.current]}
                             opts={{
                                 align: "start",
-                                loop: false,
+                                loop: true,
                             }}
                             className="w-full max-w-sm mx-auto lg:max-w-none lg:mx-0"
+                            onMouseEnter={plugin.current.stop}
+                            onMouseLeave={plugin.current.reset}
                         >
                             <CarouselContent className="-ml-2 sm:-ml-4">
                                 {(outfit.items || []).map((item: Product, index) => (
@@ -107,11 +116,9 @@ export function OutfitDetail({ outfit, onBack }: OutfitDetailProps) {
                                 </CarouselItem>
                                 ))}
                             </CarouselContent>
-                             <div className="mt-4 flex justify-center lg:justify-end">
-                                <div className="flex gap-2">
-                                    <CarouselPrevious variant="ghost" className="static -translate-y-0" />
-                                    <CarouselNext variant="ghost" className="static -translate-y-0" />
-                                </div>
+                            <div className="hidden sm:flex justify-center lg:justify-end mt-4 gap-2">
+                                <CarouselPrevious variant="ghost" className="static -translate-y-0" />
+                                <CarouselNext variant="ghost" className="static -translate-y-0" />
                             </div>
                         </Carousel>
                          {(!outfit.items || outfit.items.length === 0) && (
