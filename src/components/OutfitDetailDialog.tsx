@@ -39,7 +39,7 @@ export function OutfitDetailDialog({ outfit, isOpen, onClose }: OutfitDetailDial
           <div className="flex-1 grid grid-cols-1 md:grid-cols-2 min-h-0">
             
             {/* Left side: Image (visible on all screens) */}
-            <div className="w-full h-full relative overflow-hidden bg-muted md:border-r">
+            <div className="w-full h-full relative overflow-hidden bg-card md:border-r">
                 <ScrollArea className="h-full w-full">
                     <div className="p-4">
                         <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden min-h-[400px]">
@@ -49,7 +49,7 @@ export function OutfitDetailDialog({ outfit, isOpen, onClose }: OutfitDetailDial
                                 alt={outfit.name}
                                 fill
                                 sizes="(max-width: 768px) 100vw, 50vw"
-                                className="object-cover"
+                                className="object-contain"
                                 priority
                                 />
                             ) : (
@@ -76,7 +76,7 @@ export function OutfitDetailDialog({ outfit, isOpen, onClose }: OutfitDetailDial
                 <div className="space-y-4">
                   {(outfit.items || []).map((item) => (
                     <div key={item.id} className="flex gap-4 p-3 border rounded-lg hover:shadow-sm transition-shadow">
-                      <div className="w-16 h-20 relative rounded overflow-hidden bg-gray-100 flex-shrink-0">
+                      <div className="w-16 h-20 relative rounded overflow-hidden bg-card flex-shrink-0">
                         {isValidUrl(item.image) ? (
                           <Image
                             src={item.image}
@@ -120,3 +120,4 @@ export function OutfitDetailDialog({ outfit, isOpen, onClose }: OutfitDetailDial
     </Dialog>
   );
 }
+ 

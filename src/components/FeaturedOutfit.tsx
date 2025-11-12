@@ -56,13 +56,13 @@ export function FeaturedOutfit({ outfit }: FeaturedOutfitProps) {
                     {/* Left Side: Main Image */}
                     <div className="relative mx-auto max-w-md w-full">
                         <AffLink />
-                        <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg bg-muted border-8 border-card">
+                        <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg bg-card border-8 border-card">
                              {isValidUrl(outfit.image) ? (
                                 <Image
                                     src={outfit.image}
                                     alt={outfit.name}
                                     fill
-                                    className="object-cover"
+                                    className="object-contain"
                                     sizes="(max-width: 768px) 100vw, 50vw"
                                 />
                             ) : (
@@ -94,13 +94,13 @@ export function FeaturedOutfit({ outfit }: FeaturedOutfitProps) {
                                 {(outfit.items || []).map((item: Product, index) => (
                                 <CarouselItem key={index} className="pl-2 sm:pl-4 basis-1/2 md:basis-1/3">
                                     <div className="group text-left">
-                                        <div className="relative aspect-square w-full rounded-md overflow-hidden bg-muted">
+                                        <div className="relative aspect-square w-full rounded-md overflow-hidden bg-card">
                                             {isValidUrl(item.image) ? (
                                                 <Image
                                                     src={item.image}
                                                     alt={item.name}
                                                     fill
-                                                    className="object-cover"
+                                                    className="object-contain"
                                                 />
                                             ) : (
                                                 <div className="flex items-center justify-center h-full text-xs text-muted-foreground/70 text-center p-2">No Img</div>

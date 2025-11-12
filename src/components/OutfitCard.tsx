@@ -16,9 +16,9 @@ export function OutfitCard({ outfit, onClick }: OutfitCardProps) {
     
     return (
         <div onClick={onClick} className="group text-left w-full h-full flex flex-col cursor-pointer">
-            <Card className="overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 border-none flex-grow flex flex-col bg-white dark:bg-white text-foreground dark:text-foreground">
+            <Card className="overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-shadow duration-300 border-none flex-grow flex flex-col bg-border text-foreground dark:text-foreground">
                 <CardContent className="p-0 flex-grow flex flex-col">
-                    <div className="aspect-[3/4] relative w-full bg-gray-100 dark:bg-gray-800">
+                    <div className="aspect-[3/4] relative w-full" style={{ backgroundColor: '#E5E5E5' }}>
                         {isValidUrl ? (
                             <Image
                                 src={outfit.image}
