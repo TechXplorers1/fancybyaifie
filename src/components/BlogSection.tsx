@@ -4,6 +4,7 @@
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import imageData from '@/lib/placeholder-images.json';
+import { Badge } from './ui/badge';
 
 const { placeholderImages: blogImages } = imageData;
 
@@ -19,6 +20,7 @@ export interface BlogPost {
   };
   slug: string;
   content: string;
+  isNew?: boolean;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -40,7 +42,8 @@ export const blogPosts: BlogPost[] = [
       <p>Layer your white tee under a slip dress for a '90s-inspired look that feels modern and cool. This is a great way to get more wear out of your favorite slip dresses year-round. Finish the outfit with combat boots or chunky sneakers to lean into the edgy aesthetic.</p>
       <h3 class="text-xl font-headline text-primary mt-6 mb-2">5. The Monochromatic Moment</h3>
       <p>Create a clean, minimalist look by pairing your white tee with white or cream-colored jeans or trousers. The key to a successful monochromatic outfit is to play with different textures. Combine a cotton tee with denim, linen, or silk bottoms to add depth and interest. Accessorize with metallic or neutral-toned pieces to keep it cohesive.</p>
-    `
+    `,
+    isNew: true,
   },
   {
     id: 2,
@@ -98,7 +101,7 @@ export function BlogSection({ onPostClick }: BlogSectionProps) {
     <section className="bg-background border-y">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-headline text-accent">The Blog</h2>
+          <h2 className="text-3xl sm:text-4xl font-headline text-accent">From the Blog</h2>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
             Insights on style, sustainability, and the stories behind our collections.
           </p>
@@ -106,7 +109,12 @@ export function BlogSection({ onPostClick }: BlogSectionProps) {
         <div className="grid md:grid-cols-3 gap-8">
           {blogPosts.map((post) => (
              <button key={post.id} onClick={() => onPostClick(post)} className="block group text-left">
-              <Card className="overflow-hidden h-full flex flex-col">
+              <Card className="overflow-hidden h-full flex flex-col relative">
+                 {post.isNew && (
+                  <Badge className="absolute top-2 left-2 z-10 bg-primary/90 text-primary-foreground">
+                    Newly Added
+                  </Badge>
+                )}
                 <CardContent className="p-0 flex-grow flex flex-col">
                   <div className="block aspect-[4/3] relative">
                     {post.image && (
@@ -134,3 +142,5 @@ export function BlogSection({ onPostClick }: BlogSectionProps) {
     </section>
   );
 }
+
+    
