@@ -25,7 +25,7 @@ export function Header({ onNavigate, onProductSelect, products }: HeaderProps) {
     { name: 'Outfits', icon: ShoppingBag, url: '/outfits', isInternal: true },
     { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/fancy_byaifie' },
     { name: 'Facebook', icon: Facebook, url: 'https://www.facebook.com/fancybyaifie' },
-    { name: 'TikTok', icon: TikTokIcon, url: 'tiktok.com/@fancy_byaifie' },
+    { name: 'TikTok', icon: TikTokIcon, url: 'https://www.tiktok.com/@fancy_byaifie' },
     { name: 'Pinterest', icon: PinterestIcon, url: 'https://pinterest.com/fancybyaifie' },
     { name: 'YouTube', icon: Youtube, url: 'https://youtube.com/@fancybyaifie' }
   ];

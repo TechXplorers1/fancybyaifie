@@ -14,7 +14,6 @@ import Autoplay from "embla-carousel-autoplay"
 import { Product } from '@/lib/products';
 import { AffLink } from './AffLink';
 import { format } from 'date-fns';
-import { Button } from './ui/button';
 import React from 'react';
 
 interface FeaturedOutfitProps {
@@ -46,15 +45,15 @@ export function FeaturedOutfit({ outfit }: FeaturedOutfitProps) {
     }
     
     return (
-        <section className="bg-background py-16 sm:py-24">
+        <section className="bg-background py-16 sm:py-24 border-y">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl sm:text-4xl font-headline text-accent">Featured Outfit</h2>
                 </div>
-                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
                     
                     {/* Left Side: Main Image */}
-                    <div className="relative mx-auto max-w-md w-full">
+                     <div className="relative mx-auto w-full max-w-[18rem] sm:max-w-xs md:max-w-sm">
                         <AffLink />
                         <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg bg-card border-8 border-card">
                              {isValidUrl(outfit.image) ? (
@@ -86,13 +85,13 @@ export function FeaturedOutfit({ outfit }: FeaturedOutfitProps) {
                                 align: "start",
                                 loop: true,
                             }}
-                            className="w-full max-w-sm mx-auto lg:max-w-none lg:mx-0"
+                            className="w-full max-w-md mx-auto lg:max-w-none lg:mx-0"
                             onMouseEnter={plugin.current.stop}
                             onMouseLeave={plugin.current.reset}
                         >
                             <CarouselContent className="-ml-2 sm:-ml-4">
                                 {(outfit.items || []).map((item: Product, index) => (
-                                <CarouselItem key={index} className="pl-2 sm:pl-4 basis-1/2 md:basis-1/3">
+                                <CarouselItem key={index} className="pl-2 sm:pl-4 basis-1/2 sm:basis-1/3">
                                     <div className="group text-left">
                                         <div className="relative aspect-square w-full rounded-md overflow-hidden bg-card">
                                             {isValidUrl(item.image) ? (
@@ -118,7 +117,7 @@ export function FeaturedOutfit({ outfit }: FeaturedOutfitProps) {
                                 </CarouselItem>
                                 ))}
                             </CarouselContent>
-                             <div className="hidden sm:flex justify-center lg:justify-end mt-4 gap-2">
+                             <div className="flex justify-center mt-4 gap-2">
                                 <CarouselPrevious variant="ghost" className="static -translate-y-0" />
                                 <CarouselNext variant="ghost" className="static -translate-y-0" />
                             </div>
@@ -134,3 +133,4 @@ export function FeaturedOutfit({ outfit }: FeaturedOutfitProps) {
         </section>
     );
 }
+

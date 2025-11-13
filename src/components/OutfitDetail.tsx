@@ -50,11 +50,12 @@ export function OutfitDetail({ outfit, onBack }: OutfitDetailProps) {
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Back to Outfits
                 </Button>
-                <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
-                    {/* Left Side */}
-                    <div className="relative">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
+                    
+                    {/* Left Side: Main Image */}
+                    <div className="relative mx-auto w-full max-w-[18rem] sm:max-w-xs md:max-w-sm">
                         <AffLink />
-                        <div className="relative aspect-[3/4] w-full max-w-lg mx-auto rounded-lg overflow-hidden shadow-lg bg-card border-8 border-card">
+                        <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg bg-card border-8 border-card">
                              {isValidUrl(outfit.image) ? (
                                 <Image
                                     src={outfit.image}
@@ -71,11 +72,11 @@ export function OutfitDetail({ outfit, onBack }: OutfitDetailProps) {
                         </div>
                     </div>
 
-                    {/* Right Side */}
-                    <div className="space-y-6 lg:pt-0">
-                        <div className="text-center lg:text-left">
+                    {/* Right Side: Details & Carousel */}
+                    <div className="flex flex-col justify-center text-center lg:text-left">
+                        <div className="mb-6">
                             <p className="text-sm text-muted-foreground">{formatDate(outfit.createdAt)}</p>
-                            <h1 className="text-4xl md:text-5xl font-headline text-primary mt-1">{outfit.name || "Office Chic"}</h1>
+                            <h1 className="text-3xl md:text-4xl font-headline text-primary mt-1">{outfit.name || "Office Chic"}</h1>
                         </div>
 
                         <Carousel
@@ -84,13 +85,13 @@ export function OutfitDetail({ outfit, onBack }: OutfitDetailProps) {
                                 align: "start",
                                 loop: true,
                             }}
-                            className="w-full max-w-sm mx-auto lg:max-w-none lg:mx-0"
+                            className="w-full max-w-md mx-auto lg:max-w-none lg:mx-0"
                             onMouseEnter={plugin.current.stop}
                             onMouseLeave={plugin.current.reset}
                         >
                             <CarouselContent className="-ml-2 sm:-ml-4">
                                 {(outfit.items || []).map((item: Product, index) => (
-                                <CarouselItem key={index} className="pl-2 sm:pl-4 basis-1/2 md:basis-1/3">
+                                <CarouselItem key={index} className="pl-2 sm:pl-4 basis-1/2 sm:basis-1/3">
                                     <div className="group text-left">
                                         <div className="relative aspect-square w-full rounded-md overflow-hidden bg-card">
                                             {isValidUrl(item.image) ? (
@@ -98,7 +99,7 @@ export function OutfitDetail({ outfit, onBack }: OutfitDetailProps) {
                                                     src={item.image}
                                                     alt={item.name}
                                                     fill
-                                                    className="object-cover"
+                                                    className="object-contain"
                                                 />
                                             ) : (
                                                 <div className="flex items-center justify-center h-full text-xs text-muted-foreground/70 text-center p-2">No Img</div>
@@ -116,7 +117,7 @@ export function OutfitDetail({ outfit, onBack }: OutfitDetailProps) {
                                 </CarouselItem>
                                 ))}
                             </CarouselContent>
-                            <div className="hidden sm:flex justify-center lg:justify-end mt-4 gap-2">
+                             <div className="flex justify-center mt-4 gap-2">
                                 <CarouselPrevious variant="ghost" className="static -translate-y-0" />
                                 <CarouselNext variant="ghost" className="static -translate-y-0" />
                             </div>
